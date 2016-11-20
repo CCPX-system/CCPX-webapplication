@@ -21,7 +21,7 @@
 		
 
 	
-	<body onLoad="changesize()" onResize="changesize()">
+	<body>
 		<div class="container">
 		
 			<div class="header">
@@ -89,9 +89,118 @@
 				</div>
 			</div>
   
+  
+			<form class="form-horizontal" method="post">
+			<fieldset>
+
+			<!-- Text input1-->
+			<div class="form-group">
+			  <label class="col-md-5 col-sm-4 col-xs-3 control-label" for="textinput1">Shopname</label>  
+			  <div class="col-md-2 col-sm-4 col-xs-6">
+			  <input id="textinput1" name="textinput1" type="text" placeholder="" class="form-control input-md">
+				
+			  </div>
+			</div>
+
+			<!-- Select Basic -->
+			<div class="form-group">
+			  <label class="col-md-5 col-sm-4 col-xs-3 control-label" for="selectbasic">Industry</label>
+			  <div class="col-md-2 col-sm-4 col-xs-6">
+				<select id="selectbasic" name="selectbasic" class="form-control">
+				  <option value="1">Travel</option>
+				  <option value="2">Restaurants</option>
+				  <option value="3">Entertainment</option>
+				  <option value="4">Shopping</option>
+				  <option value="5">Service</option>
+				  <option value="6">Others</option>
+				</select>
+			  </div>
+			</div>
+			
+			<!-- number input-->
+			<div class="form-group">
+			  <label class="col-md-5 col-sm-4 col-xs-3 control-label" for="numberinput">Same industry Ranking</label>  
+			  <div class="col-md-2 col-sm-4 col-xs-6">
+			  <input id="numberinput" name="numberinput" type="number" placeholder="" class="form-control input-md">
+				
+			  </div>
+			</div>
+			
+			<!-- Text input2-->
+			<div class="form-group">
+			  <label class="col-md-5 col-sm-4 col-xs-3 control-label" for="textinput2">According to the time display</label>  
+			  <div class="col-md-2 col-sm-4 col-xs-6">
+			  <input id="textinput2" name="textinput2" type="text" placeholder="" class="form-control input-md">
+				
+			  </div>
+			</div>
+			
+			<!-- From To -->
+			<div class="form-group">
+				<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="datetimepicker">According to time search</label>
+				<div class="col-md-2 col-sm-4 col-xs-6">
+					From
+					<div class='input-group date' id='datetimepicker1'>
+						<input type='text' class="form-control" />
+						<span class="input-group-addon">
+							<span class="glyphicon glyphicon-calendar"></span>
+						</span>
+					</div>
+					To 
+					<div class='input-group date' id='datetimepicker2'>
+						<input type='text' class="form-control" />
+						<span class="input-group-addon">
+							<span class="glyphicon glyphicon-calendar"></span>
+						</span>
+					</div>
+				</div>
+            </div>
+			<script type="text/javascript">
+				$(function () {
+					$('#datetimepicker1').datetimepicker();
+				});
+				$(function () {
+					$('#datetimepicker2').datetimepicker();
+				});
+			</script>
+			
+			<!-- Multiple Radios (inline) -->
+			<div class="form-group">
+			  <label class="col-md-5 col-sm-4 col-xs-3 control-label" for="radios">Analysis type</label>
+			  <div class="col-md-2 col-sm-4 col-xs-6"> 
+				<label class="radio-inline" for="radios-0">
+				  <input type="radio" name="radios" id="radios-0" value="1" checked="checked">
+				  Trading Time
+				</label> 
+				<label class="radio-inline" for="radios-1">
+				  <input type="radio" name="radios" id="radios-1" value="2">
+				  Trading Points
+				</label> 
+			  </div>
+			</div>
+			
+			<!-- Button -->
+			<div class="form-group">
+				<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="submitbutton">
+				</label>
+				<div class="col-md-2 col-sm-4 col-xs-6">
+					<button href="#" id="submitbutton" name="submitbutton" type="submit" class="btn btn-primary center-block">Search</button>
+				</div>
+			</div>
+
+			</fieldset>
+			</form>
+
+			
+			
+			
+			
+			
+			<br>
 			<!--center-->
 			<div class="row clearfix">
 				<div class="col-md-12 column">
+				
 					<div class="col-md-3 col-sm-3 col-xs-2">
 					</div>
 					<div id="u760" class="ax_default _一级标题">

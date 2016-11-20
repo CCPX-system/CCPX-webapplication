@@ -21,7 +21,7 @@
 		
 
 	
-	<body onLoad="changesize()" onResize="changesize()">
+	<body >
 		<div class="container">
 		
 			<div class="header">
@@ -88,8 +88,115 @@
 					</p>
 				</div>
 			</div>
+			
+			
+			<form class="form-horizontal" method="post">
+			<fieldset>
   
-           <!--center-->
+           <!-- From To1 -->
+			<div class="form-group">
+				<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="datetimepicker">According to the point to search</label>
+				<div class="col-md-2 col-sm-4 col-xs-6">
+					From
+					<div class='input-group date' id='datetimepicker1'>
+						<input type='text' class="form-control" />
+						<span class="input-group-addon">
+							<span class="glyphicon glyphicon-calendar"></span>
+						</span>
+					</div>
+					To 
+					<div class='input-group date' id='datetimepicker2'>
+						<input type='text' class="form-control" />
+						<span class="input-group-addon">
+							<span class="glyphicon glyphicon-calendar"></span>
+						</span>
+					</div>
+				</div>
+            </div>
+			<script type="text/javascript">
+				$(function () {
+					$('#datetimepicker1').datetimepicker();
+				});
+				$(function () {
+					$('#datetimepicker2').datetimepicker();
+				});
+			</script>
+			
+			<!-- From To2 -->
+			<div class="form-group">
+				<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="datetimepickerBis">According to the time to searc</label>
+				<div class="col-md-2 col-sm-4 col-xs-6">
+					From
+					<div class='input-group date' id='datetimepickerBis1'>
+						<input type='text' class="form-control" />
+						<span class="input-group-addon">
+							<span class="glyphicon glyphicon-calendar"></span>
+						</span>
+					</div>
+					To 
+					<div class='input-group date' id='datetimepickerBis2'>
+						<input type='text' class="form-control" />
+						<span class="input-group-addon">
+							<span class="glyphicon glyphicon-calendar"></span>
+						</span>
+					</div>
+				</div>
+            </div>
+			<script type="text/javascript">
+				$(function () {
+					$('#datetimepickerBis1').datetimepicker();
+				});
+				$(function () {
+					$('#datetimepickerBis2').datetimepicker();
+				});
+			</script>
+			
+			<!-- Text input-->
+			<div class="form-group">
+			  <label class="col-md-5 col-sm-4 col-xs-3 control-label" for="textinput">According to the user name search</label>  
+			  <div class="col-md-2 col-sm-4 col-xs-6">
+			  <input id="textinput" name="textinput" type="text" placeholder="" class="form-control input-md">
+				
+			  </div>
+			</div>
+			
+			<!-- Multiple Radios (inline) -->
+			<div class="form-group">
+			  <label class="col-md-5 col-sm-4 col-xs-3 control-label" for="radios">According to points type to search</label>
+			  <div class="col-md-2 col-sm-4 col-xs-6"> 
+				<label class="radio-inline" for="radios-0">
+				  <input type="radio" name="radios" id="radios-0" value="1" checked="checked">
+				  Asquire
+				</label> 
+				<label class="radio-inline" for="radios-1">
+				  <input type="radio" name="radios" id="radios-1" value="2">
+				  Lose
+				</label> 
+				<label class="radio-inline" for="radios-2">
+				  <input type="radio" name="radios" id="radios-2" value="3">
+				  All
+				</label>
+			  </div>
+			</div>
+			
+			<!-- Button -->
+			<div class="form-group">
+				<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="submitbutton">
+				</label>
+				<div class="col-md-2 col-sm-4 col-xs-6">
+					<button href="#" id="submitbutton" name="submitbutton" type="submit" class="btn btn-primary center-block">Search</button>
+				</div>
+			</div>
+			
+			</fieldset>
+			</form>
+			
+			
+			
+			
+		   
+		   <br>
+		   <!--center-->
            <div class="row clearfix">
 		   <div class="col-md-12 column">
              <div class="col-md-3 col-sm-3 col-xs-2">
