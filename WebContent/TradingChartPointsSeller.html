@@ -86,7 +86,8 @@
 				</div>
 			</div>
 			
-				<!-- graph-->
+				<!--graphs-->
+				
 					<div class="col-md-6 col-sm-6 col-xs-12">
 						<div id="container1" style="min-width: 300px; height: 400px; margin: 0 auto"></div>
 					</div>
@@ -97,54 +98,47 @@
 								type: 'column'
 							},
 							title: {
-								text: 'Same industry ranking'
-							},
-							subtitle: {
-								text: 'Trading Points'
+								text: 'Same industry ranking:'
 							},
 							xAxis: {
-								type: 'category',
-								labels: {
-									rotation: -45,
-									style: {
-										fontSize: '13px',
-										fontFamily: 'Verdana, sans-serif'
-									}
-								}
+								categories: [
+									'Company1',
+									'Company2',
+									'Company3',
+									'Company4',
+									'Company5'
+								]
 							},
-							yAxis: {
+							yAxis: [{
 								min: 0,
 								title: {
 									text: 'Points'
 								}
-							},
+							}, {
+								title: {
+									text: ''
+								},
+								opposite: true
+							}],
 							legend: {
-								enabled: false
+								shadow: false
 							},
 							tooltip: {
-								pointFormat: '<b>{point.y:.1f} POINTS</b>'
+								shared: true
+							},
+							plotOptions: {
+								column: {
+									grouping: false,
+									shadow: false,
+									borderWidth: 0
+								}
 							},
 							series: [{
-								name: 'Companies',
-								data: [
-									['company1', 23.7],
-									['company2', 16.1],
-									['company3', 14.2],
-									['company4',  4.0],
-									['company5', 12.5]
-								],
-								dataLabels: {
-									enabled: true,
-									rotation: -90,
-									color: '#FFFFFF',
-									align: 'right',
-									format: '{point.y:.1f}', // one decimal
-									y: 10, // 10 pixels down from the top
-									style: {
-										fontSize: '13px',
-										fontFamily: 'Verdana, sans-serif'
-									}
-								}
+								name: 'Number of Points',
+								color: 'rgba(165,170,217,1)',
+								data: [150, 73, 20, 77, 53],
+								pointPadding: 0.3,
+								pointPlacement: -0.2
 							}]
 						});
 					});
@@ -160,60 +154,52 @@
 								type: 'column'
 							},
 							title: {
-								text: 'Same industry ranking'
-							},
-							subtitle: {
-								text: 'Trading points'
+								text: 'Different industries ranking:'
 							},
 							xAxis: {
-								type: 'category',
-								labels: {
-									rotation: -45,
-									style: {
-										fontSize: '13px',
-										fontFamily: 'Verdana, sans-serif'
-									}
-								}
+								categories: [
+									'Company1',
+									'Company2',
+									'Company3',
+									'Company4',
+									'Company5'
+								]
 							},
-							yAxis: {
+							yAxis: [{
 								min: 0,
 								title: {
 									text: 'Points'
 								}
-							},
+							}, {
+								title: {
+									text: ''
+								},
+								opposite: true
+							}],
 							legend: {
-								enabled: false
+								shadow: false
 							},
 							tooltip: {
-								pointFormat: '<b>{point.y:.1f} POINTS</b>'
+								shared: true
+							},
+							plotOptions: {
+								column: {
+									grouping: false,
+									shadow: false,
+									borderWidth: 0
+								}
 							},
 							series: [{
-								name: 'Companies',
-								data: [
-									['company1', 23.7],
-									['company2', 16.1],
-									['company3', 14.2],
-									['company4',  4.0],
-									['company5', 12.5]
-
-								],
-								dataLabels: {
-									enabled: true,
-									rotation: -90,
-									color: '#FFFFFF',
-									align: 'right',
-									format: '{point.y:.1f}', // one decimal
-									y: 10, // 10 pixels down from the top
-									style: {
-										fontSize: '13px',
-										fontFamily: 'Verdana, sans-serif'
-									}
-								}
+								name: 'Number of Points',
+								color: 'rgba(165,170,217,1)',
+								data: [150, 73, 20, 77, 53],
+								pointPadding: 0.3,
+								pointPlacement: -0.2
 							}]
 						});
 					});
 					</script>
-
+				
 						
 					<div class="col-md-6 col-sm-6 col-xs-12">
 						<div id="container3" style="min-width: 300px; height: 400px; margin: 0 auto"></div>
@@ -228,7 +214,7 @@
 								type: 'pie'
 							},
 							title: {
-								text: 'Browser market shares January, 2015 to May, 2015'
+								text: 'Industry trading ratio:'
 							},
 							tooltip: {
 								pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -250,24 +236,24 @@
 								name: 'Brands',
 								colorByPoint: true,
 								data: [{
-									name: 'Microsoft Internet Explorer',
+									name: 'Travel',
 									y: 56.33
 								}, {
-									name: 'Chrome',
+									name: 'Restaurant',
 									y: 24.03,
 									sliced: true,
 									selected: true
 								}, {
-									name: 'Firefox',
+									name: 'Entertainment',
 									y: 10.38
 								}, {
-									name: 'Safari',
+									name: 'Services',
 									y: 4.77
 								}, {
-									name: 'Opera',
+									name: 'Shopping',
 									y: 0.91
 								}, {
-									name: 'Proprietary or Undetectable',
+									name: 'Other',
 									y: 0.2
 								}]
 							}]
@@ -282,11 +268,11 @@
 					$(function () {
 						Highcharts.chart('container4', {
 							title: {
-								text: 'Monthly Average Temperature',
+								text: 'Time sequence diagram :',
 								x: -20 //center
 							},
 							subtitle: {
-								text: 'Source: WorldClimate.com',
+								text: '',
 								x: -20
 							},
 							xAxis: {
@@ -295,7 +281,7 @@
 							},
 							yAxis: {
 								title: {
-									text: 'Temperature (°C)'
+									text: 'Points'
 								},
 								plotLines: [{
 									value: 0,
@@ -304,26 +290,12 @@
 								}]
 							},
 							tooltip: {
-								valueSuffix: '°C'
+								valueSuffix: ''
 							},
-							legend: {
-								layout: 'vertical',
-								align: 'right',
-								verticalAlign: 'middle',
-								borderWidth: 0
-							},
+							legend: {},
 							series: [{
-								name: 'Tokyo',
+								name: 'Company\'s name',
 								data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
-							}, {
-								name: 'New York',
-								data: [-0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8, 24.1, 20.1, 14.1, 8.6, 2.5]
-							}, {
-								name: 'Berlin',
-								data: [-0.9, 0.6, 3.5, 8.4, 13.5, 17.0, 18.6, 17.9, 14.3, 9.0, 3.9, 1.0]
-							}, {
-								name: 'London',
-								data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
 							}]
 						});
 					});
