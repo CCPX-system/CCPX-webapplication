@@ -83,46 +83,47 @@
 				</div>
 			</div>
 		
-<!-- ********************************* ^ here ^ ********************************* -->	
-  <!-- Companies Logo -->
-			<div class="row">
-				<label class="col-md-4 col-sm-1 col-xs-1 control-label" for="CompanyLogo"></label>
-				<div class="col-md-2 col-sm-4 col-xs-6">
-				<br>
-				
-						<P>Administrator:</p>
-				</div>
-					<h3 style="color:#39F; margin-bottom: 20px">xxxxxx</h3>
-		<form class="form-horizontal" action="" method="post">
-		
-		<fieldset>
-		
-			<!-- ID input-->
-			<div class="form-group">
-				<p>
-				<label class="radio-inline">
-					<input type="radio" name="MemberFee" id="MemberFee" value="option1"> Member Fee
-				</label>
-				<label class="radio-inline">
-					<input type="radio" name="AdvertisementFee" id="AdvFee" value="option2"> Advertisement Fee
-				</label>
-				</p>
-			</div>
 			
+			<form class="form-horizontal" action="" method="post">
+			<fieldset>
+			
+			<!-- Administrator-->
 			<div class="form-group">
-				<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="ID"> activation code
+				<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="admin"> Administrator
 				</label>  
 				<div class="col-md-2 col-sm-4 col-xs-6">
-					<input id="ID" name="ID" type="text" placeholder="enter your activation code" class="form-control input-sm">
+					<div id="admin" name="admin" style="font-size:20px; color: blue; text-align: center;"><b>xxxxxx</b></div>
+				</div>
+			</div>
+			
+			<!-- Select type of fees-->
+			<div class="form-group">
+				<label class="col-md-3 col-sm-3 col-xs-3 control-label" for="Fee"></label>
+				<div class="col-md-6 col-sm-6 col-xs-6" style="text-align: center">				
+					<label class="radio-inline" for="radio_1">
+						<input type="radio" name="Fee" id="radio_1" value="1" checked="checked"> Member Fee
+					</label>
+					<label class="radio-inline" for="radio_2">
+						<input type="radio" name="Fee" id="radio_2" value="2"> Advertisement Fee
+					</label>
+				</div>
+			</div>
+		
+			<!-- code activation input-->
+			<div class="form-group">
+				<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="codeAct"> activation code
+				</label>  
+				<div class="col-md-2 col-sm-4 col-xs-6">
+					<input id="codeAct" name="codeAct" type="text" placeholder="enter your activation code" class="form-control input-sm">
 				</div>
 			</div>
 
-			<!-- Password input-->
+			<!-- code verification input-->
 			<div class="form-group">
-				<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="password"> verification code
+				<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="codeVer"> verification code
 				</label>
 				<div class="col-md-2 col-sm-4 col-xs-6">
-					<input id="password" name="password" type="password" placeholder="enter your verification code" class="form-control input-sm">
+					<input id="codeVer" name="codeVer" type="password" placeholder="enter your verification code" class="form-control input-sm">
 				</div>
 				<div class="col-md-1 col-sm-1 col-xs-1">
 					<!--<button href="#" onClick="pwdhelp()" id="pwdbutton" name="pwdbutton" class="btn btn-sm btn-danger center-block"></button>-->
