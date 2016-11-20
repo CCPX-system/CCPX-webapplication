@@ -1,0 +1,18 @@
+Readme
+
+Pages in seller's website:
+
+BusinessPage
+EditBusinessProfile
+ExchangePointsSeller
+HomePageSeller
+latestExchangeRate
+LoginPageSeller
+RegistrationSeller
+StatisticsCenter
+TradingChartPointsSeller
+TransferPointsSeller
+
+Pages linked to seller's system:
+LoginSellerSystem
+RegistrationInCompany
