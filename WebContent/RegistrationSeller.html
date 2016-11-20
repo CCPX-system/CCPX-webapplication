@@ -37,7 +37,7 @@
 			<div class="header">
 
 				<!-- Form Name -->
-				<legend>Seller Registration page</legend>
+				<legend>Seller Registration</legend>
 			
 				<!-- Navbar --> 
 				<nav class="navbar navbar-default" style="background-image: url('img/blue.png'); background-position : 10% 10%;" role="navigation">
@@ -64,20 +64,24 @@
 						<div class="collapse navbar-collapse" id="mynav">
 							<ul class="nav navbar-nav center-block pull-right">
 								<li class="nav-item pull-left">
-								  <a class="nav-link" href="#"><span class="glyphicon glyphicon-home"></span> Home</a>
+								  <a class="nav-link" href="MainPage.html"><span class="glyphicon glyphicon-home"></span><U> Home</U></a>
 								</li>
 								
+                                <li class="nav-item pull-left">
+								<a class="nav-link" href="ListOfSellersPage.html"><span class="glyphicon glyphicon-shopping-cart"></span> List of Companies</a>
+								</li>	
+                                
+                                 <li class="nav-item pull-left">
+								  <a class="nav-link" href="OfferStreaming.html"><span class="glyphicon glyphicon-time"></span> Offers Streaming</a>
+								</li>
+                                
+                                <li class="nav-item pull-left">
+								  <a class="nav-link" href="RegistrationPage.html"><span class="glyphicon glyphicon-check"></span> Register</a>
+								</li>
+                                
 								<li class="nav-item pull-left">
-								  <a class="nav-link" href="LoginPage.html"><span class="glyphicon glyphicon-user"></span>Login</a>
-								</li>
-								
-								 <li class="nav-item pull-left">
-								  <a class="nav-link" href="RegistrationPage.html"><span class="glyphicon glyphicon-check"></span> <U>Register</U></a>
-								</li>
-								
-								<li class="nav-item pull-left">
-								<a class="nav-link" href="ListOfSellersPage.html"><span class="glyphicon glyphicon-shopping-cart"></span> List of Sellers</a>
-								</li>															
+								  <a class="nav-link" href="LoginPage.html"><span class="glyphicon glyphicon-user"></span> Login</a>
+								</li>													
 							</ul>
 						</div> 
 					</div>
@@ -109,7 +113,7 @@
 	
 			<!-- UserName input-->		
 			<div class="form-group">
-				<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="UserName"> User Name*
+				<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="UserName"> Administrator Name*
 				</label>  
 				<div class="col-md-2 col-sm-4 col-xs-6">					
 					<input id="UserName" name="UserName" type="text" placeholder="enter your User Name" ng-model="username" class="form-control input-sm input.ng-invalid" required>
