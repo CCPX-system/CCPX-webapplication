@@ -8,6 +8,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link href="bootstrap/css/bootstrap.css" rel="stylesheet">
 		<link href="bootstrap/css/Site.css" rel="stylesheet">
+		<link href="scripts/jquery.datetimepicker.css" rel="stylesheet">
 		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 		<!--[if lt IE 9]>
@@ -17,6 +18,7 @@
         <script src="scripts/jquery.min.js"></script>
         <script src="bootstrap/js/bootstrap.js"></script>
 		<script src="angularjs/angular.js"></script>
+		<script src="scripts/jquery.datetimepicker.js"></script>
 		<script src="scripts/script.js"></script>
 		
 
@@ -121,12 +123,16 @@
 			</div>
 			
 			
-			<!-- Text input2-->
+			<!-- Select Basic -->
 			<div class="form-group">
-			  <label class="col-md-5 col-sm-4 col-xs-3 control-label" for="textinput2">According to the time display(select-box)</label>  
+			  <label class="col-md-5 col-sm-4 col-xs-3 control-label" for="selectbasic">according to the time display</label>
 			  <div class="col-md-2 col-sm-4 col-xs-6">
-			  <input id="textinput2" name="textinput2" type="text" placeholder="" class="form-control input-md">
-				
+				<select id="selectbasic" name="selectbasic" class="form-control">
+				  <option value="1">A Day</option>
+				  <option value="2">A Week</option>
+				  <option value="2">A Month</option>
+				  <option value="2">A Year</option>
+				</select>
 			  </div>
 			</div>
 			
