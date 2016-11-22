@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript">
+
+
+function ajax_get_json(){
+    // Create our XMLHttpRequest object
+    var hr = new XMLHttpRequest();
+    // Create some variables we need to send to our PHP file
+    // hr.open("POST", "MyList.json", true);
+    hr.open("GET", "MyJSONList.php", true);
+    // Set content type header information for sending url encoded variables in the request
+    hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    // Access the onreadystatechange event for the XMLHttpRequest object
+    hr.onreadystatechange = function() {
+	    if(hr.readyState == 4 && hr.status == 200) {
+	    	var data=JSON.parse(hr.responseText);
+	    	var results = document.getElementById("results");
+	    	//results.innerHTML=data.u2.user;
+	    	for(var obj in data){
+	    		results.innerHTML += "Property A: "+data[obj].propertyA+"<hr /";
+	    		results.innerHTML += "Property B: "+data[obj].propertyB;
+	    	}
+	    }
+    }
+    // Send the data to PHP now... and wait for response to update the status div
+    hr.send("var1=birds&var2=bees"); // Actually execute the request
+    results.innerHTML = "requesting...";
+}
+
+</script>
+</head>
+
+<body>
+<div id="results"></div>
+<script type="text/javascript">ajax_get_json()</script>
+</body>
+
+</html>
