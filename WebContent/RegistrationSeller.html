@@ -23,9 +23,10 @@
         <script src="bootstrap/js/bootstrap.js"></script>
 		<script src="scripts/angular.js"></script>
 		<script src="scripts/script.js"></script>
-		
-		
+		<script src="js/ljs.js"></script>		
+<!-- 
 		<script src="bootstrap-switch/bootstrap-switch.js"></script>
+ -->
 		
 		
 
@@ -111,7 +112,7 @@
 				<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="UserName"> User Name*
 				</label>  
 				<div class="col-md-2 col-sm-4 col-xs-6">					
-					<input id="UserName" name="UserName" type="text" placeholder="enter your User Name" ng-model="username" class="form-control input-sm input.ng-invalid" required>
+					<input id="UserName" name="UserName" onBlur="validateSeller_Username()" onFocus = "TipForUsername()" type="text" placeholder="enter your User Name" ng-model="username" class="form-control input-sm input.ng-invalid" required>
 				</div>		
 				<div ng-show="nameNotValid">				
 					<label  style="color:red">Field User Name can not be empty</label>
@@ -146,6 +147,19 @@
 					<label  style="color:red">Field Name can not be empty</label>
 				</div>
 			</div>
+			
+			<!-- Address input-->		
+			<div class="form-group">
+				<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="Address"> Shop Address*
+				</label>  
+				<div class="col-md-2 col-sm-4 col-xs-6">					
+					<input id="Address" name="Address" type="text" placeholder="enter your Shop Address" ng-model="shopaddress" class="form-control input-sm input.ng-invalid" required>
+				</div>		
+				<div ng-show="nameNotValid">				
+					<label  style="color:red">Field Name can not be empty</label>
+				</div>
+			</div>
+			
 			
 			<!-- Email input-->
 			<div class="form-group">
@@ -214,7 +228,7 @@
 				<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="registerbutton">
 				</label>
 				<div class="col-md-2 col-sm-4 col-xs-6">
-					<button ng-disabled="!myForm.$valid " href="#" id="registerbutton" name="registerbutton" ng-click="RegisterUser()" class="btn btn-primary center-block"><span class="glyphicon glyphicon-user"></span> Register</button>
+					<button ng-disabled="!myForm.$valid " href="#" id="registerbutton" name="registerbutton" onclick="registSeller()" class="btn btn-primary center-block"><span class="glyphicon glyphicon-user"></span> Register</button>
 				</div>
 			</div>
 			
@@ -222,6 +236,9 @@
 
 		</fieldset>
 		</form>
+		
+		
+		</div>
 		
 		</div>
 	</body>

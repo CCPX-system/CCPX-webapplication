@@ -15,9 +15,10 @@
 		<![endif]-->
         <script src="scripts/jquery.min.js"></script>
         <script src="bootstrap/js/bootstrap.js"></script>
+        <script src="js/ljs.js"></script>
 	</head>
 	
-	<body>
+	<body onload="getIndustryInfo();getSellerInfo()">
 		<div class="container">
 		
 			<div class="header">
@@ -88,43 +89,9 @@
 			<div class="row">
 				<div class="col-md-3">
 				</div>
-				<div class="center-div">
-					<div class="col-md-1 col-sm-2 col-xs-3 thumb">
-						<a class="thumbnail center-block" href="#" style="overflow: hidden">
-							<img class="img-responsive " src="img/green.png" alt="">
-							Travel
-						</a>
-					</div>
-					<div class="col-md-1 col-sm-2 col-xs-3 thumb">
-						<a class="thumbnail center-block" href="#" style="overflow: hidden">
-							<img class="img-responsive " src="img/green.png" alt="">
-							Restaurants
-						</a>
-					</div>
-					<div class="col-md-1 col-sm-2 col-xs-3 thumb">
-						<a class="thumbnail center-block" href="#" style="overflow: hidden">
-							<img class="img-responsive " src="img/green.png" alt="">
-							Shopping
-						</a>
-					</div>
-					<div class="col-md-1 col-sm-2 col-xs-3 thumb">
-						<a class="thumbnail center-block" href="#" style="overflow: hidden">
-							<img class="img-responsive " src="img/green.png" alt="">
-							Entertainment
-						</a>
-					</div>
-					<div class="col-md-1 col-sm-2 col-xs-3 thumb">
-						<a class="thumbnail center-block" href="#" style="overflow: hidden">
-							<img class="img-responsive " src="img/green.png" alt="">
-							Services
-						</a>
-					</div>
-					<div class="col-md-1 col-sm-2 col-xs-3 thumb">
-						<a class="thumbnail center-block" href="#" style="overflow: hidden">
-							<img class="img-responsive " src="img/green.png" alt="">
-							Others
-						</a>
-					</div>
+				<div class="center-div" id="industry">
+					<!-- ********************************* ^ Dynamic loading ^ ********************************* -->
+					
 				</div>
 			</div>
 			<br>
@@ -136,7 +103,7 @@
 					<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="CompanysName"> Company's name
 					</label>  
 					<div class="col-md-2 col-sm-4 col-xs-6">
-						<input id="CompanysName" name="CompanysName" type="text" placeholder="enter a Company's name" class="form-control input-sm">
+						<input id="keyword" name="keyword" type="text" onkeyup="searchByKey(this.id)" placeholder="enter a Company's name" class="form-control input-sm">
 					</div>
 				</div>
 			</fieldset>
@@ -152,25 +119,8 @@
 					  <th>Company's Description</th>
 					</tr>
 				  </thead>
-				  <tbody>
-					<tr>
-					  <th scope="row">1</th>
-					  <td>Mark</td>
-					  <td><a href="CompanyPresentation.html"> <img class="media-object" src="img/logo.png" alt="..." width="50px"></td></a>
-					  <td>@mdo</td>
-					</tr>
-					<tr>
-					  <th scope="row">2</th>
-					  <td>Jacob</td>
-					  <td><a href="CompanyPresentation.html"> <img class="media-object" src="img/logo.png" alt="..." width="50px"></td></a>
-					  <td>@fat</td>
-					</tr>
-					<tr>
-					  <th scope="row">3</th>
-					  <td>Larry</td>
-					  <td><a href="CompanyPresentation.html"> <img class="media-object" src="img/logo.png" alt="..." width="50px"></td></a>
-					  <td>@twitter</td>
-					</tr>
+				  <tbody id='sellerInfo'>
+					<!-- ********************************* ^ Dynamic loading ^ ********************************* -->	
 				  </tbody>
 				</table>
 			</div>

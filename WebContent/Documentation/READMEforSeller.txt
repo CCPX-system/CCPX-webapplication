@@ -6,7 +6,9 @@ BusinessPage
 EditBusinessProfile
 ExchangePointsSeller
 HomePageSeller
-latestExchangeRate
+PayMemberFee
+ManageAdvertisementSeller
+//latestExchangeRate
 LoginPageSeller
 RegistrationSeller
 StatisticsCenter
