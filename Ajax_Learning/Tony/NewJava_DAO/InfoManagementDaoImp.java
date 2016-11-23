@@ -3,6 +3,7 @@ package dao;
 import java.util.List;
 
 import javax.annotation.Resource;
+
 import model.industry_type;
 import model.seller;
 

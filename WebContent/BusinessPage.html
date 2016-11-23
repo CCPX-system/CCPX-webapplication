@@ -15,31 +15,31 @@
 		<![endif]-->
         <script src="scripts/jquery.min.js"></script>
         <script src="bootstrap/js/bootstrap.js"></script>
-        
         <script>
-         function getSellerProfile() {
-            $.ajax({
-                type: "POST",
-                dataType:"JSON",
-                url: "info/getSellerInfo",
-                async: false,
-                success: function (data) {
-                var i;
-                $.each(data, function (index, val) {
-                i = index + 1;
-                $("#sellerInfo").append("<tr><th scope='row'>"+i+"</th><td>"+val.seller_Name+"</td><td><img class='media-object' src='"+val.seller_Logo+"' alt='...' width='50px'></td><td>"+val.seller_Description+"</td></tr>");
-                });
-                return true;
-                }     
-            });
-        }
-        
-    	</script>
-        
+        	function ShowProfile()
+        		{data={'s_id': $.cookie('sellerid')};
+        		$.ajax({
+        		type : "post",
+        		data : data,
+        		async: false,
+        		url	: "info/getSellerProfile",
+        		success : function(result){
+							$("#companyLogo").attr("src",result.seller_result.Seller_Logo);
+							$("#sellerName").text(result.seller_result.Seller_Name);
+							$("#sellerType").text(result.seller_result.IndustryType_id);
+							$("#Seller_userName").text(result.seller_result.Seller_Username);
+							$("#sellerEmail").text(result.seller_result.Seller_Email);
+					},
+					error:function(){
+						toastr.error("error", "error");
+					}
+        		})
+        		}
+        		</script>
         
 	</head>
 	
-	<body>
+	<body onload="ShowProfile()">
 		<div class="container">
 		
 			<div class="header">
@@ -112,11 +112,13 @@
 					
                     <div class="row clearfix">
 						<div class="col-md-3 col-sm-3 col-xs-4 column">
-							 <img alt="photo" src="img/blue.png" class="img-circle" width="100" height="100" />
+							 <img alt="photo" id="companyLogo" class="img-circle" width="100" height="100" />
 						</div>
 						<div class="col-md-6 col-sm-6 col-xs-9 column">
-                         <h2 style="font-family:Verdana, Geneva, sans-serif;color:#33F"> ${seller_result.seller_Name} </h2>
-                         <p>Industry type: </p>
+                         <h2 style="font-family:Verdana, Geneva, sans-serif;color:#33F" id="sellerName"></h2>
+                         <p>Industry type: 
+                         <dd id="sellerType"/>
+                         </p>
 						</div>
                      
                    <div class="row clearfix">
@@ -128,25 +130,19 @@
 						<dt>
 							User Name:
 						</dt>
-						<dd>
-							Luna
-						</dd>
+						<dd id="Seller_userName" />
                         <br>
                         
 						<dt>
 							E-mail:
-						</dt>
-						<dd>
-							123@qq.com
-						</dd>
+					 	</dt>
+						<dd id="sellerEmail" />
                         <br>
                         
 						<dt>
 							Description:
 						</dt>
-						<dd>
-							xxxxx
-						</dd>
+						<dd id="sellerDescription" />
                         <br>
                         
 						<dt>
@@ -169,6 +165,7 @@
 	</div>
              		
 	</div>
+		
 	</body>
   
 </html>
