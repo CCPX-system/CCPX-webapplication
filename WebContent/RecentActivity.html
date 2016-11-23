@@ -83,17 +83,46 @@
  					<img class="img-responsive center-block" src="img/logo.png" width="60%" />
   					</div>
 				</div>
-       </div>
+			</div>
        
         
             
         <!--select companies-->
         <div class="container-fluid">
-        <div class="row clearfix"  style="background-color:#ECECEC;">
-        <div class="col-md-12">
-            
-		</div>
-	    </div>
+			<div class="row clearfix"  style="background-color:#ECECEC;">
+				<div class="col-md-12">
+				
+				<div class="col-md-4 col-sm-4 col-xs-5">
+					<div class="form-group">
+					<br>
+						  <select id="selectbasic1" name="selectbasic1" class="form-control">
+							  <option value="1">select company</option>
+							  <option value="2">company 1</option>
+							  <option value="3">company 2</option>
+						  </select>
+					</div>
+				 </div>
+				 
+				 <div class="col-md-4 col-sm-4 col-xs-2">
+				 <center>
+				 <br>
+				 <i class="glyphicon glyphicon-circle-arrow-right"></i>
+				 </center>
+				 </div>
+				 
+				 <div class="col-md-4 col-sm-4 col-xs-5">
+					<div class="form-group">
+					<br>
+						  <select id="selectbasic1" name="selectbasic1" class="form-control">
+							  <option value="1">select company</option>
+							  <option value="2">company 1</option>
+							  <option value="3">company 2</option>
+						  </select>
+					 </div>
+				 </div>
+					
+				</div>
+			</div>
         </div>
  
         <!--stream-->
@@ -119,18 +148,6 @@
                             pts
 						</td>
 						<td class="col-md-2">
-							<img class="img-circle" src="img/bonus.png" width="50" height="50" />
-                            <a href="#">user nickname</a>
-						</td>
-                        <td class="col-md-1">
-                           <br>
-                           <i class="glyphicon glyphicon-circle-arrow-right"></i>
-                        </td>
-                        <td class="col-md-2" style="border-right:1px dotted #CCCCCC;">
-							<img class="img-circle" src="img/bonus.png" width="50" height="50" />
-                            <a href="#">user nickname</a>
-						</td>
-						<td class="col-md-2">
 							...min ago
 						</td>
                     </tr>
@@ -149,18 +166,7 @@
 							<b>50</b>  
                             pts
 						</td>
-						<td class="col-md-2">
-							<img class="img-circle" src="img/bonus.png" width="50" height="50" />
-                            <a href="#">user nickname</a>
-						</td>
-                        <td class="col-md-1">
-                           <br>
-                           <i class="glyphicon glyphicon-circle-arrow-right"></i>
-                        </td>
-                        <td class="col-md-2" style="border-right:1px dotted #CCCCCC;">
-							<img class="img-circle" src="img/bonus.png" width="50" height="50" />
-                            <a href="#">user nickname</a>
-						</td>
+						
 						<td class="col-md-2">
 							...min ago
 						</td>
@@ -180,18 +186,7 @@
 							<b>50</b>  
                             pts
 						</td>
-  						<td class="col-md-2">
-							<img class="img-circle" src="img/bonus.png" width="50" height="50" />
-                            <a href="#">user nickname</a>
-						</td>
-                        <td class="col-md-1">
-                           <br>
-                           <i class="glyphicon glyphicon-circle-arrow-right"></i>
-                        </td>
-                        <td class="col-md-2" style="border-right:1px dotted #CCCCCC;">
-							<img class="img-circle" src="img/bonus.png" width="50" height="50" />
-                            <a href="#">user nickname</a>
-						</td>
+  						
 						<td class="col-md-2">
 							...min ago
 						</td>
@@ -211,18 +206,7 @@
 							<b>50</b>  
                             pts
 						</td>
-						<td class="col-md-2">
-							<img class="img-circle" src="img/bonus.png" width="50" height="50" />
-                            <a href="#">user nickname</a>
-						</td>
-                        <td class="col-md-1">
-                           <br>
-                           <i class="glyphicon glyphicon-circle-arrow-right"></i>
-                        </td>
-                        <td class="col-md-2" style="border-right:1px dotted #CCCCCC;">
-							<img class="img-circle" src="img/bonus.png" width="50" height="50" />
-                            <a href="#">user nickname</a>
-						</td>
+						
 						<td class="col-md-2">
 							...min ago
 						</td>
@@ -232,7 +216,7 @@
             </div>
             <br>
 			
-			<div id="graphcontainer" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+			<div id="graphcontainer" style="min-width: 100%; height: 400px; margin: 0 auto"></div>
 			<script>
 			$(function () {
 				Highcharts.chart('graphcontainer', {
@@ -262,10 +246,7 @@
 						valueSuffix: ''
 					},
 					legend: {
-						layout: 'vertical',
-						align: 'right',
-						verticalAlign: 'middle',
-						borderWidth: 0
+						
 					},
 					series: [{
 						name: 'Rate evolution',
@@ -278,13 +259,13 @@
        <!--button-->     
             <div class="row clearfix">
             <div class="col-md-12 column">
-                <div class="col-md-6 col-sm-4 col-xs-4">
+                <div class="col-md-4 col-sm-4 col-xs-2">
                 </div>
-                <div class="col-md-1 col-sm-2 col-xs-3">
+                <div class="col-md-2 col-sm-2 col-xs-4">
                 <a href="ExchangesFound.html"><button type="button" class="btn btn-default btn-info">Back</button></a>
                 </div>
-                <div class="col-md-2 col-sm-2 col-xs-3">
-                <a href="Makeoffer.html"><button type="button" class="btn btn-default btn-info">Make a New Offer</button></a>            
+                <div class="col-md-2 col-sm-2 col-xs-4">
+                <a href="Makeoffer.html"><button type="button" class="btn btn-default btn-info">Make an Offer</button></a>            
                 </div>
             </div>
             </div>
