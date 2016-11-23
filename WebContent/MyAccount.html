@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 <!DOCTYPE html>
 <html lang="en">
 
@@ -190,3 +191,197 @@
 	</body>
   
 </html>
+=======
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<title>My account</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+        <link href="bootstrap/css/toastr.css" rel="stylesheet">
+		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+		  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+        <script src="scripts/jquery.min.js"></script>
+      <!--  <script src="bootstrap/js/jquery.min.js"></script>-->
+        <script src="bootstrap/js/jquery.md5.js"></script>
+        <script src="bootstrap/js/jquery.cookie.js"></script>
+        <script src="bootstrap/js/bootstrap.js"></script>
+        <script src="bootstrap/js/toastr.js"></script>
+        <script src="bootstrap/js/toastr.min.js"></script>
+        
+	</head>
+    
+	<script>
+		function ShowAccount()
+			{
+				 data = {'u_id': $.cookie('u_id')};
+				 $.ajax({
+					type : "post",
+					data : data,
+					async: false,
+					url : "/ccpx/user/account",
+					success : function(result){
+						if (result.errno==0) {
+							$("#photo").attr("src",result.rsm.u_photo);
+							$("#nickname").text(result.rsm.u_nickname);
+							$("#wechat").text(result.rsm.u_wechat_id);
+							$("#username").text(result.rsm.u_name);
+							$("#useremail").text(result.rsm.u_email);
+							$("#userphone").text(result.rsm.u_phone);
+							$("#userpwd").text(result.rsm.u_pwd);
+						}
+						else {
+							toastr.warning(result.err, "Warning:CODE "+result.errno);
+						}
+					},
+					error:function(){
+						toastr.error("error", "error");
+					}
+				});
+			}
+	</script>
+	
+	<body onLoad="ShowAccount()">
+		<div class="container">
+		
+			<div class="header">
+
+				<!-- Form Name -->
+				<legend>My Account</legend>
+			
+				<!-- Navbar --> 
+				<nav class="navbar navbar-default" style="background-image: url('img/blue.png'); background-position : 10% 10%;" role="navigation">
+					<div class="container-fluid">  
+						<div class="navbar-header">
+							<button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+									data-target="#mynav">
+								<span class="sr-only">change nav</span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+					   
+							</button>
+							<a class="navbar-brand" href="#">Exchange Platform</a>
+						</div>
+						<div class="collapse navbar-collapse" id="mynav">
+							<ul class="nav navbar-nav center-block pull-right">
+								<li class="nav-item pull-left">
+								  <a class="nav-link" href="HomePage.html"><span class="glyphicon glyphicon-home"></span> Home</a>
+								</li>
+								
+								<li class="nav-item pull-left">
+								  <a class="nav-link" href="MyAccount.html"><span class="glyphicon glyphicon-user"></span><U> My Account</U></a>
+								</li>
+								
+								 <li class="nav-item pull-left">
+								  <a class="nav-link" href="MyPointsPage.html"><span class="glyphicon glyphicon-yen"></span> My Points </a>
+								</li>
+								
+								<li class="nav-item pull-left">
+								<a class="nav-link" href="ListOfSellers2Page.html"><span class="glyphicon glyphicon-shopping-cart"></span> List Of Companies </a>
+								</li>	
+                                
+                                <li class="nav-item pull-left">
+								<a class="nav-link" href="ExchangeCenter.html"><span class="glyphicon glyphicon-transfer"></span> Exchange Center </a>
+                                  
+								</li>	
+                                
+                                <li class="nav-item pull-left">
+								<a class="nav-link" href="MainPage.html"><span class="glyphicon glyphicon-log-out"></span> Logout </a>
+								</li>															
+							</ul>
+						</div> 
+					</div>
+				</nav>
+			
+            <!-- Website Logo -->
+		<div class="row">
+ 					<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="Logo"></label>
+ 					<div class="col-md-2 col-sm-4 col-xs-6">
+ 					<img class="img-responsive center-block" src="img/logo.png" width="60%" />
+  					</div>
+				</div>
+  </div>
+  
+        <br>
+        <br>      
+ 
+ <!--my account--> 
+    <div class="row clearfix">
+		<div class="col-md-12 column">
+			<div class="row clearfix">
+				<div class="col-md-2 col-sm-2 col-xs-1 column">
+				</div>
+				<div class="col-md-7 col-sm-8 col-xs-10 column"  style="background-color:#ECECEC">
+					
+                    <div class="row clearfix">
+						<div class="col-md-3 col-sm-3 col-xs-4 column">
+							 <img id="photo" src="" class="img-circle" width="100" height="100" />
+						</div>
+						<div class="col-md-5 col-sm-5 col-xs-8 column">
+                         <h2 id="nickname" style="font-family:Verdana, Geneva, sans-serif;color:#33F"><!--Nick Name--></h2>
+                         <p id="wechat"><!--WeChat ID: 12345678--></p>
+						</div>
+                     
+                   <div class="row clearfix">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+					<dl class="dl-horizontal" style="font-size:18px">
+                        <br>
+                        <br>             
+                      
+						<dt>
+							Name:
+						</dt>
+						<dd id="username">
+						<!--	Luna   -->
+  						</dd>
+                        <br>
+                        
+						<dt>
+							E-mail:
+						</dt>
+						<dd id="useremail">
+						<!--	123@qq.com  -->
+						</dd>
+                        <br>
+                        
+						<dt>
+							Phone Number:
+						</dt>
+						<dd id="userphone">
+						<!--	13711111111 -->
+						</dd>
+                        <br>
+                        
+						<dt>
+							password:
+						</dt>
+						<dd id="userpwd">
+						<!--	********  -->
+						</dd>
+                        <br>
+					</dl> <button type="button" class="btn btn-info btn-default center-block" onclick="window.location.href='EditProfile.html'">Edit</button>
+                    </div>
+                    </div>
+				</div>
+				<div class="col-md-3 col-sm-2 col-xs-1 column">
+				</div>
+			</div>
+		</div>
+	</div>
+             		
+	</div>
+	</body>
+  
+</html>
+>>>>>>> Stashed changes

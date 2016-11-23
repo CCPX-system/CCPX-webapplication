@@ -8,7 +8,6 @@ ExchangePointsSeller
 HomePageSeller
 PayMemberFee
 ManageAdvertisementSeller
-//latestExchangeRate
 LoginPageSeller
 RegistrationSeller
 StatisticsCenter
