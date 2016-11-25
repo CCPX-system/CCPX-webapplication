@@ -48,5 +48,5 @@ ExchangeRatePage -
 UserProfilePage - done - 
 ExchangeStatus - done -
 SelectUserPage - done - 
-HistoryPage - done - to be tested
+HistoryPage - done - done
 Notification - to be tested

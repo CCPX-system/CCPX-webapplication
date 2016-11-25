@@ -1,22 +1,49 @@
 function historyTable(){
 	var id =getCookie("u_id");
 	var token =getCookie("u_token");
+
+
+// ------Test data----- //
+//  	var result = 	{
+// 				"err":"",
+// 				"errno":0,
+// 				"rsm":[
+// 						{
+// 							"recordId":100,
+// 							"timeStamp":"14-12-1992",
+// 							"sellerNameFrom":"Zara",
+// 							"sellerNameTo":"AIR CHINA",
+// 							"pointsFrom":100,
+// 							"pointsTo":200,
+// 							"user_from":"Jan"
+// 						},
+// 						{
+// 							"recordId":101,
+// 							"timeStamp":"25-10-1993",
+// 							"sellerNameFrom":"Victoria's Secret",
+// 							"sellerNameTo":"Decathlon",
+// 							"pointsFrom":150,
+// 							"pointsTo":250,
+// 							"user_from":"Florence"
+// 						}
+// 					 ]
+//             }
     $.ajax({
         type : "get",
         data : {'u_id':id,'u_token':token},
         async: false,
         url : "/ccpx/user/gethistory",
         success : function(result){
-            if (result.errno==0) { // parameter in their response
+            if (result.errno==0) { 
 				var i;
+				$("#history").empty()
                 $.each(result.rsm, function (index, val) {
                 i = index + 1;
-                $("#history").append("<tr><th scope='row'>1</th><td>"+val.recordId+"</td><td>"+val.timeStamp+"</td><td>"+val.SellerNameFrom+"</td><td>"+val.pointsFrom+"</td><td>"+val.pointsTo+"</td><td>"+val.SellerNameTo+"</td><td class='col-md-3'><img class='img-circle' src='img/bonus.png' width='50' height='50' /><a href='#'>"+val.user_from+"</a></td>
-</tr>");			
+                $("#history").append("<tr><<td>"+val.recordId+"</td><td>"+val.timeStamp+"</td><td>"+val.sellerNameFrom+"</td><td>"+val.pointsFrom+"</td><td>"+val.pointsTo+"</td><td>"+val.sellerNameTo+"</td><td class='col-md-2'><img class='img-circle' src='img/bonus.png' width='50' height='50' /><a href='#'>"+val.user_from+"</a></td></tr>");			
                 });
                 return true;
-
-            }else{
+            }
+            else{
                 toastr.warning(result.err, "Warning:CODE "+result.errno); //pop up
             }
         },
@@ -68,8 +95,27 @@ function exchangesFound(){
 	var sellerto = getCookie("INPUTsellerto");
 	var pointsfrom = getCookie("INPUTpointsfrom");
 	var pointsto = getCookie("INPUTpointsto");
-	var id =getCookie("u_id");
-	var token =getCookie("u_token");
+	var id = getCookie("u_id");
+	var token = getCookie("u_token");
+	
+// ------Test data----- //
+//  	var result = 	{
+// 				"err":"",
+// 				"errno":0,
+// 				"rsm":[
+// 						{
+// 							"points_from":100,
+// 							"points_to":200,
+// 							"user_from":"Jan"
+// 						},
+// 						{
+//							"points_from":100,
+// 							"points_to":200,
+// 							"user_from":"Florence"
+// 						}
+// 					 ]
+//             }
+	
     $.ajax({
         type : "post",
         data : {'u_id':id,'u_token':token,'seller_from':sellerfrom,'seller_to':sellerto,'points_from':pointsfrom,'points_to':pointsto},
@@ -130,32 +176,62 @@ function makeRequest(userFrom){
     return flag;
 }
 
+
 function loadNotif(){
 	var id =getCookie("u_id");
 	var token =getCookie("u_token");
+	
+	
+//------Test data----- //
+//  	var result = 	{
+// 				"err":"",
+// 				"errno":0,
+// 				"rsm":[
+// 						{
+// 							"notifiId":69,
+// 							"timeStamp":"25-10-1993",
+// 							"content":"Free blowjob for all the Chinese guys born North of China given by:",
+// 							"userId":"Mademoiselle Coco",
+// 							"status":"Link here",
+// 							"seen"=0
+// 						},
+// 						{
+// 							"notifiId":72,
+// 							"timeStamp":"14-12-1994",
+// 							"content":"Free blowjob for all the Chinese guys born South of China given by:",
+// 							"userId":"Cerise de Groupama",
+// 							"status":"Link here",
+// 							"seen"=1
+// 						},
+// 					 ]
+//             }
+	
+	
+	
     $.ajax({
         type : "get",
         data : {'u_id':id,'u_token':token},
         async: false,
         url : "/ccpx/user/Read_notification",
         success : function(result){
-            if (result.errno==0) { // parameter in their response
+            if (result.errno==0) { 
             	var color = "color";
 				var i;
+				$("#notifTable").empty();	
                 $.each(result.rsm, function (index, val) {
                 i = index + 1;
-                if val.seen=1 {
+                if (val.seen==1) {
             		color="success" }
             	else {
-            		color="info" }
+            		color="info" }	
                 $("#notifTable").append("<tr class='"+color+"'><td class='col-md-1'><br><b>" +val.notifiId+ "</b></td><td class='col-md-1'><br><b>" +val.timeStamp +"</b></td><td class='col-md-1'><br><p>"+ val.content+ "</p></td><td class='col-md-2'><img class='img-circle' src='img/bonus.png' width='50' height='50' /><a href='#'>" +userId+ "</a></td><td class='col-md-1'><br><p>" + val.status+ "<p></td>");
-                if val.seen=0 {
+                if (val.seen==0) {
                 $("#notifTable").append("<td class='col-md-1'><br><div class='col-md-2 col-sm-4 col-xs-6'><button id='seenbutton' name='seenbutton' type='button' class='btn btn-primary center-block' onclick='return markedSeen("+ val.notifiId+ ")' > Marked as seen </button></div></td></tr>");}
                 else {
                 $("#notifTable").append("<td class='col-md-1'><br><b>Seen</b></td></tr>");
                 }
                 });
-                return true;
+               return true;
             }else{
                 toastr.warning(result.err, "Warning:CODE "+result.errno); //pop up
             }
