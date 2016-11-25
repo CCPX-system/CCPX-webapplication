@@ -7,6 +7,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+        <link href="bootstrap/css/toastr.css" rel="stylesheet">
 		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 		<!--[if lt IE 9]>
@@ -14,11 +15,130 @@
 		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
         <script src="scripts/jquery.min.js"></script>
+        <script src="bootstrap/js/jquery.cookie.js"></script>
         <script src="bootstrap/js/bootstrap.js"></script>
-        <script src="js/ljs.js"></script>
+        <script src="bootstrap/js/toastr.js"></script>
+        <script src="bootstrap/js/toastr.min.js"></script>
+        <script src="scripts/ljs.js"></script>
+        <script>
+		 function getCompanyDetail(id) {
+			$.ajax({
+				type: "POST",
+				dataType:"JSON",
+				url: "info/getCompanyDetail",
+				async: false,
+				data: { id: id
+				},
+				success: function (data) {
+				 if(data.message=="success"){
+					 location.href="CompanyPresentation.html";
+				 }
+				 else{
+					 alert("system exception!");
+				 }
+				}     
+			});
+		}
+		 function addMembership(id)
+		 {
+	         $.ajax({
+				type: "POST",
+				dataType:"JSON",
+				url: "info/addMembership",
+				async: false,
+				data: { id: id, username: $.cookie('u_id')},
+				success: function (data) {
+					 if(data.message=="success"){
+						toastr.success('You add Membership succeed!');
+					 }
+					 else{
+						toastr.error('error!');
+					 }
+			    }     
+			});
+		 }
+	 
+	      function getSellerInfoByIndustryID1(id) {
+			  $.ajax({
+                type: "POST",
+                dataType:"JSON",
+                url: "info/getSellerInfoByIndustryID",
+                async: false,
+                data: { id: id
+                },
+                success: function (data) {
+                var i;
+	            $("#sellerInfo").empty();
+                $.each(data, function (index, val) {
+					i = index + 1;
+					$("#sellerInfo").append("<tr><th scope='row'>"+i+"</th><td>"+val.seller_Name+"</td><td><img class='media-object' src='"+val.seller_Logo+"' alt='...' width='50px'></td><td><a href='#' id='"+val.industry_id+"'onclick='getCompanyDetail(this.id)'>"+val.seller_Description+"</a></td><td><button type='button' class='btn btn-success' id='"+val.industry_id+"' onclick='addMembership(this.id)'><i class='glyphicon glyphicon-plus' style='color:black;'></i></button></td></tr>");
+                });
+                return true;
+                }     
+             });
+			    
+		  }
+		  
+	      function getIndustryInfo1() {
+		    $.ajax({
+                type: "POST",
+                dataType:"JSON",
+                url: "info/getIndustryInfo",
+                async: false,
+                success: function (data) {
+                $.each(data, function (index, val) {
+                  $("#industry").append("<div class='col-md-1 col-sm-2 col-xs-3 thumb'><button class='thumbnail center-block' style='overflow: hidden' id='"+val.industry_id+"' onClick ='getSellerInfoByIndustryID1(this.id)'><img class='img-responsive' src='"+val.industryType_Logo+"'></button></div>");
+                });
+                return true;
+                }     
+             });
+			  
+		  }
+		
+		function getSellerInfo1() {
+			 $.ajax({
+                type: "POST",
+                dataType:"JSON",
+                url: "info/getSellerInfo",
+                async: false,
+                success: function (data) {
+                var i;
+                $.each(data, function (index, val) {
+                i = index + 1;
+                $("#sellerInfo").append("<tr><th scope='row'>"+i+"</th><td>"+val.seller_Name+"</td><td><img class='media-object' src='"+val.seller_Logo+"' alt='...' width='50px'></td><td><a href='#' id='"+val.industry_id+"'onclick='getCompanyDetail(this.id)'>"+val.seller_Description+"</a></td><td><button type='button' class='btn btn-success' id='"+val.industry_id+"' onclick='addMembership(this.id)'><i class='glyphicon glyphicon-plus' style='color:black;'></i></button></td></tr>");
+                });
+                return true;
+                }     
+            });
+        }
+		
+		function searchByKey1(x){
+			var keyword=document.getElementById(x).value;
+            $.ajax({
+                type: "POST",
+                dataType:"JSON",
+                url: "info/getSellerInfoByKeyWord",
+                async: false,
+                data: { keyword: keyword
+                },
+                success: function (data) {
+                var i;
+                $("#sellerInfo").empty();
+                $.each(data, function (index, val) {
+					i = index + 1;
+				    $("#sellerInfo").append("<tr><th scope='row'>"+i+"</th><td>"+val.seller_Name+"</td><td><img class='media-object' src='"+val.seller_Logo+"' alt='...' width='50px'></td><td><a href='#' id='"+val.industry_id+"'onclick='getCompanyDetail(this.id)'>"+val.seller_Description+"</a></td><td><button type='button' class='btn btn-success' id='"+val.industry_id+"' onclick='addMembership(this.id)'><i class='glyphicon glyphicon-plus' style='color:black;'></i></button></td></tr>");
+                });
+                return true;
+                }   
+            });
+		       
+	    }
+	   
+	   
+		</script>
 	</head>
 	
-	<body onload="getIndustryInfo();getSellerInfo()">
+	<body onload="getIndustryInfo1();getSellerInfo1()">
 		<div class="container">
 		
 			<div class="header">
@@ -46,7 +166,7 @@
 						<div class="collapse navbar-collapse" id="mynav">
 							<ul class="nav navbar-nav center-block pull-right">
 								<li class="nav-item pull-left">
-								  <a class="nav-link" href="HomePage.html"><span class="glyphicon glyphicon-home"></span><U> Home</U></a>
+								  <a class="nav-link" href="HomePage.html"><span class="glyphicon glyphicon-home"></span> Home </a>
 								</li>
 								
 								<li class="nav-item pull-left">
@@ -58,7 +178,7 @@
 								</li>
 								
 								<li class="nav-item pull-left">
-								<a class="nav-link" href="ListOfSellers2Page.html"><span class="glyphicon glyphicon-shopping-cart"></span> List Of Companies </a>
+								<a class="nav-link" href="ListOfSellersPage2.html"><span class="glyphicon glyphicon-shopping-cart"></span><U> List Of Companies </U></a>
 								</li>	
                                 
                                 <li class="nav-item pull-left">
@@ -105,7 +225,7 @@
 				</div>
 			</div>
 			<br>
-			
+	
 			<form class="form-horizontal">
 			<fieldset>
 				<!-- ID input-->
@@ -113,7 +233,7 @@
 					<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="CompanysName"> Company's name
 					</label>  
 					<div class="col-md-2 col-sm-4 col-xs-6">
-						<input id="keyword" name="keyword" type="text" onkeyup="searchByKey(this.id)" placeholder="enter a Company's name" class="form-control input-sm">
+						<input id="keyword" name="keyword" type="text" onkeyup="searchByKey1(this.id)" placeholder="enter a Company's name" class="form-control input-sm">
 					</div>
 				</div>
 			</fieldset>
@@ -127,6 +247,7 @@
 					  <th>Company's Name</th>
 					  <th>Company's Logo</th>
 					  <th>Company's Description</th>
+                      <th>Add Membership</th>
 					</tr>
 				  </thead>
 				  <tbody id='sellerInfo'>
