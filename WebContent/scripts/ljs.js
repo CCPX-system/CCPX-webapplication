@@ -227,4 +227,117 @@ if(cval!=null)
 document.cookie= name + "="+cval+";expires="+exp.toGMTString();
 }
 
+function updateProfile()
+{
 
+    var updateName = document.getElementById("seller_Name").value;
+//     if (updateName==null)
+// 		updateName = SellerName;
+		 
+    var updateUserName = document.getElementById("seller_Username").value;
+// 	if (updateUsername==null)
+// 		updateUserName = Seller_username;      
+		
+    var updateDescription = document.getElementById("seller_Description").value;   	
+// 	if (updateDescription==null)
+// 		updateDescription = SellerDescription;
+		
+    var updateEmail = document.getElementById("seller_Email").value;  
+//     if (updateEmail==null)
+// 		updateEmail = SellerEmail;
+		
+    var updatePhone = document.getElementById("seller_Phone").value;
+// 	if (updatePhone==null)
+// 		updatePhone = SellerPhone; 
+		 
+	var updateAddress = document.getElementbyId("seller_Address").value; 
+//     if (updateAddress==null)
+// 		updateAddress = SellerAddress;
+		
+    var updatePassword = document.getElementById("seller_Password").value;
+// 	if (updatePassword==null)
+// 		updatePassword = SellerPassword;
+		
+    var updateIndustryType= document.getElementById("seller_Type").value;  
+//  	if (updateType==null)
+// 		updateIndustry = IndustryTypeId;   
+  
+    $.ajaxFileUpload({
+            type: "POST",
+            dataType:"text",
+            url: "seller/updateUserinfo",
+            secureuri : false,
+            fileElementId : "updateLogo",
+            async: false,
+            data: {
+            seller_Name:updateName,
+            seller_Address:updateAddress,
+            seller_Telephone:updateTelephone,
+            seller_Email:updateEmail,
+            seller_Username:updateUsername,
+            seller_Password:updatePassword,
+            industryType_id:updateIndustry,
+            seller_Description:updateDescription
+            },
+            success: function (data) {//返回数据的数据不能用object形式读，ajaxFileUpload代码有问题
+            	if(data=="success"){
+            	location.href="BusinessProfile.html";
+            	}
+            	else if(data=="false_exception"){
+            		alert("system exceptions! Please try again.");
+            	}else if(data=="false_format_not_correct"){
+            		alert("Image format is not correct!");
+            	}else if(data=="false_type_null"){
+            		alert("File format cannot be empty!");
+            	}else if(data=="false_size_too_big")
+            		alert("The picture is too big!");
+            	}
+        });
+    }
+        
+ function IndustryTypeDropdown() {
+            $.ajax({
+                type: "POST",
+                dataType:"JSON",
+                url: "info/getIndustryInfo",
+                async: false,
+                success: function (data) {
+//                 $("#industryDrop").append("<select id='UpdateType' name='selectbasic1' class='form-control'>")
+                var i;
+                $("#industryDrop").append("<option value='zero'> Select new type </option>")
+                $.each(data, function (index, val) {
+                i = index + 1;
+                $("#industryDrop").append("<option value='"+val.industry_id+"'>"+val.industry_name+" </option>")
+                });
+//                $("#industryDrop").append("</select>")
+                return true;
+                }     
+            });
+        }
+        
+        
+function ShowProfile(){
+        		var id =getCookie("sellerid");
+        		$.ajax({
+        		type : "post",
+        		dataType:"JSON",
+        		data : { id: id
+                },
+        		async: false,
+        		url	: "info/getSellerProfile",
+        		success : function(result){
+							$("#companyLogo").attr("src",result.seller_Logo);
+							$("#sellerName").text(result.seller_Name);
+							$("#sellerType").text(result.industryType_id);
+							$("#Seller_userName").text(result.seller_Username);
+							$("#sellerEmail").text(result.seller_Email);
+							$("#sellerDescription").text(result.seller_Description);
+							$("#sellerPhone").text(result.seller_Telephone);
+							$("#sellerAddress").text(result.seller_Address);
+							$("#sellerPassword").text(result.seller_Password);
+					},
+				error:function(){
+						toastr.error("error", "error");
+					}
+        		})
+        		}

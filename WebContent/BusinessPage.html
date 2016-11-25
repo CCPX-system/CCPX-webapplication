@@ -15,31 +15,7 @@
 		<![endif]-->
         <script src="js/jquery-1.11.2.js"></script>
         <script src="js/bootstrap.js"></script>
-        <script src="js/ljs.js"></script>
-        <script>
-        	function ShowProfile(){
-        		var id =getCookie("sellerid");
-        		$.ajax({
-        		type : "post",
-        		dataType:"JSON",
-        		data : { id: id
-                },
-        		async: false,
-        		url	: "info/getSellerProfile",
-        		success : function(result){
-							$("#companyLogo").attr("src",result.seller_Logo);
-							$("#sellerName").text(result.seller_Name);
-							$("#sellerType").text(result.industryType_id);
-							$("#Seller_userName").text(result.seller_Username);
-							$("#sellerEmail").text(result.seller_Email);
-							$("#sellerDescription").text(result.seller_Description);
-					},
-				error:function(){
-						toastr.error("error", "error");
-					}
-        		})
-        		}
-        		</script>
+        <script src="script/ljs.js"></script>
         
 	</head>
 	
@@ -88,7 +64,7 @@
                                 
                                 <li class="nav-item pull-left">
 								<a class="nav-link" href="MainPage.html"><span class="glyphicon glyphicon-log-out"></span> Logout </a>
-								</li>																				
+								</li>															
 							</ul>
 						</div> 
 					</div>

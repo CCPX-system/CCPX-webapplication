@@ -18,13 +18,14 @@
         <script src="bootstrap/js/bootstrap.js"></script>
 		<script src="angularjs/angular.js"></script>
 		<script src="scripts/script.js"></script>
+		<script src="scripts/ljs.js"></script>
 		
 
 	</head>
 	
-	<body>
+	<body onload="ShowProfile();IndustryTypeDropdown;autoset()">
 		<div class="container">
-		
+	
 			<div class="header">
 
 				<!-- Form Name -->
@@ -40,6 +41,8 @@
 								<span class="icon-bar"></span>
 								<span class="icon-bar"></span>
 								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
 								<span class="icon-bar"></span>
 					   
 							</button>
@@ -65,7 +68,7 @@
                                 
                                 <li class="nav-item pull-left">
 								<a class="nav-link" href="MainPage.html"><span class="glyphicon glyphicon-log-out"></span> Logout </a>
-								</li>																
+								</li>															
 							</ul>
 						</div> 
 					</div>
@@ -101,10 +104,10 @@
 						<h4>Edit Logo</h4>
 						<p>click to add picture</p>
 						<label class="fileContainer">
-							<input type="file" name="photo" size="50" required="required" onchange="readURL(this);" />
+							<input id="updateLogo" type="file" name="photo" size="50" required="required" onchange="readURL(this);" />
 						</label>
 					</div>
-					<img id="blah" src="img/empty-avatar.png" alt="...">
+					<img id="companyLogo" alt="...">
 				</div>
 				<div>
 					<label for="Name"> Company's name
@@ -137,36 +140,85 @@
 					); 
 
 			</script>
-			<!-- New WeChatId-->		
+			
+			<script>
+			function autoset()
+			{
+				$("#seller_Name").val(sellerName);
+				$("#seller_Username").val(sellerName);
+				$("#seller_Type").val(sellerType);
+				$("#seller_Description").val(sellerDescription);
+				$("#seller_Address").val(sellerAddress);
+				$("#seller_Phone").val(sellerPhone);
+				$("#seller_Password").val(sellerPassword);
+				$("#seller_Email").val(sellerEmail);
+			}
+			</script>
+			<!-- New Name-->	
+			
+				
 			<div class="form-group">
-				<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="Administrator"> New Administrator:
+				<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="Name"> New Company Name:
 				</label>  
 				<div class="col-md-2 col-sm-4 col-xs-6">					
-					<input id="administrator" name="administrator" type="text" placeholder="enter new Administrator" class="form-control input-sm" required pattern="[a-zA-Z]+" />
+					<input id="seller_Name" name="name" type="text" class="form-control input-sm" required pattern="[a-zA-Z]+" />
 				</div>						
 			</div>
-			
+			<!-- Username-->
+			<div class="form-group">
+				<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="Name"> New User Name:
+				</label>  
+				<div class="col-md-2 col-sm-4 col-xs-6">					
+					<input id="seller_Username" name="username" type="text"  class="form-control input-sm" required pattern="[a-zA-Z]+" />
+				</div>						
+			</div>
 			<!-- New email input-->
 			<div class="form-group">
 				<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="Email"> New e-mail:
 				</label>  
 				<div class="col-md-2 col-sm-4 col-xs-6">
 					
-					<input id="Email" name="Email" type="email" placeholder="enter new Email" class="form-control input-sm" required />
+					<input id="seller_Email" name="Email" type="email" class="form-control input-sm" required />
 
 				</div>
+				
 			</div>
-			<!-- new phone number input-->
+			<!-- new telephone-->
+			<div class="form-group">
+				<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="Description"> New telephone number:
+				</label>  
+				<div class="col-md-2 col-sm-4 col-xs-6">
+					<input id="seller_Telephone" name="telephone" type="text" pattern="^([0|\+[0-9]{1,5})?([1-9][0-9]{10})$" class="form-control input-sm" />
+				</div>
+			</div>
+			<!-- new description-->
 			<div class="form-group">
 				<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="Description"> New description:
 				</label>  
 				<div class="col-md-2 col-sm-4 col-xs-6">
 					
-					<input id="Description" name="Description" type="text" placeholder="enter new description" class="form-control input-sm" required pattern="[a-zA-Z]+" />
+					<textarea id="seller_Description" name="Description" type="text" class="form-control input-sm" required pattern="[a-zA-Z]+"></textarea>
 
 				</div>
 			</div>
-			<!-- Old password input-->
+
+			<!-- new type-->
+			
+			<div class="form-group">
+				<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="Type"> New industry type:
+				</label>  
+				<form>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label" for="selectbasic1">
+                        	<select id='industryDrop' name='selectbasic' class='form-control'>
+                        <!-- ********************************* ^ Dynamic loading ^ ********************************* -->
+                        </select>
+                        </label>
+                    </div>
+        		</form>
+<!-- 
+			
+			<!~~ Old password input~~>
 			<div class="form-group">
 				<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="userpassword"> Old password*
 				</label>
@@ -174,12 +226,13 @@
 					<input id="useroldpassword" name="useroldpassword" type="password" placeholder="enter your old password" class="form-control input-sm" required />
 				</div>								
 			</div>
+ -->
 			<!-- Password input-->
 			<div class="form-group">
 				<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="userpassword"> Password*
 				</label>
 				<div class="col-md-2 col-sm-4 col-xs-6">
-					<input id="userpassword" name="userpassword" type="password" placeholder="enter your password" onchange="validatePassword" class="form-control input-sm" required />
+					<input id="password" name="userpassword" type="password" onchange="validatePassword" class="form-control input-sm" required />
 				</div>								
 			</div>
 			<!-- Confirm password input-->
@@ -187,7 +240,7 @@
 				<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="confirmPassword"> Confirm password*
 				</label>
 				<div class="col-md-2 col-sm-4 col-xs-6">
-					<input id="confirmPassword" name="repPassword" type="password" placeholder="confirm your password" onchange="validatePassword" class="form-control input-sm" required />
+					<input id="seller_Password" name="repPassword" type="password" onchange="validatePassword" class="form-control input-sm" required />
 				</div>								
 			</div>
 
@@ -196,9 +249,15 @@
 				<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="registerbutton">
 				</label>
 				<div class="col-md-2 col-sm-4 col-xs-6">
-					<button ng-disabled="!myForm.$valid " href="#" id="registerbutton" name="registerbutton" ng-click="RegisterUser()" class="btn btn-primary center-block"><span class="glyphicon glyphicon-ok"></span> Submit</button>
+					<button ng-disabled="!myForm.$valid " href="#" id="registerbutton" name="registerbutton" ng-click="updateProfile()" class="btn btn-primary center-block"><span class="glyphicon glyphicon-ok"></span> Submit</button>
 				</div>
 			</div>				
 		</fieldset>
 	
 </form>
+
+		
+		</div>
+	</body>
+  
+</html>

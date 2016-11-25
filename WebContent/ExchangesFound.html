@@ -89,7 +89,8 @@
         <!--sort-->
         <br>
         <br>
-        <div class="container-fluid">
+        <!-- 
+<div class="container-fluid">
         <div class="row clearfix" style="background-color:#CCF">
 		<div class="col-md-12 column">
             <div class="col-md-2 col-sm-1">
@@ -116,6 +117,7 @@
 		</div>
 	    </div> 
         </div>
+ -->
             
         <!--view-->
        <div class="container-fluid">
@@ -128,7 +130,7 @@
             <a href="RecentActivity.html"><button style="margin-bottom:10px;" type="button" class="btn btn-primary btn-default">View Recent Activity</button></a>
             </div>
             <div class="col-md-3 col-sm-4">
-            <p> Average Exchange Rate: %</p>
+            <b> Best Recommendations </b>
             </div>
             <div class="col-md-3 col-sm-4">
             <a href="ExchangeRatePage.html"><button style="margin-bottom:10px;" type="button" class="btn btn-primary btn-default">View Rate Evolution</button></a>
@@ -144,119 +146,8 @@
 		<div class="col-md-12 column">
         <div class="table-responsive">
 			<table class="table table-hover table-striped">
-				<tbody>
-					<tr>
-                        <td class="col-md-1">
-                        </td>
-						<td class="col-md-2">
-                            <img class="img-rounded" src="img/blue.png" width="50" height="50" />
-							<b>100</b>  
-                            pts
-                        </td>
-                        <td class="col-md-1">
-                           <br>
-                           <i class="glyphicon glyphicon-circle-arrow-right"></i>
-                        </td>
-						<td class="col-md-2">
-                            <img class="img-rounded" src="img/blue.png" width="50" height="50" />
-							<b>50</b>  
-                            pts
-						</td>
-						<td class="col-md-3">
-							<img class="img-circle" src="img/bonus.png" width="50" height="50" />
-                            <a href="#">user nickname</a>
-						</td>
-						<td class="col-md-2">
-							Expiry Timer
-						</td>
-                        <td class="col-md-1">
-                        <button type="button" class="btn btn-info btn-danger"><i class="glyphicon glyphicon-plus" style="color:black;"></i></button>
-					    </td>
-                    </tr>
-					<tr class="success">
-						<td class="col-md-1">
-                        </td>
-						<td class="col-md-2">
-                            <img class="img-rounded" src="img/blue.png" width="50" height="50" />
-							<b>200</b>  
-                            pts
-                        </td>
-                        <td class="col-md-1">
-                           <br>
-                           <i class="glyphicon glyphicon-circle-arrow-right"></i>
-                        </td>
-						<td class="col-md-2">
-                            <img class="img-rounded" src="img/blue.png" width="50" height="50" />
-							<b>100</b>  
-                            pts
-						</td>
-						<td class="col-md-3">
-							<img class="img-circle" src="img/bonus.png" width="50" height="50" />
-                            <a href="#">user nickname</a>
-						</td>
-						<td class="col-md-2">
-							Expiry Timer
-						</td>
-                        <td class="col-md-1">
-                        <button type="button" class="btn btn-info btn-danger"><i class="glyphicon glyphicon-plus" style="color:black;"></i></button>
-					    </td>
-					</tr>
-					<tr class="warning">
-						<td class="col-md-1">
-                        </td>
-						<td class="col-md-2">
-                            <img class="img-rounded" src="img/blue.png" width="50" height="50" />
-							<b>10</b>  
-                            pts
-                        </td>
-                        <td class="col-md-1">
-                           <br>
-                           <i class="glyphicon glyphicon-circle-arrow-right"></i>
-                        </td>
-						<td class="col-md-2">
-                            <img class="img-rounded" src="img/blue.png" width="50" height="50" />
-							<b>500</b>  
-                            pts
-						</td>
-						<td class="col-md-3">
-							<img class="img-circle" src="img/bonus.png" width="50" height="50" />
-                            <a href="#">user nickname</a>
-						</td>
-						<td class="col-md-2">
-							Expiry Timer
-						</td>
-                        <td class="col-md-1">
-                        <button type="button" class="btn btn-info btn-danger"><i class="glyphicon glyphicon-plus" style="color:black;"></i></button>
-					    </td>
-					</tr>
-					<tr class="info">
-						<td class="col-md-1">
-                        </td>
-						<td class="col-md-2">
-                            <img class="img-rounded" src="img/blue.png" width="50" height="50" />
-							<b>80</b>  
-                            pts
-                        </td>
-                        <td class="col-md-1">
-                           <br>
-                           <i class="glyphicon glyphicon-circle-arrow-right"></i>
-                        </td>
-						<td class="col-md-2">
-                            <img class="img-rounded" src="img/blue.png" width="50" height="50" />
-							<b>30</b>  
-                            pts
-						</td>
-						<td class="col-md-3">
-							<img class="img-circle" src="img/bonus.png" width="50" height="50" />
-                            <a href="#">user nickname</a>
-						</td>
-						<td class="col-md-2">
-							Expiry Timer
-						</td>
-                        <td class="col-md-1">
-                        <button type="button" class="btn btn-info btn-danger"><i class="glyphicon glyphicon-plus" style="color:black;"></i></button>
-					    </td>
-					</tr>
+				<tbody id="exchangesFound">
+				<!-- dynamic loading -->
 				</tbody>
 			</table>
             </div>
