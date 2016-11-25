@@ -11,8 +11,8 @@ Pages in seller's website:
 
 * HomePageSeller - done - done
 * BusinessPage - done - done
-EditBusinessProfile - done - 
-ManageAdvertisementSeller - 
+EditBusinessProfile - done - Florence
+ManageAdvertisementSeller - Artem
 * StatisticsCenter - done - done
 TransferPointsSeller - done - 
 ExchangePointsSeller - done - 
@@ -30,23 +30,23 @@ CompanyPresentation 2 - done -
 —————————————————————————————————
 Pages in user’s website:
 * MainPage - done - done
-OffersStreaming - done
-OffersStreaming2 - done
+OffersStreaming - done - Helen
+OffersStreaming2 - done - Helen
 LoginPage - done - 
 RegistrationPage - 
 
 * Homepage - done - to be tested
-MyAccount - done - 
-EditProfile - done -
+MyAccount - done - Helen
+EditProfile - done - Quentin
 MyPointsPage - done - to be tested 
 * ExchangeCenter - done - done
-Makeoffer - done -
+Makeoffer - done - 
 RecentActivity - done - 
 findoffer - done - 
 ExchangesFound - done - to be tested
 ExchangeRatePage - 
 UserProfilePage - done - 
 ExchangeStatus - done -
-SelectUserPage - done -
+SelectUserPage - done - 
 HistoryPage - done - to be tested
-Notification - 
+Notification - to be tested

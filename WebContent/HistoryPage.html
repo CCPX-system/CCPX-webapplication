@@ -18,7 +18,7 @@
         <script src="scripts/flo.js"></script>
 	</head>
 	
-	<body>
+	<body onload="historyTable()">
 		<div class="container">
 		
 			<div class="header">
@@ -134,15 +134,27 @@
 				<table class="table">
 				  <thead class="thead-inverse">
 					<tr>
-					  <th>#</th>
-					  <th>Date <a href="#"><span class="glyphicon glyphicon-collapse-down" style="font-size:180%;"> </span></a> <a href="#"><span class="glyphicon glyphicon-collapse-up" style="font-size:180%;"> </span></a></th>
+					  <th>Transaction ID</th>
+					  <th>Date</th>
 					  <th>Company's Name</th>
 					  <th>Points given</th>
 					  <th>Points received</th>
 					  <th>Company's Name</th>
+					  <th>Partner</th>
 					</tr>
 				  </thead>
 				  <tbody id="history">
+				  </tbody>
+				  <tbody>
+				  <tr>
+				  <td>"+val.recordId+"</td>
+				  <td>"+val.timeStamp+"</td>
+				  <td>"+val.SellerNameFrom+"</td>
+				  <td>"+val.pointsFrom+"</td>
+				  <td>"+val.pointsTo+"</td>
+				  <td>"+val.SellerNameTo+"</td>
+				  <td class='col-md-3'><img class='img-circle' src='img/bonus.png' width='50' height='50' /><a href='#'>"+val.user_from+"</a></td>
+				  </tr>
 				  </tbody>
 				</table>
 			</div> 
