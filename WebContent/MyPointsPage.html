@@ -7,7 +7,6 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link href="bootstrap/css/bootstrap.css" rel="stylesheet">
-        <link href="bootstrap/css/toastr.css" rel="stylesheet">
 		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 		<!--[if lt IE 9]>
@@ -20,7 +19,7 @@
         <script src="bootstrap/js/jquery.cookie.js"></script>
         <script src="bootstrap/js/toastr.js"></script>
         <script src="bootstrap/js/toastr.min.js"></script>
-    <script>
+        <script>
 	 function ShowPoints()
 		{
 			 data = { 'u_id': $.cookie('u_id'), 'u_token': $.cookie('u_token')};
@@ -76,9 +75,9 @@
 		
 		}
 	</script>
-    </head>
-    
-	<body onLoad="ShowPoints()">
+	</head>
+	
+	<body  onLoad="ShowPoints()">
 		<div class="container">
 		
 			<div class="header">
@@ -106,11 +105,11 @@
 						<div class="collapse navbar-collapse" id="mynav">
 							<ul class="nav navbar-nav center-block pull-right">
 								<li class="nav-item pull-left">
-								  <a class="nav-link" href="HomePage.html"><span class="glyphicon glyphicon-home"></span> Home</a>
+								  <a class="nav-link" href="HomePage.html"><span class="glyphicon glyphicon-home"></span><U> Home</U></a>
 								</li>
 								
 								<li class="nav-item pull-left">
-								  <a class="nav-link" href="MyAccount.html"><span class="glyphicon glyphicon-user"></span><U> My Account</U></a>
+								  <a class="nav-link" href="MyAccount.html"><span class="glyphicon glyphicon-user"></span> My Account </a>
 								</li>
 								
 								 <li class="nav-item pull-left">
@@ -123,8 +122,11 @@
                                 
                                 <li class="nav-item pull-left">
 								<a class="nav-link" href="ExchangeCenter.html"><span class="glyphicon glyphicon-transfer"></span> Exchange Center </a>
-                                  
-								</li>	
+  								</li>	
+  								
+  								 <li class="nav-item pull-left">
+								<a class="nav-link" href="Notification.html"><span class="glyphicon glyphicon-envelope"></span> Notifications </a>
+  								</li>	
                                 
                                 <li class="nav-item pull-left">
 								<a class="nav-link" href="MainPage.html"><span class="glyphicon glyphicon-log-out"></span> Logout </a>
@@ -154,8 +156,9 @@
 		
 <!-- ********************************* ^ here ^ ********************************* -->
 			
+		
 				<!-- ID input-->
-			<div class="row clearfix">
+				<div class="row clearfix">
                 <div class="col-md-3 col-sm-2 col-xs-0 column">
                 </div>
                 <div class="col-md-9 col-sm-10 col-xs-12 column">
@@ -167,9 +170,8 @@
                     <button type="button" class="btn btn-info" onClick="SearchMyPoints()"><i class="glyphicon glyphicon-search"></i></button>
                 </div>
             </div>
-            
-                <!--table-->		
-			<div class="row clearfix">
+			
+            <div class="row clearfix">
 			<div class="table-responsive">
 				<table class="table">
 				  <thead class="thead-inverse">
@@ -181,7 +183,7 @@
 					</tr>
 				  </thead>
 				  <tbody id="CompanyPoints">
-				  <!--<tr>
+				<!--	<tr>
 					  <th scope="row">1</th>
 					  <td>500</td>
 					  <td>Mark</td>
