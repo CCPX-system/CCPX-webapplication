@@ -7,6 +7,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+        <link href="bootstrap/css/toastr.css" rel="stylesheet">
 		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 		<!--[if lt IE 9]>
@@ -15,9 +16,69 @@
 		<![endif]-->
         <script src="scripts/jquery.min.js"></script>
         <script src="bootstrap/js/bootstrap.js"></script>
-	</head>
-	
-	<body>
+        <script src="bootstrap/js/jquery.md5.js"></script>
+        <script src="bootstrap/js/jquery.cookie.js"></script>
+        <script src="bootstrap/js/toastr.js"></script>
+        <script src="bootstrap/js/toastr.min.js"></script>
+    <script>
+	 function ShowPoints()
+		{
+			 data = { 'u_id': $.cookie('u_id'), 'u_token': $.cookie('u_token')};
+			 $.ajax({
+					type: "GET",
+					dataType:"JSON",
+					url: "info/getmypoints",
+					async: false,
+					data: data,
+				    success : function(result){
+						if (result.errno==0) {
+							var i;
+							$("#CompanyPoints").empty();
+							$.each(result.rsm, function (index, val) {
+								i = index + 1;
+								$("#CompanyPoints").append("<tr><th scope='row'>"+i+"</th><td>"+val.points+"</td><td>"+val.seller_name+"</td><td><a href='CompanyPresentation2.html'><img class='media-object' src='"+val.seller_Logo+"' alt='...' width='50px'></td></a></tr>");
+							});	
+						}
+						else{
+							toastr.warning(result.err, "Warning:CODE "+result.errno); //pop up
+						}
+					},
+					error: function(){
+						toastr.error("error", "error");
+					}  
+             });
+			 
+		}
+
+	 function SearchMyPoints()
+	    {
+		   var keyword = $("#CompanysName").val();
+		   if ( keyword == "")
+		   { 
+		         ShowPoints();
+		   }
+		
+		//	var t=$("table tbody tr:eq(0) td:eq(1)").text();
+		   else{
+				 $("table tbody tr").each(function() {
+					 var a = $("td:eq(1)",this).text();
+					 if ( a != keyword)
+					 {
+						$(this).hide();
+					 }
+					
+					 if (a == keyword)
+					 {
+						$(this).show();
+					 }
+				 });
+		   }
+		
+		}
+	</script>
+    </head>
+    
+	<body onLoad="ShowPoints()">
 		<div class="container">
 		
 			<div class="header">
@@ -45,11 +106,11 @@
 						<div class="collapse navbar-collapse" id="mynav">
 							<ul class="nav navbar-nav center-block pull-right">
 								<li class="nav-item pull-left">
-								  <a class="nav-link" href="HomePage.html"><span class="glyphicon glyphicon-home"></span><U> Home</U></a>
+								  <a class="nav-link" href="HomePage.html"><span class="glyphicon glyphicon-home"></span> Home</a>
 								</li>
 								
 								<li class="nav-item pull-left">
-								  <a class="nav-link" href="MyAccount.html"><span class="glyphicon glyphicon-user"></span> My Account </a>
+								  <a class="nav-link" href="MyAccount.html"><span class="glyphicon glyphicon-user"></span><U> My Account</U></a>
 								</li>
 								
 								 <li class="nav-item pull-left">
@@ -62,11 +123,8 @@
                                 
                                 <li class="nav-item pull-left">
 								<a class="nav-link" href="ExchangeCenter.html"><span class="glyphicon glyphicon-transfer"></span> Exchange Center </a>
-  								</li>	
-  								
-  								 <li class="nav-item pull-left">
-								<a class="nav-link" href="Notification.html"><span class="glyphicon glyphicon-envelope"></span> Notifications </a>
-  								</li>	
+                                  
+								</li>	
                                 
                                 <li class="nav-item pull-left">
 								<a class="nav-link" href="MainPage.html"><span class="glyphicon glyphicon-log-out"></span> Logout </a>
@@ -96,19 +154,22 @@
 		
 <!-- ********************************* ^ here ^ ********************************* -->
 			
-			<form class="form-horizontal">
-			<fieldset>
 				<!-- ID input-->
-				<div class="form-group">
-					<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="CompanysName"> Company's name
-					</label>  
-					<div class="col-md-2 col-sm-4 col-xs-6">
-						<input id="CompanysName" name="CompanysName" type="text" placeholder="enter a Company's name" class="form-control input-sm">
-					</div>
-				</div>
-			</fieldset>
-			</form>
-			
+			<div class="row clearfix">
+                <div class="col-md-3 col-sm-2 col-xs-0 column">
+                </div>
+                <div class="col-md-9 col-sm-10 col-xs-12 column">
+                    <label class="col-md-3 col-sm-3 col-xs-3 control-label" for="CompanysName"> Company's name
+                    </label>  
+                    <div class="col-md-3 col-sm-4 col-xs-7">
+                    <input id="CompanysName" name="CompanysName" type="text" placeholder="enter a Company's name" class="input-sm">
+                    </div>
+                    <button type="button" class="btn btn-info" onClick="SearchMyPoints()"><i class="glyphicon glyphicon-search"></i></button>
+                </div>
+            </div>
+            
+                <!--table-->		
+			<div class="row clearfix">
 			<div class="table-responsive">
 				<table class="table">
 				  <thead class="thead-inverse">
@@ -119,8 +180,8 @@
 					  <th>Company's Logo</th>
 					</tr>
 				  </thead>
-				  <tbody>
-					<tr>
+				  <tbody id="CompanyPoints">
+				  <!--<tr>
 					  <th scope="row">1</th>
 					  <td>500</td>
 					  <td>Mark</td>
@@ -140,10 +201,11 @@
 					  <td>Larry</td>
 					  <td><a href="CompanyPresentation2.html"> <img class="media-object" src="img/logo.png" alt="..." width="50px"></td></a>
 					  
-					</tr>
+					</tr>-->
 				  </tbody>
 				</table>
 			</div>
+            </div>
 		
 		</div>
 	</body>
