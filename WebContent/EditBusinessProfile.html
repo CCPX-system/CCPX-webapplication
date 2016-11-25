@@ -19,11 +19,35 @@
 		<script src="angularjs/angular.js"></script>
 		<script src="scripts/script.js"></script>
 		<script src="scripts/ljs.js"></script>
-		
+		<script type="text/javascript">
+				function readURL(input) {
+					if (input.files && input.files[0]) {
+						var reader = new FileReader();
+
+						reader.onload = function (e) {
+							$('#blah')
+								.attr('src', e.target.result)
+								.width(150)
+								.height(150);
+						};
+
+						reader.readAsDataURL(input.files[0]);
+					}
+				}	
+				$('.thumbnail').hover(
+						function(){
+							$(this).find('.caption').slideDown(250); //.fadeIn(250)
+						},
+						function(){
+							$(this).find('.caption').slideUp(250); //.fadeOut(205)
+						}
+					); 
+
+		  </script>
 
 	</head>
 	
-	<body onload="ShowProfile();IndustryTypeDropdown;autoset()">
+	<body onLoad="IndustryTypeDropdown();ShowProfile();">
 		<div class="container">
 	
 			<div class="header">
@@ -104,7 +128,7 @@
 						<h4>Edit Logo</h4>
 						<p>click to add picture</p>
 						<label class="fileContainer">
-							<input id="updateLogo" type="file" name="photo" size="50" required="required" onchange="readURL(this);" />
+							<input id="updateLogo" type="file" name="photo" size="50" required onchange="readURL(this);" />
 						</label>
 					</div>
 					<img id="companyLogo" alt="...">
@@ -115,45 +139,9 @@
 				</div>				
 			</div>
 			
-			<script type="text/javascript">
-				function readURL(input) {
-					if (input.files && input.files[0]) {
-						var reader = new FileReader();
-
-						reader.onload = function (e) {
-							$('#blah')
-								.attr('src', e.target.result)
-								.width(150)
-								.height(150);
-						};
-
-						reader.readAsDataURL(input.files[0]);
-					}
-				}	
-				$('.thumbnail').hover(
-						function(){
-							$(this).find('.caption').slideDown(250); //.fadeIn(250)
-						},
-						function(){
-							$(this).find('.caption').slideUp(250); //.fadeOut(205)
-						}
-					); 
-
-			</script>
 			
-			<script>
-			function autoset()
-			{
-				$("#seller_Name").val(sellerName);	
-				$("#seller_userName").val(sellerUsername);
-				$("#seller_Type").val(sellerType);
-				$("#seller_Description").val(sellerDescription);
-				$("#seller_Address").val(sellerAddress);
-				$("#seller_Phone").val(sellerPhone);
-				$("#seller_Password").val(sellerPassword);
-				$("#seller_Email").val(sellerEmail);
-			}
-			</script>
+			
+			
 			<!-- New Name-->	
 			
 				
@@ -211,6 +199,8 @@
                     <div class="form-group">
                         <label class="col-md-2 control-label" for="selectbasic1">
                         	<select id='industryDrop' name='selectbasic' class='form-control'>
+                           <option>111</option>
+                           <option>food</option>
                         <!-- ********************************* ^ Dynamic loading ^ ********************************* -->
                         </select>
                         </label>

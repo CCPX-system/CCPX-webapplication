@@ -258,7 +258,8 @@ function updateProfile()
 // 	if (updatePassword==null)
 // 		updatePassword = SellerPassword;
 		
-    var updateIndustryType= document.getElementById("seller_Type").value;  
+    //var updateIndustryType= document.getElementById("seller_Type").value;
+	  var updateIndustryType = $("#industryDrop option:selected").text(); 
 //  	if (updateType==null)
 // 		updateIndustry = IndustryTypeId;   
   
@@ -276,7 +277,7 @@ function updateProfile()
             seller_Email:updateEmail,
             seller_Username:updateUsername,
             seller_Password:updatePassword,
-            industryType_id:updateIndustry,
+            industryType_id:updateIndustryType,
             seller_Description:updateDescription
             },
             success: function (data) {//返回数据的数据不能用object形式读，ajaxFileUpload代码有问题
@@ -304,7 +305,8 @@ function updateProfile()
                 success: function (data) {
 //                 $("#industryDrop").append("<select id='UpdateType' name='selectbasic1' class='form-control'>")
                 var i;
-                $("#industryDrop").append("<option value='zero'> Select new type </option>")
+                //$("#industryDrop").append("<option value='zero'> Select new type </option>")            
+				$("#industryDrop").empty();
                 $.each(data, function (index, val) {
                 i = index + 1;
                 $("#industryDrop").append("<option value='"+val.industry_id+"'>"+val.industry_name+" </option>")
@@ -317,27 +319,46 @@ function updateProfile()
         
         
 function ShowProfile(){
+		/* var  data =   {
+						"sellerName":"adss",
+						"id":1,
+						"sellerType":"food",
+						"password":"",
+						"sellerDescription":"20c2d5a8cc8318171a40f4691aef79b0",
+						"sellerPassword":"20c2d5a8cc8318171a40f4691aef79b0",
+						"sellerType":"food",
+						"wechatid":""
+					}
+				
+				$("#companyLogo").attr("src",data.seller_Logo);
+				$("#seller_Name").val(data.sellerName);
+				$("#seller_Username").val(data.sellerName);
+				$("#industryDrop option:selected").text(data.sellerType);
+				$("#seller_Description").val(sellerDescription);
+				$("#seller_Address").val(sellerAddress);
+				$("#seller_Phone").val(sellerPhone);
+				$("#seller_Password").val(data.sellerPassword);
+				$("#seller_Email").val(sellerEmail);	*/
+						
         		var id =getCookie("sellerid");
         		$.ajax({
-        		type : "post",
-        		dataType:"JSON",
-        		data : { id: id
-                },
-        		async: false,
-        		url	: "info/getSellerProfile",
-        		success : function(result){
-							$("#companyLogo").attr("src",result.seller_Logo);
-							$("#sellerName").text(result.seller_Name);
-							$("#sellerType").text(result.industryType_id);
-							$("#Seller_userName").text(result.seller_Username);
-							$("#sellerEmail").text(result.seller_Email);
-							$("#sellerDescription").text(result.seller_Description);
-							$("#sellerPhone").text(result.seller_Telephone);
-							$("#sellerAddress").text(result.seller_Address);
-							$("#sellerPassword").text(result.seller_Password);
+					type : "post",
+					dataType:"JSON",
+					data : { id: id
 					},
-				error:function(){
-						toastr.error("error", "error");
-					}
-        		})
+					async: false,
+					url	: "info/getSellerProfile",
+					success : function(result){
+								$("#companyLogo").attr("src",result.seller_Logo);
+								$("#seller_Name").val(result.seller_Name);
+								$("#industryDrop option:selected").text(result.industryType_id);
+								$("#seller_Username").val(result.seller_Username);
+								$("#seller_Email").val(result.seller_Email);
+								$("#seller_Description").val(result.seller_Description);
+								$("#seller_Phone").val(result.seller_Telephone);
+								$("#seller_Address").val(result.seller_Address);
+								$("#seller_Password").val(result.seller_Password);
+						}
+					
+					})
         		}
