@@ -15,9 +15,14 @@
 		<![endif]-->
         <script src="scripts/jquery.min.js"></script>
         <script src="bootstrap/js/bootstrap.js"></script>
+        <script src="bootstrap/js/jquery.md5.js"></script>
+        <script src="bootstrap/js/jquery.cookie.js"></script>
+        <script src="bootstrap/js/toastr.js"></script>
+        <script src="scripts/flo.js"></script>
+        <script src="bootstrap/js/toastr.min.js"></script>
 	</head>
 	
-	<body>
+	<body onload="ShowUserProfile()">
 		<div class="container">
 		
 			<div class="header">
@@ -81,6 +86,7 @@
  					<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="Logo"></label>
  					<div class="col-md-2 col-sm-4 col-xs-6">
  					<img class="img-responsive center-block" src="img/logo.png" width="60%" />
+ 					<br>
   					</div>
 				</div>
        </div>
@@ -97,9 +103,15 @@
 							<div class="col-md-3 col-sm-3 col-xs-4 column">
 								 <img alt="photo" src="img/blue.png" class="img-circle" width="100" height="100" />
 							</div>
+							
 							<div class="col-md-5 col-sm-5 col-xs-8 column">
-								<h2 style="font-family:Verdana, Geneva, sans-serif;color:#33F">Nick Name</h2>
-								<p>WeChat ID: 12345678</p>
+								<h2 id="userName" style="font-family:Verdana, Geneva, sans-serif;color:#33F"></h2>
+								<dl class="dl-horizontal" style="font-size:17px">            
+									<p>
+									Wechat ID:
+									</p>
+									<dd id="userWechat">
+								</dl>
 							</div>
 				  
 						</div>
@@ -108,22 +120,6 @@
 			</div>
 		</div>
 		<br>
-<!-- 
-		
-		<!~~ Select Basic ~~>
-		<div class="form-group">
-		  <label class="col-md-5 col-sm-4 col-xs-3 control-label" for="selectbasic">Select a company</label>
-		  <div class="col-md-2 col-sm-4 col-xs-6">
-			<select id="selectbasic" name="selectbasic" class="form-control">
-			  <option value="1">No selection</option>
-			  <option value="2">Company 1</option>
-			  <option value="3">Company 2</option>
-			  <option value="4">Company 3</option>
-			</select>
-		  </div>
-		</div>
-		<br>
- -->
  
         <!--my exchanges-->
         <br>
@@ -131,57 +127,8 @@
         <div class="row clearfix">
 		<div class="col-md-12 column">
 			<table class="table table-hover table-striped">
-				<tbody>
-					<tr>
-                        <td class="col-md-1">
-                        </td>
-						<td class="col-md-2">
-                            <img class="img-rounded" src="img/blue.png" width="50" height="50" />
-							<b>100</b>  
-                            pts
-                        </td>
-                        <td class="col-md-1">
-                           <br>
-                           <i class="glyphicon glyphicon-circle-arrow-right"></i>
-                        </td>
-						<td class="col-md-2">
-                            <img class="img-rounded" src="img/blue.png" width="50" height="50" />
-							<b>50</b>  
-                            pts
-						</td>
-						<td class="col-md-3">
-							<img class="img-circle" src="img/bonus.png" width="50" height="50" />
-                            <a href="#">user nickname</a>
-						</td>
-                        <td class="col-md-1">
-                        <button type="button" class="btn btn-info btn-danger">Add</button>
-					    </td>
-                    </tr>
-					<tr class="success">
-						<td class="col-md-1">
-                        </td>
-						<td class="col-md-2">
-                            <img class="img-rounded" src="img/blue.png" width="50" height="50" />
-							<b>200</b>  
-                            pts
-                        </td>
-                        <td class="col-md-1">
-                           <br>
-                           <i class="glyphicon glyphicon-circle-arrow-right"></i>
-                        </td>
-						<td class="col-md-2">
-                            <img class="img-rounded" src="img/blue.png" width="50" height="50" />
-							<b>100</b>  
-                            pts
-						</td>
-						<td class="col-md-3">
-							<img class="img-circle" src="img/bonus.png" width="50" height="50" />
-                            <a href="#">user nickname</a>
-						</td>
-                        <td class="col-md-1">
-                        <button type="button" class="btn btn-info btn-danger">Add</button>
-					    </td>
-					</tr>
+				<tbody id="pointsTable">
+<!-- exemple -->
 					<tr class="error">
 						<td class="col-md-1">
                         </td>

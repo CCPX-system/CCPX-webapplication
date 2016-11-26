@@ -32,7 +32,7 @@ Pages in user’s website:
 * MainPage - done - done
 OffersStreaming - done - Helen
 OffersStreaming2 - done - Helen
-LoginPage - done - 
+LoginPage - done -  
 RegistrationPage - 
 
 * Homepage - done - to be tested
@@ -40,13 +40,12 @@ MyAccount - done - Helen
 EditProfile - done - Quentin
 MyPointsPage - done - to be tested 
 * ExchangeCenter - done - done
-Makeoffer - done - 
-RecentActivity - done - 
-findoffer - done - 
+Makeoffer - done - Quentin
+RecentActivity - done - to be tested
+findoffer - done - Quentin
 ExchangesFound - done - to be tested
-ExchangeRatePage - 
-UserProfilePage - done - 
+UserProfilePage - done - Florence
 ExchangeStatus - done -
-SelectUserPage - done - 
+SelectUserPage - done - Artem 
 HistoryPage - done - done
 Notification - to be tested
