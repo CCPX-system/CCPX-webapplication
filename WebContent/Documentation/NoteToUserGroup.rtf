@@ -17,9 +17,12 @@ data used: recordId , timeStamp, SellerNameFrom , pointsFrom , SellerNameTo , po
 Need User picture\
 \
 3) ExchangeStatus\
-url: /ccpx/user/all_records\
-data used: offerType, points_from\
-other functions called: getUserExchangeOffers, getUserExchangeRequests\
+url: /ccpx/user/getUserExchangeOffers\
+data sent: u_id, u_token\
+data used: offer_id, pointsFrom, sellerFrom, pointsTo, sellerTo, candidates:\{userId,userPicture\}\
+url: /ccpx/getUserExchangeRequests\
+data sent: u_id, u_token\
+data used: offer_id, pointsFrom, sellerFrom, pointsTo, sellerTo, userPartner, UserPartner_picture, status\
 \
 4) User Profile page\
 url: /ccpx/user/getUserProfile\

@@ -178,6 +178,7 @@ function makeRequest(offerId){
         success : function(result){
             if (result.errno==0) { // parameter in their response
                 toastr.success(result.rsm.token, "Request sent");
+                alert('Request sent to the user successfully!');
                 location.href="ExchangeStatus.html"
 
 
@@ -198,43 +199,43 @@ function makeRequest(offerId){
 
 
 function loadNotif(){
-// 	var id =getCookie("u_id");
-// 	var token =getCookie("u_token");
+	var id =getCookie("u_id");
+	var token =getCookie("u_token");
 	
 	
 //------Test data----- //
- 	var result = 	{
-				"err":"",
-				"errno":0,
-				"rsm":[
-						{
-							"notifiId":69,
-							"timeStamp":"25-10-1993",
-							"content":"Free blowjob for all the Chinese guys born North of China given by:",
-							"userId":"Mademoiselle Coco",
-							"status":"Link here",
-							"seen":0
-						},
-						{
-							"notifiId":72,
-							"timeStamp":"14-12-1994",
-							"content":"Free blowjob for all the Chinese guys born South of China given by:",
-							"userId":"Cerise de Groupama",
-							"status":"Link here",
-							"seen":1
-						},
-					 ]
-            }
+//  	var result = 	{
+// 				"err":"",
+// 				"errno":0,
+// 				"rsm":[
+// 						{
+// 							"notifiId":69,
+// 							"timeStamp":"25-10-1993",
+// 							"content":"Free blowjob for all the Chinese guys born North of China given by:",
+// 							"userId":"Mademoiselle Coco",
+// 							"status":"Link here",
+// 							"seen":0
+// 						},
+// 						{
+// 							"notifiId":72,
+// 							"timeStamp":"14-12-1994",
+// 							"content":"Free blowjob for all the Chinese guys born South of China given by:",
+// 							"userId":"Cerise de Groupama",
+// 							"status":"Link here",
+// 							"seen":1
+// 						},
+// 					 ]
+//             }
 	
-// 	
-// 	
-//     $.ajax({
-//         type : "get",
-//         data : {'u_id':id,'u_token':token},
-//         async: false,
-//         url : "/ccpx/user/Read_notification",
-//         success : function(result){
-//             if (result.errno==0) { 
+	
+	
+    $.ajax({
+        type : "get",
+        data : {'u_id':id,'u_token':token},
+        async: false,
+        url : "/ccpx/user/Read_notification",
+        success : function(result){
+            if (result.errno==0) { 
             	var color = "color";
 				var i;
 				$("#notifTable").empty();	
@@ -251,15 +252,15 @@ function loadNotif(){
                 $("#notifTable").append("<td class='col-md-1'><br><b>Seen</b></td></tr>");
                 }
                 });
- //               return true;
-//             }else{
-//                 toastr.warning(result.err, "Warning:CODE "+result.errno); //pop up
-//             }
-//         },
-//         error:function(){
-//             toastr.error("error", "error");
-//         }
-//     });
+               return true;
+            }else{
+                toastr.warning(result.err, "Warning:CODE "+result.errno); //pop up
+            }
+        },
+        error:function(){
+            toastr.error("error", "error");
+        }
+    });
 }
 
 function markedSeen(notificationId){
@@ -320,8 +321,8 @@ function ShowUserProfile(){
 								var i;
 								$("#pointsTable").empty();	
                 				$.each(result.rsm.exchanges, function (index, val) {
-                					var logosellerfrom = getSellerLogo(sellerfrom);
-                					var logosellerto = getSellerLogo(sellerto);
+                					var logosellerfrom = getSellerLogo(val.sellerfrom);
+                					var logosellerto = getSellerLogo(val.sellerto);
                 					i = index + 1;
                 					$("#pointsTable").append("<tr><td class='col-md-1'></td><td class='col-md-2'><img class='img-rounded' src='"+val.logosellerfrom+"' width='50' height='50' /><b>"+val.pointsFrom+"</b>pts</td><td class='col-md-1'><br><i class='glyphicon glyphicon-circle-arrow-right'></i></td><td class='col-md-2'><img class='img-rounded' src='"+val.logosellerto+"' width='50' height='50' /><b>"+val.pointdFrom+"</b>pts</td><td class='col-md-3'><img class='img-circle' src='img/bonus.png' width='50' height='50' /><a onclick='SeeUserProfile("+result.rsm.username+")'>"+result.rsm.userName+"</a></td><td class='col-md-1'><button type='button' onclick='makerequest("+val.exchId+")' class='btn btn-info btn-danger'>Add</button></td></tr>");
                 				});
@@ -336,6 +337,123 @@ function ShowUserProfile(){
 function SeeUserProfile(data){
 	setCookie("otheruserid",data);
 	location.href="UserProfilePage.html";
+	
 
+}
+
+function getUserExchangeOffers(){
+ 	var id =getCookie("u_id");
+	var token =getCookie("u_token");
+    data = {'u_id':id,'u_token':token};  
+    $.ajax({
+        type : "post",
+        data : data,
+        async: false,
+        url : "/ccpx/user/seen_notification",
+        success : function(result){
+            if (result.errno==0) { // parameter in their response
+            	var i;
+				$("#exchangeOffersList").empty();	
+                $.each(result.rsm, function (index, val) {
+                i = index + 1;
+                var img1;
+            	var img2;
+            	var img3;
+            	var candiList = eval(val.candidates);
+            	if (candiList.length==0){
+            		img1="img/user.png";
+            		img2="img/user.png";
+            		img3="img/user.png";
+            	}
+            	if (candiList.length==1){
+            		img1=val.candidates[0].userPicture;
+            		img2="img/user.png";
+            		img3="img/user.png";
+            	}
+            	if (candiList.length==2){
+            		img1=val.candidates[0].userPicture;
+            		img2=val.candidates[1].userPicture;
+            		img3="img/user.png";
+            	}
+            	if (candiList.length==3){
+            		img1=val.candidates[0].userPicture;
+            		img2=val.candidates[1].userPicture;
+            		img3=val.candidates[2].userPicture;
+            	}
+            	var logosellerfrom = getSellerLogo(val.sellerFrom);
+                var logosellerto = getSellerLogo(val.sellerTo);
+                $("#exchangeOffersList").append("<tr><td class='col-md-1'></td><td class='col-md-2'><img class='img-rounded' src='"+logosellerfrom+"' width='50' height='50' /><b>"+val.pointsFrom+"</b> pts</td><td class='col-md-1'><br><i class='glyphicon glyphicon-circle-arrow-right'></i></td><td class='col-md-2'><img class='img-rounded' src='"+logosellerto+"' width='50' height='50' /><b>"+val.pointsTo+"</b>pts</td><td class='col-md-3'><p>Candidates:<button type='button' onclick='window.location.href='SelectUserPage.html'' class='btn btn-success btn-xs' style='border-radius:50px;'><i class='glyphicon glyphicon-eye-open' ></i> &nbsp; select &nbsp; </button> </p><img class='img-circle' src='"+img1+"' width='50' height='50' /><img class='img-circle' src='"+img2+"' width='50' height='50' /><img class='img-circle' src='"+img3+"' width='50' height='50' /></td><td class='col-md-1'><button type='button' class='btn btn-danger btn-xs' style='border-radius:50px;' onclick='deleteOffer("+val.offer_id+")'><i class='glyphicon glyphicon-trash'></i></button></td></tr>")});
+                }
+            else{
+                toastr.warning(result.err, "Warning:CODE "+result.errno); //pop up
+            }
+        },
+        error:function(){
+            toastr.error("error", "error");
+        }
+    });
+
+
+
+
+}
+function getUserExchangeRequests(){
+var id =getCookie("u_id");
+	var token =getCookie("u_token");
+    data = {'u_id':id,'u_token':token};  
+    $.ajax({
+        type : "post",
+        data : data,
+        async: false,
+        url : "/ccpx/user/seen_notification",
+        success : function(result){
+            if (result.errno==0) { // parameter in their response
+            	var i;
+				$("#exchangeRequestsList").empty();	
+                $.each(result.rsm, function (index, val) {
+                i = index + 1;
+            	var logosellerfrom = getSellerLogo(val.sellerFrom);
+                var logosellerto = getSellerLogo(val.sellerTo);
+                $("#exchangeRequestsList").append("<tr><td class='col-md-1'></td><td class='col-md-2'><img class='img-rounded' src='"logosellerfrom"' width='50' height='50' /><b>"+val.pointsFrom+"</b>pts</td><td class='col-md-1'><br><i class='glyphicon glyphicon-circle-arrow-right'></i></td><td class='col-md-2'><img class="img-rounded" src='"+logosellerto+"' width='50' height='50' /><b>"+val.pointsTo+"</b>pts</td><td class='col-md-2'><img class='img-circle' src='"+userPartner_picture+"' width='50' height='50' /><a onclick='SeeUserProfile("+val.userPartner+")'>"+val.userPartner+"</a></td><td class='col-md-1'>"+val.status+"</td><td class='col-md-1'><button type='button' class='btn btn-danger btn-xs' style='border-radius:50px;' id='deleteOffer("+val.offer_id+")' name='deleteofferbutton'><i class='glyphicon glyphicon-trash'></i></button></td></tr>")}
+                );
+                }
+            else{
+                toastr.warning(result.err, "Warning:CODE "+result.errno); //pop up
+            }
+        },
+        error:function(){
+            toastr.error("error", "error");
+        }
+    });
+}
+
+function deleteOffer(offer_id){
+	$("deleteofferbutton").attr({"disabled":"disabled"});
+    var flag = false;
+    var id =getCookie("u_id");
+	var token =getCookie("u_token");
+    data = {'u_id':id,'u_token':token,'offer_id':offer_id};  
+    $.ajax({
+        type : "post",
+        data : data,
+        async: false,
+        url : "/ccpx/user/deleteOffer",
+        success : function(result){
+            if (result.errno==0) { // parameter in their response
+                toastr.success(result.rsm.token, "Offer deleted!");
+                location.href="ExchangeStatus.html"
+
+
+            }else{
+                toastr.warning(result.err, "Warning:CODE "+result.errno); //pop up
+            }
+        },
+        error:function(){
+            toastr.error("error", "error");
+        }
+    });
+    return false;
+    $("#deleteofferbutton").removeAttr("disabled");
+    return flag;
 }
 
