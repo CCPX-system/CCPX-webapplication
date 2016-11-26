@@ -15,9 +15,14 @@
 		<![endif]-->
         <script src="scripts/jquery.min.js"></script>
         <script src="bootstrap/js/bootstrap.js"></script>
+        <script src="bootstrap/js/jquery.md5.js"></script>
+        <script src="bootstrap/js/jquery.cookie.js"></script>
+        <script src="bootstrap/js/toastr.js"></script>
+        <script src="scripts/flo.js"></script>
+        <script src="bootstrap/js/toastr.min.js"></script>
 	</head>
 	
-	<body>
+	<body onload="showCandidates()">
 		<div class="container">
 		
 			<div class="header">
@@ -82,6 +87,7 @@
  					<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="Logo"></label>
  					<div class="col-md-2 col-sm-4 col-xs-6">
  					<img class="img-responsive center-block" src="img/logo.png" width="60%" />
+ 					<br>
   					</div>
 				</div>
        </div>
@@ -97,11 +103,13 @@
 							<table class="table">
 								<tbody>
 									<tr>
-										<td class="col-md-1">
+										<td class="col-md-2">
+										<br>
+										Your proposition:
 										</td>
 										<td class="col-md-2">
-											<img class="img-rounded" src="img/blue.png" width="50" height="50" />
-											<b>100</b>  
+											<img class="img-rounded" id="logosellerfrom" width="50" height="50" />
+											<b id="PointsFrom"> </b>
 											pts
 										</td>
 										<td class="col-md-1">
@@ -109,12 +117,9 @@
 										   <i class="glyphicon glyphicon-circle-arrow-right"></i>
 										</td>
 										<td class="col-md-2">
-											<img class="img-rounded" src="img/blue.png" width="50" height="50" />
-											<b>?</b>  
+											<img class="img-rounded" id="logosellerto" width="50" height="50" />
+											<b id="PointsTo"> </b> 
 											pts
-										</td>
-										<td class="col-md-2">
-											Expiry Timer
 										</td>
 									</tr>
 									
@@ -134,67 +139,12 @@
         <div class="row clearfix">
 		<div class="col-md-12 column">
 			<table class="table table-hover table-striped">
-				<tbody>
-					<tr>
-                        <td class="col-md-1">
-                        </td>
-						<td class="col-md-2">
-                            <img class="img-rounded" src="img/blue.png" width="50" height="50" />
-							<b>50</b>  
-                            pts
-						</td>
-						<td class="col-md-3">
-							<p><img class="img-circle" src="img/bonus.png" width="50" height="50" />
-                            <a href="#"><b>user nickname</b></a></p>
-							<p><a href="#">user wechat</a></p>
-						</td>
-                        <td class="col-md-1">
-                        <button type="button" class="btn btn-info btn-danger">Accept</button>
-					    </td>
-					    <td class="col-md-1">
-                        <button type="button" class="btn btn-info btn-danger">Delete</button>
-					    </td>
-                    </tr>
-					<tr class="success">
-						<td class="col-md-1">
-                        </td>
-						<td class="col-md-2">
-                            <img class="img-rounded" src="img/blue.png" width="50" height="50" />
-							<b>50</b>  
-                            pts
-						</td>
-						<td class="col-md-3">
-							<p><img class="img-circle" src="img/bonus.png" width="50" height="50" />
-                            <a href="#"><b>user nickname</b></a></p>
-							<p><a href="#">user wechat</a></p>
-						</td>
-                        <td class="col-md-1">
-                        <button type="button" class="btn btn-info btn-danger">Accept</button>
-					    </td>
-						<td class="col-md-1">
-                        <button type="button" class="btn btn-info btn-danger">Delete</button>
-					    </td>
-					</tr>
-					<tr class="error">
-						<td class="col-md-1">
-                        </td>
-						<td class="col-md-2">
-                            <img class="img-rounded" src="img/blue.png" width="50" height="50" />
-							<b>50</b>  
-                            pts
-						</td>
-						<td class="col-md-3">
-							<p><img class="img-circle" src="img/bonus.png" width="50" height="50" />
-                            <a href="#"><b>user nickname</b></a></p>
-							<p><a href="#">user wechat</a></p>
-						</td>
-                        <td class="col-md-1">
-                        <button type="button" class="btn btn-info btn-danger">Accept</button>
-					    </td>
-						<td class="col-md-1">
-                        <button type="button" class="btn btn-info btn-danger">Delete</button>
-					    </td>
-					</tr>
+				<tbody id="candidatesTable">
+				<!-- dynamic loading -->
+				</tbody>
+			</table>	
+			<table class="table table-hover table-striped">
+				<tbody>	
 					<tr class="info">
 						<td class="col-md-1">
                         </td>
