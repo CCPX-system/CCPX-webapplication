@@ -7,6 +7,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+        <link href="bootstrap/css/toastr.css" rel="stylesheet">
 		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 		<!--[if lt IE 9]>
@@ -14,7 +15,66 @@
 		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
         <script src="scripts/jquery.min.js"></script>
+        <script src="bootstrap/js/jquery.md5.js"></script>
+        <script src="bootstrap/js/jquery.cookie.js"></script>
         <script src="bootstrap/js/bootstrap.js"></script>
+        <script src="bootstrap/js/toastr.js"></script>
+        <script src="bootstrap/js/toastr.min.js"></script>
+        <script>
+		function check_login_form()
+			{
+				$("#loginbutton").attr({"disabled":"disabled"});
+				//var flag = false;
+				username = $("#ID").val();
+				pwd = $("#password").val();
+				
+				var reg = new RegExp("^\\w*$");
+			
+				if (!reg.test(username)) 
+				{
+					toastr.warning("username contains illegal characters", "Warning");
+					$("#ID").focus();
+					return false;
+				}
+				if (!reg.test(pwd)) 
+				{
+					toastr.warning("password contains illegal characters", "Warning");
+					$("#password").focus();
+					return false;
+				}
+			
+				data = {'u_name':username,'u_pw_hash':$.md5(pwd)};
+				$.ajax({
+					type : "post",
+					data : data,
+					async: false,
+					url : "/ccpx/user/login",
+					success : function(result){
+						if (result.errno==0) {
+							toastr.success(result.rsm.token, "info");
+							$.cookie('u_id',result.rsm.id);
+							$.cookie('u_token',result.rsm.token);
+							
+						//	var i = $.cookie('u_id');
+						//	var t = $.cookie('u_token');
+						//	alert(i);
+						//	alert(t);
+						}else{
+							toastr.warning(result.err, "Warning:CODE "+result.errno);
+						}
+					},
+					error:function(){
+						toastr.error("error", "error");
+					}
+				});
+				//return false;
+				
+				//toastr.warning(flag.toString(), "DEBUG");
+				$("#loginbutton").removeAttr("disabled");
+			   // return flag;
+			}
+
+		</script>
 	</head>
 	
 	<body>
@@ -43,7 +103,7 @@
 						<div class="collapse navbar-collapse" id="mynav">
 							<ul class="nav navbar-nav center-block pull-right">
 								<li class="nav-item pull-left">
-								  <a class="nav-link" href="MainPage.html"><span class="glyphicon glyphicon-home"></span><U> Home</U></a>
+								  <a class="nav-link" href="MainPage.html"><span class="glyphicon glyphicon-home"></span> Home </a>
 								</li>
 								
                                 <li class="nav-item pull-left">
@@ -59,7 +119,7 @@
 								</li>
                                 
 								<li class="nav-item pull-left">
-								  <a class="nav-link" href="LoginPage.html"><span class="glyphicon glyphicon-user"></span> Login</a>
+								  <a class="nav-link" href="LoginPage.html"><span class="glyphicon glyphicon-user"></span><U> Login </U></a>
 								</li>											
 							</ul>
 						</div> 
@@ -90,7 +150,7 @@
 		
 			<!-- ID input-->
 			<div class="form-group">
-				<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="ID"> Nickname
+				<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="ID"> UserID
 				</label>  
 				<div class="col-md-2 col-sm-4 col-xs-6">
 					<input id="ID" name="ID" type="text" placeholder="enter your ID" class="form-control input-sm">
@@ -123,7 +183,7 @@
 				<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="loginbutton">
 				</label>
 				<div class="col-md-2 col-sm-4 col-xs-6">
-					<button href="HomePage.html" id="loginbutton" name="loginbutton" type="submit" class="btn btn-primary center-block"><span class="glyphicon glyphicon-user"></span> Login</button>
+					<button href="HomePage.html" id="loginbutton" name="loginbutton" type="submit" class="btn btn-primary center-block" onClick="check_login_form()"><span class="glyphicon glyphicon-user"></span> Login</button>
 				</div>
 			</div>
 			<div class="form-group">
