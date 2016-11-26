@@ -1,3 +1,16 @@
+function getuserdetail(id){
+			    $.ajax({
+                type: "POST",
+                dataType:"JSON",
+                url: "info/getUserInfoByID",
+                async: false,
+                success: function (data) {
+				if(data.message=="success"){
+				location.href="UserProfilePage.html";}
+				}
+				});
+}
+
 function historyTable(){
 	var id =getCookie("u_id");
 	var token =getCookie("u_token");
@@ -39,7 +52,7 @@ function historyTable(){
 				$("#history").empty()
                 $.each(result.rsm, function (index, val) {
                 i = index + 1;
-                $("#history").append("<tr><<td>"+val.recordId+"</td><td>"+val.timeStamp+"</td><td>"+val.sellerNameFrom+"</td><td>"+val.pointsFrom+"</td><td>"+val.pointsTo+"</td><td>"+val.sellerNameTo+"</td><td class='col-md-2'><img class='img-circle' src='img/bonus.png' width='50' height='50' /><a href='#'>"+val.user_from+"</a></td></tr>");			
+                $("#history").append("<tr><td>"+val.recordId+"</td><td>"+val.timeStamp+"</td><td>"+val.sellerNameFrom+"</td><td>"+val.pointsFrom+"</td><td>"+val.pointsTo+"</td><td>"+val.sellerNameTo+"</td><td class='col-md-2'><img class='img-circle' src='"+val.userFromLogo+"' width='50' height='50' /><a href='#'>"+val.user_from+"</a></td></tr>");				
                 });
                 return true;
             }
@@ -103,9 +116,9 @@ function getSellerLogo(sellerId){
 			error:function(){
 					toastr.error("error", "error");
 				}
-			})
-			}
-			}
+			});
+}
+			
 
 
 function exchangesFound(){
@@ -264,7 +277,7 @@ function loadNotif(){
 }
 
 function markedSeen(notificationId){
-	$("seenbutton").attr({"disabled":"disabled"});
+	$("#seenbutton").attr({"disabled":"disabled"});
     var flag = false;
     var id =getCookie("u_id");
 	var token =getCookie("u_token");
@@ -333,7 +346,8 @@ function ShowUserProfile(){
           						}
                 				}
         		});
-        		
+}
+
 function SeeUserProfile(data){
 	setCookie("otheruserid",data);
 	location.href="UserProfilePage.html";
@@ -382,7 +396,7 @@ function getUserExchangeOffers(){
             	}
             	var logosellerfrom = getSellerLogo(val.sellerFrom);
                 var logosellerto = getSellerLogo(val.sellerTo);
-                $("#exchangeOffersList").append("<tr><td class='col-md-1'></td><td class='col-md-2'><img class='img-rounded' src='"+logosellerfrom+"' width='50' height='50' /><b>"+val.pointsFrom+"</b> pts</td><td class='col-md-1'><br><i class='glyphicon glyphicon-circle-arrow-right'></i></td><td class='col-md-2'><img class='img-rounded' src='"+logosellerto+"' width='50' height='50' /><b>"+val.pointsTo+"</b>pts</td><td class='col-md-3'><p>Candidates:<button type='button' onclick='goSelectPage("+val.offer_id+")' ' class='btn btn-success btn-xs' style='border-radius:50px;'><i class='glyphicon glyphicon-eye-open' ></i> &nbsp; select &nbsp; </button> </p><img class='img-circle' src='"+img1+"' width='50' height='50' /><img class='img-circle' src='"+img2+"' width='50' height='50' /><img class='img-circle' src='"+img3+"' width='50' height='50' /></td><td class='col-md-1'><button type='button' class='btn btn-danger btn-xs' style='border-radius:50px;' onclick='deleteOffer("+val.offer_id+")'><i class='glyphicon glyphicon-trash'></i></button></td></tr>")});
+                $("#exchangeOffersList").append("<tr><td class='col-md-1'></td><td class='col-md-2'><img class='img-rounded' src='"+logosellerfrom+"' width='50' height='50' /><b>"+val.pointsFrom+"</b> pts</td><td class='col-md-1'><br><i class='glyphicon glyphicon-circle-arrow-right'></i></td><td class='col-md-2'><img class='img-rounded' src='"+logosellerto+"' width='50' height='50' /><b>"+val.pointsTo+"</b>pts</td><td class='col-md-3'><p>Candidates:<button type='button' onclick='window.location.href='SelectUserPage.html'' class='btn btn-success btn-xs' style='border-radius:50px;'><i class='glyphicon glyphicon-eye-open' ></i> &nbsp; select &nbsp; </button> </p><img class='img-circle' src='"+img1+"' width='50' height='50' /><img class='img-circle' src='"+img2+"' width='50' height='50' /><img class='img-circle' src='"+img3+"' width='50' height='50' /></td><td class='col-md-1'><button type='button' class='btn btn-danger btn-xs' style='border-radius:50px;' onclick='deleteOffer("+val.offer_id+")'><i class='glyphicon glyphicon-trash'></i></button></td></tr>")});
                 }
             else{
                 toastr.warning(result.err, "Warning:CODE "+result.errno); //pop up
@@ -392,17 +406,11 @@ function getUserExchangeOffers(){
             toastr.error("error", "error");
         }
     });
-
-function goSelectPage(offerID){
-	setCookie("select_candidate_offer_id",offerID);
-		location.href="SelectUserPage.html";
-
 }
 
 
-}
 function getUserExchangeRequests(){
-	var id =getCookie("u_id");
+var id =getCookie("u_id");
 	var token =getCookie("u_token");
     data = {'u_id':id,'u_token':token};  
     $.ajax({
@@ -415,12 +423,12 @@ function getUserExchangeRequests(){
             	var i;
 				$("#exchangeRequestsList").empty();	
                 $.each(result.rsm, function (index, val) {
-                i = index + 1;
-            	var logosellerfrom = getSellerLogo(val.sellerFrom);
-                var logosellerto = getSellerLogo(val.sellerTo);
-                $("#exchangeRequestsList").append("<tr><td class='col-md-1'></td><td class='col-md-2'><img class='img-rounded' src='"logosellerfrom"' width='50' height='50' /><b>"+val.pointsFrom+"</b>pts</td><td class='col-md-1'><br><i class='glyphicon glyphicon-circle-arrow-right'></i></td><td class='col-md-2'><img class="img-rounded" src='"+logosellerto+"' width='50' height='50' /><b>"+val.pointsTo+"</b>pts</td><td class='col-md-2'><img class='img-circle' src='"+userPartner_picture+"' width='50' height='50' /><a onclick='SeeUserProfile("+val.userPartner+")'>"+val.userPartner+"</a></td><td class='col-md-1'>"+val.status+"</td><td class='col-md-1'><button type='button' class='btn btn-danger btn-xs' style='border-radius:50px;' id='deleteOffer("+val.offer_id+")' name='deleteofferbutton'><i class='glyphicon glyphicon-trash'></i></button></td></tr>")}
+					i = index + 1;
+					var logosellerfrom = getSellerLogo(val.sellerFrom);
+					var logosellerto = getSellerLogo(val.sellerTo);
+					$("#exchangeRequestsList").append("<tr><td class='col-md-1'></td><td class='col-md-2'><img class='img-rounded' src='"+logosellerfrom+"' width='50' height='50' /><b>"+val.pointsFrom+"</b>pts</td><td class='col-md-1'><br><i class='glyphicon glyphicon-circle-arrow-right'></i></td><td class='col-md-2'><img class='img-rounded' src='"+logosellerto+"' width='50' height='50' /><b>"+val.pointsTo+"</b>pts</td><td class='col-md-2'><img class='img-circle' src='"+userPartner_picture+"' width='50' height='50' /><a onclick='SeeUserProfile("+val.userPartner+")'>"+val.userPartner+"</a></td><td class='col-md-1'>"+val.status+"</td><td class='col-md-1'><button type='button' class='btn btn-danger btn-xs' style='border-radius:50px;' id='deleteOffer("+val.offer_id+")' name='deleteofferbutton'><i class='glyphicon glyphicon-trash'></i></button></td></tr>")}
                 );
-                }
+            }
             else{
                 toastr.warning(result.err, "Warning:CODE "+result.errno); //pop up
             }
@@ -432,7 +440,7 @@ function getUserExchangeRequests(){
 }
 
 function deleteOffer(offer_id){
-	$("deleteofferbutton").attr({"disabled":"disabled"});
+	$("#deleteofferbutton").attr({"disabled":"disabled"});
     var flag = false;
     var id =getCookie("u_id");
 	var token =getCookie("u_token");
@@ -444,10 +452,8 @@ function deleteOffer(offer_id){
         url : "/ccpx/user/deleteOffer",
         success : function(result){
             if (result.errno==0) { // parameter in their response
-                toastr.success(result.rsm.token, "Offer deleted!");
-                location.href="ExchangeStatus.html"
-
-
+                toastr.success("Offer deleted!","succeed");
+                location.href="ExchangeStatus.html";
             }else{
                 toastr.warning(result.err, "Warning:CODE "+result.errno); //pop up
             }
@@ -456,100 +462,7 @@ function deleteOffer(offer_id){
             toastr.error("error", "error");
         }
     });
-    return false;
-    $("#deleteofferbutton").removeAttr("disabled");
-    return flag;
-}
-
-function showCandidates(){
-    		var offerId =getCookie("select_candidate_offer_id");
-            $.ajax({
-			type : "post",
-			dataType:"JSON",
-			data : {'offer_id': offerId
-			},
-			async: false,
-			url	: "ccpx/user/showCandidate",
-			success : function(result){
-						if (result.errno==0) { 
-						$("#PointsFrom").text("src",result.rsm.pointsFrom);
-						$("#PointsTo").text("src",result.rsm.pointsTo);
-						var logosellerfrom=getSellerLogo(result.rsm.sellerFrom);
-						$("#logosellerfrom").attr("src",logosellerfrom);
-						var logosellerto = getSellerLogo(result.rsm.sellerTo);
-						$("#logosellerto").attr("src",logosellerto);
-						var i;
-						$("#candidatesTable").empty();	
-						$.each(result.rsm.requests, function (index, val) {
-							i = index + 1;
-							$("#candidatesTable").append("<tr><td class='col-md-1'></td><td class='col-md-2'><img class='img-rounded' src='"+logosellerto+"' width='50' height='50' /><b>"+val.proposition+"</b>pts</td><td class='col-md-3'><p><img class='img-circle' src='"+val.candidatePicture+"' width='50' height='50' /><a onclick='SeeUserProfile("+val.candidate+")'>"+val.candidate+"</a></p><p>"+val.candidateWechat+"</p></td><td class='col-md-1'><button id='acceptRequestButton' type='button' class='btn btn-info btn-danger' onclick='accept_request("+val.request_id+")'> Accept </button></td><td id='rejectRequestButton' class='col-md-1'><button type='button' class='btn btn-info btn-danger' onclick='reject_request("+val.request_id+")'> Reject </button> </td> </tr> ");
-						});
-//						$.cookie("select_candidate_offer_id", null, { path: '/' });
-
-						}
-						else{
-						 toastr.warning(result.err, "Warning:CODE "+result.errno);
-						}
-						}
-			});
-}
-
-function accept_request(offer_id){
-	$("acceptRequestButton").attr({"disabled":"disabled"});
-    var flag = false;
-    var id =getCookie("u_id");
-    var token =getCookie("u_token");
-    data = {'u_id':id,'u_token':token,'r_id':offer_id};  
-    $.ajax({
-        type : "post",
-        data : data,
-        async: false,
-        url : "/ccpx/user/accept_request",
-        success : function(result){
-            if (result.errno==0) { // parameter in their response
-                toastr.success(result.rsm.token, "Request accepted! Transaction complete!");
-                location.href="HistoryPage.html"
-
-
-            }else{
-                toastr.warning(result.err, "Warning:CODE "+result.errno); //pop up
-            }
-        },
-        error:function(){
-            toastr.error("error", "error");
-        }
-    });
-    return false;
-    $("#acceptRequestButton").removeAttr("disabled");
-    return flag;
-}
-
-function reject_request(offer_id){
-	$("rejectRequestButton").attr({"disabled":"disabled"});
-    var flag = false;
-    var id =getCookie("u_id");
-    var token =getCookie("u_token");
-    data = {'u_id':id,'u_token':token,'r_id':offer_id};  
-    $.ajax({
-        type : "post",
-        data : data,
-        async: false,
-        url : "/ccpx/user/accept_request",
-        success : function(result){
-            if (result.errno==0) { // parameter in their response
-                toastr.success(result.rsm.token, "User rejected!");
-                location.href="SelectUserPage.html"
-
-
-            }else{
-                toastr.warning(result.err, "Warning:CODE "+result.errno); //pop up
-            }
-        },
-        error:function(){
-            toastr.error("error", "error");
-        }
-    });
-    return false;
-    $("#rejectRequestButton").removeAttr("disabled");
-    return flag;
+    //return false;
+    //$("#deleteofferbutton").removeAttr("disabled");
+    //return flag;
 }
