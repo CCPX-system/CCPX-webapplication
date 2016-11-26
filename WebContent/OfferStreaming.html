@@ -15,9 +15,78 @@
 		<![endif]-->
         <script src="scripts/jquery.min.js"></script>
         <script src="bootstrap/js/bootstrap.js"></script>
+        <script>
+		function getuserdetail(id){
+			    $.ajax({
+                type: "POST",
+                dataType:"JSON",
+                url: "info/getSellerInfoByIndustryID",
+                async: false,
+                success: function (data) {
+				if(data.message=="success"){
+				location.href="UserProfilePage.html";}
+				}
+				});
+		}
+		function getsellerName()
+		{
+			
+			$.ajax({
+                type: "POST",
+                dataType:"JSON",
+                url: "info/getSellerInfoByIndustryID",
+                async: false,
+                success: function (data) {
+                var i;
+               $("#selectbasic").empty();
+			$("#selectbasic1").empty();
+			var i,j;
+			$.each(data, function (index, val) {
+				    i = index + 1;
+				    $("#selectbasic").append("<option value="+i+">"+val.seller_id+"</option>");
+						//alert(val.seller_id); 
+					});
+			$.each(data, function (index, val) { 
+				    j = index + 1;
+				    $("#selectbasic1").append("<option value="+j+">"+val.seller_id+"</option>");
+						//alert(val.seller_id); 
+					});
+                return true;
+                }     
+            });
+		}
+function reloadinfo(){
+		var interval = setInterval(function(){
+		getsellerName();
+					}
+				,5000);
+}				
+		function searchOffer()
+{            var cpy1 = $("#selectbasic option:selected").text();
+             var cpy2= $("#selectbasic1 option:selected").text();
+			 
+            $.ajax({
+                type: "POST",
+                dataType:"JSON",
+                url: "",
+                async: false,
+                data: { company1:cpy1,company2:cpy2 
+                },
+                success: function (data) {
+               var i;
+                $("#offerinfo").empty();
+                $.each(data, function (index, val) {
+                i = index + 1;
+                $("#offerinfo").append("<tr><td class='col-md-1'></td><td class='col-md-2'><img class='img-rounded' src='"+val.pic1+"' width='50' height='50' /><b>"+val.points1+"</b>pts	</td><td class='col-md-1'><br><i class='glyphicon glyphicon-circle-arrow-right'></i></td><td class='col-md-2'><img class='img-rounded' src='"+val.pic2+"' width='50' height='50' /><b>"+val.pts2+"</b>pts</td><td class='col-md-3'><img class='img-rounded' src='"+val.upic1+"' width='50' height='50' /><a href='#' id ='"+val.uid1+"' onclick='getuserdetail(this.id)'>"+val.uN1+"</a></td><td class='col-md-1'><br><i class='glyphicon glyphicon-circle-arrow-right'></i></td><td class='col-md-3'><img class='img-rounded' src='"+val.upic2+"' width='50' height='50' /><a href='#' id ='"+val.uid2+"' onclick='getuserdetail(this.id)'>"+val.uN2+"</a></td></tr>");
+					});
+                return true;
+                }   
+            });
+}
+		</script>
 	</head>
 	
-	<body>
+	<body onLoad="reloadinfo()">
 		<div class="container">
 		
 			<div class="header">
@@ -43,7 +112,7 @@
 						<div class="collapse navbar-collapse" id="mynav">
 							<ul class="nav navbar-nav center-block pull-right">
 								<li class="nav-item pull-left">
-								  <a class="nav-link" href="MainPage.html"><span class="glyphicon glyphicon-home"></span><U> Home</U></a>
+								  <a class="nav-link" href="MainPage.html"><span class="glyphicon glyphicon-home"></span> Home </a>
 								</li>
 								
                                 <li class="nav-item pull-left">
@@ -51,7 +120,7 @@
 								</li>	
                                 
                                  <li class="nav-item pull-left">
-								  <a class="nav-link" href="OfferStreaming.html"><span class="glyphicon glyphicon-time"></span> Offers Streaming</a>
+								  <a class="nav-link" href="OfferStreaming.html"><span class="glyphicon glyphicon-time"></span><U> Offers Streaming</U></a>
 								</li>
                                 
                                 <li class="nav-item pull-left">
@@ -77,15 +146,14 @@
        
           <!--select company-->
               <br>
-              <div class="row clearfix">
+            <div class="row clearfix">
                 <div class="col-md-12 col-md-12 col-xs-12 column">
-                       <div class="col-md-2 col-sm-1 col-xs-0">
-                       </div>
+				<div class="col-md-2 col-sm-4 col-xs-5">
+				</div>
                        <div class="col-md-3 col-sm-4 col-xs-5">
                        <form>
                            <div class="form-group">
-                                  <label class="col-md-4 control-label" for="selectbasic"></label>
-                                  <select id="selectbasic" name="selectbasic" class="form-control">
+                                  <select id="selectbasic" name="selectbasic" class="form-control" >
                                       <option value="1">select company</option>
                                       <option value="2">company 1</option>
                                       <option value="3">company 2</option>
@@ -93,37 +161,35 @@
                            </div>
                         </form>
                         </div>
-                        <div class="col-md-1 col-sm-1 col-xs-0">
-                        </div>
                         <div class="col-md-1 col-sm-2 col-xs-2">
-                        <br>
                         <span class="glyphicon glyphicon-circle-arrow-right center-block"></span>
                         </div>
                         <div class="col-md-3 col-sm-4 col-xs-5">
                         <form>
                             <div class="form-group">
-                                  <label class="col-md-4 control-label" for="selectbasic1"></label>
-                                  <select id="selectbasic1" name="selectbasic1" class="form-control">
+                                  <select id="selectbasic1" name="selectbasic1" class="form-control" >
                                       <option value="1">select company</option>
                                       <option value="2">company 1</option>
                                       <option value="3">company 2</option>
                                   </select>
                              </div>
+							 
                         </form>
                         </div>
-                        <div class="col-md-2 col-sm-0 col-xs-0">
-                        </div>
+						<div class="col-md-1 col-sm-4 col-xs-5">
+							 <button type="button" id="companysubmit" class="btn btn-default btn-info " onclick="searchOffer()"><i class="glyphicon glyphicon-search"></i></button>
+					    </div>
                  </div>
-              </div>
+            </div>
               
-  <!--stream-->
-        <br>
+        <!--stream-->
+       <br>
         <br>
         <div class="row clearfix">
 		<div class="col-md-12 column">
         <div class="table-responsive">
 			<table class="table table-hover table-striped">
-				<tbody>
+				<tbody id="offerinfo">
 					<tr>
                         <td class="col-md-1">
                         </td>
@@ -156,9 +222,7 @@
                             <a href="#">user nickname</a>
 						</td>
 
-                        <td class="col-md-1">
-                        <button type="button" class="btn btn-info btn-danger"><i class="glyphicon glyphicon-plus" style="color:black;"></i></button>
-					    </td>
+                       
                     </tr>
 					<tr class="success">
 						<td class="col-md-1">
@@ -192,9 +256,6 @@
                             <a href="#">user nickname</a>
 						</td>
 
-                        <td class="col-md-1">
-                        <button type="button" class="btn btn-info btn-danger"><i class="glyphicon glyphicon-plus" style="color:black;"></i></button>
-					    </td>
 					</tr>
 					<tr class="error">
 						<td class="col-md-1">
@@ -220,6 +281,7 @@
 						
                         <td class="col-md-1">
                            <br>
+						   
                            <i class="glyphicon glyphicon-circle-arrow-right"></i>
                         </td>
 						
@@ -229,9 +291,7 @@
 						</td>
 
 
-                        <td class="col-md-1">
-                        <button type="button" class="btn btn-info btn-danger"><i class="glyphicon glyphicon-plus" style="color:black;"></i></button>
-					    </td>
+                        
 					</tr>
 					<tr class="info">
 						<td class="col-md-1">
@@ -263,10 +323,6 @@
 							<img class="img-circle" src="img/bonus.png" width="50" height="50" />
                             <a href="#">user nickname</a>
 						</td>
-
-                        <td class="col-md-1">
-                        <button type="button" class="btn btn-info btn-danger"><i class="glyphicon glyphicon-plus" style="color:black;"></i></button>
-					    </td>
 					</tr>
 				</tbody>
 			</table>
@@ -275,11 +331,6 @@
 		</div>
 	    </div>
         
-        <!--button-->
-        <br>
-        <div class="row center-block" style="width:100px;">
-        <a href="ExchangeCenter.html"><button type="button" class="btn btn-default btn-info">Back</button></a>
-        </div>
        
         </div>
  
