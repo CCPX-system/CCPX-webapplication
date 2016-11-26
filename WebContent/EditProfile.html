@@ -15,6 +15,7 @@
 		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
         <script src="scripts/jquery.min.js"></script>
+		<script src="scripts/function.js"></script>
         <script src="bootstrap/js/bootstrap.js"></script>
 		<script src="angularjs/angular.js"></script>
 		<script src="scripts/script.js"></script>
@@ -22,7 +23,7 @@
 
 	</head>
 	
-	<body>
+	<body onload="get_profile()">
 		<div class="container">
 			<div class="header">
 				<!-- Form Name -->
@@ -199,7 +200,8 @@
 				<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="registerbutton">
 				</label>
 				<div class="col-md-2 col-sm-4 col-xs-6">
-					<button ng-disabled="!myForm.$valid " href="#" id="registerbutton" name="registerbutton" ng-click="RegisterUser()" class="btn btn-primary center-block"><span class="glyphicon glyphicon-ok"></span> Submit</button>
+					<button type="button" class="btn btn-default btn-info center-block" onclick="edit_profile()">Edit</button>
+					<!--<button ng-disabled="!myForm.$valid "  id="registerbutton" name="registerbutton" ng-click="RegisterUser()" class="btn btn-primary center-block"><span class="glyphicon glyphicon-ok"></span> Submit</button>-->
 				</div>
 			</div>				
 		</fieldset>

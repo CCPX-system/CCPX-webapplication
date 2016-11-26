@@ -59,7 +59,7 @@ function check_login_form(){
 
 function edit_profile(){
 {
-    $("registerbutton").attr({"disabled":"disabled"});
+    //$("registerbutton").attr({"disabled":"disabled"});
     var flag = false;
     username = $("#Usernane").val();
     pwd =  $("#password").val();
@@ -187,12 +187,12 @@ function get_profile(){
 		dataType:"JSON",
 		data : {u_id: id, u_token: token},
 		async: false,
-		url	: "", ///////////////////////// won't work because of this file
+		url	: "/ccpx/user/myprofile", 
 		success : function(result){
 			if (result.errno==0) { // parameter in their response
                 toastr.success(result.rsm.token, "info");
 				$.cookie('u_pw_hash',result.rsm.u_pw_hash);
-				$("#userName").append(result.rsm.u_name);
+				/*$("#userName").append(result.rsm.u_name);*/
 				$("#wechatId").text(result.rsm.wechatid);
 				$("#Email").text(result.rsm.u_email);
 				/*$("#PhoneNumber").text(result.rsm."");*/
@@ -229,7 +229,7 @@ function get_profile(){
 
 function find_an_offer(){
 {
-    $("findbutton").attr({"disabled":"disabled"});
+    $("submitbutton").attr({"disabled":"disabled"});
     var flag = false;
     seller_from = $("#selectbasic1").val();
     seller_to =  $("#selectbasic2").val();
@@ -245,6 +245,44 @@ function find_an_offer(){
         data : data,
         async: false,
         url : "/ccpx/user/find_an_offer", ///////////////////////// won't work because of this file
+        success : function(result){
+            if (result.errno==0) { // parameter in their response
+				toastr.success(result.rsm.token, "info");
+				location.href="ExchangesFound.html"
+            }else{
+                toastr.warning(result.err, "Warning:CODE "+result.errno); //pop up
+            }
+        },
+        error:function(){
+            toastr.error("error", "error");
+        }
+    });
+    return false;
+    
+    //toastr.warning(flag.toString(), "DEBUG");
+    $("#loginButton").removeAttr("disabled");
+    return flag;
+}
+}
+
+function make_an_offer(){
+{
+    $("findbutton").attr({"disabled":"disabled"});
+    var flag = false;
+    seller_from = $("#selectbasic1").val();
+    seller_to =  $("#selectbasic2").val();
+	points_from = $("#pts").val();
+    points_to =  $("#pts2").val();
+	u_id = getCookie("u_id");
+	u_token = getCookie("u_token");
+    
+    data = {'seller_from':seller_from,'seller_to':seller_to, 'points_from':points_from, 'points_to':points_to, 'u_id': u_id, 'u_token':u_token}; //creating json file
+        
+    $.ajax({
+        type : "post",
+        data : data,
+        async: false,
+        url : "/ccpx/user/making_an_offer", 
         success : function(result){
             if (result.errno==0) { // parameter in their response
 				toastr.success(result.rsm.token, "info");
