@@ -153,17 +153,14 @@ function get_recent_activity(){
         success : function(result){
 				if (result.errno==0) { // parameter in their response
                 toastr.success(result.rsm.token, "info");
-				var i;
 				var rate_value = [];
 				$.each(result.rsm, function (index, val){
-					i = index + 1;
 					$("#recentActivityTable").append("<tr><td class='col-md-1'></td><td class='col-md-2'><img class='img-rounded' src='img/blue.png' width='50' height='50' /><b>" + result.rsm.points_from + "</b> pts</td><td class='col-md-1'><br><i class='glyphicon glyphicon-circle-arrow-right'></i></td><td class='col-md-2'><img class='img-rounded' src='img/blue.png' width='50' height='50'/><b>" + result.rsm.points_to + "</b> pts</td><td class='col-md-3'><img class='img-circle' src='img/bonus.png' width='50' height='50' /><a href='#'>" + result.rsm.user_from + "</a></td><td class='col-md-1'><br><i class='glyphicon glyphicon-circle-arrow-right'></i></td><td class='col-md-3'><img class='img-circle' src='img/bonus.png' width='50' height='50'/><a href='#'>' + result.rsm.user_to + '</a></td><td class='col-md-2'>time stamp</td></tr>");
 					var a = (result.rsm.points_from)/(result.rsm.points_to);
 					rate_value.push(a);
 					return true;
 				});
 				Highcharts.chart('graphcontainer', {title: {text: 'Latest Exchanges',x: -20},subtitle: {text: '',x: -20},xAxis: {categories: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']},yAxis: {title: {text: 'Rates'},plotLines: [{value: 0,width: 1,color: '#808080'}]},tooltip: {valueSuffix: ''},legend: {},series: [{name: 'Rate evolution', data: rate_value }]});
-                //location.href="Makeoffer.html"
             }else{
                 toastr.warning(result.err, "Warning:CODE "+result.errno); //pop up
             } 
