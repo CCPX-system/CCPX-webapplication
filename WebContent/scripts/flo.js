@@ -49,7 +49,7 @@ function historyTable(){
         success : function(result){
             if (result.errno==0) { 
 				var i;
-				$("#history").empty()
+				$("#history").empty();
                 $.each(result.rsm, function (index, val) {
                 i = index + 1;
                 $("#history").append("<tr><td>"+val.recordId+"</td><td>"+val.timeStamp+"</td><td>"+val.sellerNameFrom+"</td><td>"+val.pointsFrom+"</td><td>"+val.pointsTo+"</td><td>"+val.sellerNameTo+"</td><td class='col-md-2'><img class='img-circle' src='"+val.userFromLogo+"' width='50' height='50' /><a href='#'>"+val.user_from+"</a></td></tr>");				
@@ -167,6 +167,7 @@ function exchangesFound(){
             if (result.errno==0) { // parameter in their response
 				$.cookie('u_id_from',result.rsm.user_from);
 				var i;
+				$("#exchangesFound").empty();
                 $.each(result.rsm, function (index, val) {
                 i = index + 1;
                 $("#exchangesFound").append("<tr><td class='col-md-1'></td><td class='col-md-2'><img src='"+val.logosellerfrom+"' class='img-rounded' width='50' height='50' /> <b>"+val.points_from+"</b> pts </td><td class='col-md-1'><br><i class='glyphicon glyphicon-circle-arrow-right'></i></td><td class='col-md-2'><img src='"+val.logosellerto+"' class='img-rounded' width='50' height='50' /><b>"+val.points_to+"</b> pts</td><td class='col-md-3'><img class='img-circle' src='"+val.user_from_logo+"' width='50' height='50' /><a onclick='SeeUserProfile("+val.user_from+")'>"+val.user_from+"</a><td class='col-md-1'><button type='button' id='makerequest' class='btn btn-info btn-danger' onClick='makeRequest("+val.r_id+")'><i class='glyphicon glyphicon-plus' style='color:black;'></i></button></td></tr>");
