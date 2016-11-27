@@ -247,12 +247,10 @@ function loadNotif(){
 // 							"content":"Free blowjob for all the Chinese guys born South of China given by:",
 // 							"userId":"Cerise de Groupama",
 // 							"status":"Link here",
-// 							"seen":1
+// 							"seen":0
 // 						},
 // 					 ]
 //             }
-	
-	
 	
     $.ajax({
         type : "get",
@@ -302,7 +300,7 @@ function markedSeen(notificationId){
         success : function(result){
             if (result.errno==0) { // parameter in their response
                 toastr.success(result.rsm.token, "Marked as seen");
-                location.href="Notification.html"
+                location.href="Notification.html";
 
 
             }else{
@@ -345,18 +343,20 @@ function ShowUserProfile(){
 								$("#userWechat").text(result.rsm.userWechat);
 								var i;
 								$("#pointsTable").empty();	
-                				$.each(result.rsm.exchanges, function (index, val) {
-                					var logosellerfrom = getSellerLogo(val.sellerfrom);
-                					var logosellerto = getSellerLogo(val.sellerto);
-                					i = index + 1;
-                					$("#pointsTable").append("<tr><td class='col-md-1'></td><td class='col-md-2'><img class='img-rounded' src='"+val.logosellerfrom+"' width='50' height='50' /><b>"+val.pointsFrom+"</b>pts</td><td class='col-md-1'><br><i class='glyphicon glyphicon-circle-arrow-right'></i></td><td class='col-md-2'><img class='img-rounded' src='"+val.logosellerto+"' width='50' height='50' /><b>"+val.pointdFrom+"</b>pts</td><td class='col-md-3'><img class='img-circle' src='img/bonus.png' width='50' height='50' /><a onclick='SeeUserProfile("+result.rsm.username+")'>"+result.rsm.userName+"</a></td><td class='col-md-1'><button type='button' onclick='makerequest("+val.exchId+")' class='btn btn-info btn-danger'>Add</button></td></tr>");
+                				$.each(result.rsm, function (index, val) {
+                					//var logosellerfrom = (val.sellerfrom);							
+                                i = index + 1;
+                                $("#pointsTable").append("<tr><td class='col-md-1'></td><td class='col-md-2'><img class='img-rounded' src='"+val.sellerfrom+"' width='50' height='50' /><b>"+val.seen+"</b>pts</td><td class='col-md-1'><br><i class='glyphicon glyphicon-circle-arrow-right'></i></td><td class='col-md-2'><img class='img-rounded' src='"+val.sellerto+"' width='50' height='50' /><b>"+val.seen+"</b>pts</td><td class='col-md-3'><img class='img-circle' src='img/bonus.png' width='50' height='50' /><a href='#' id='"+val.userId+"' onclick='SeeUserProfile(this.id)'>"+val.userId+"</a></td><td class='col-md-1'><button type='button'  id='"+val.userId+"' onclick='makeRequest(this.id)' class='btn btn-info btn-danger'><i class='glyphicon glyphicon-plus' style='color:black;'></i></button></td></tr>");
                 				});
                 				$.cookie("otheruserid", null, { path: '/' });
                 				}
                 				else{
                					 toastr.warning(result.err, "Warning:CODE "+result.errno);
           						}
-                				}
+                		},
+					error:function(){
+                                toastr.error("error", "error");
+                     }
         		});
 }
 
