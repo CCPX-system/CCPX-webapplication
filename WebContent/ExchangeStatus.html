@@ -7,6 +7,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+        <link href="bootstrap/css/toastr.css" rel="stylesheet">
 		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 		<!--[if lt IE 9]>
@@ -18,11 +19,12 @@
         <script src="bootstrap/js/jquery.md5.js"></script>
         <script src="bootstrap/js/jquery.cookie.js"></script>
         <script src="bootstrap/js/toastr.js"></script>
+        <script src="scripts/ljs.js"></script>
         <script src="scripts/flo.js"></script>
         <script src="bootstrap/js/toastr.min.js"></script>
 	</head>
 	
-	<body onload="getUserExchangeOffers();getUserExchangeRequests()">
+	<body onload="getUserExchangeOffers();getUserExchangeRequests();">
 		<div class="container">
 		
 			<div class="header">
@@ -50,7 +52,7 @@
 						<div class="collapse navbar-collapse" id="mynav">
 							<ul class="nav navbar-nav center-block pull-right">
 								<li class="nav-item pull-left">
-								  <a class="nav-link" href="HomePage.html"><span class="glyphicon glyphicon-home"></span><U> Home</U></a>
+								  <a class="nav-link" href="HomePage.html"><span class="glyphicon glyphicon-home"></span> Home </a>
 								</li>
 								
 								<li class="nav-item pull-left">
@@ -62,11 +64,11 @@
 								</li>
 								
 								<li class="nav-item pull-left">
-								<a class="nav-link" href="ListOfSellers2Page.html"><span class="glyphicon glyphicon-shopping-cart"></span> List Of Companies </a>
+								<a class="nav-link" href="ListOfSellersPage2.html"><span class="glyphicon glyphicon-shopping-cart"></span> List Of Companies </a>
 								</li>	
                                 
                                 <li class="nav-item pull-left">
-								<a class="nav-link" href="ExchangeCenter.html"><span class="glyphicon glyphicon-transfer"></span> Exchange Center </a>
+								<a class="nav-link" href="ExchangeCenter.html"><span class="glyphicon glyphicon-transfer"></span><U> Exchange Center </U></a>
   								</li>	
   								
   								 <li class="nav-item pull-left">
@@ -109,7 +111,7 @@
                                             </table>
                                             
                                             <!-- exemple-->
-                                            <table class="table table-hover table-striped">
+                                        <!--    <table class="table table-hover table-striped">
                                                 <tbody>
                                                     <tr class="info">
                                                         <td class="col-md-1">
@@ -142,7 +144,7 @@
                                                         </td>
                                                     </tr>
                                                 </tbody>
-                                            </table>
+                                            </table>-->
                                         <!-- -->
                                             
                                     </div>  
@@ -168,7 +170,7 @@
                                         
                                         <!-- exemple -->
                                         
-                                        <table class="table table-hover table-striped">
+                                   <!--     <table class="table table-hover table-striped">
                                             <tbody>
                                                 <tr class="error">
                                                     <td class="col-md-1">
@@ -227,7 +229,7 @@
                                                     </td>
                                                 </tr>
                                             </tbody>
-                                        </table>
+                                        </table>-->
                                     <!-- -->    
                                     
                                 </div> 
@@ -245,13 +247,11 @@
             <br>  
             <div class="row clearfix">
             <div class="col-md-12 column">
-            <div class="col-md-6 col-sm-4">
+            <div class="col-md-5 col-sm-4 col-xs-4">
             </div>
-            <div class="col-md-3 col-sm-4">
-            <a href="OfferStreaming2.html"><button style="margin-bottom:10px;" type="button" class="btn btn-default btn-info">Back to Offer Streaming</button></a>
-            </div>
-            <div class="col-md-3 col-sm-4">
-            <a href="ExchangeCenter.html"><button style="margin-bottom:10px;" type="button" class="btn btn-default btn-info">Back to Exchange Center</button></a>
+           
+            <div class="col-md-4 col-sm-4 col-xs-2">
+            <a href="ExchangeCenter.html"><button style="margin-bottom:10px;" type="button" class="btn btn-default btn-info">Back</button></a>
             </div>   
             </div>
             </div>

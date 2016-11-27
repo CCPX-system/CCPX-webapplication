@@ -17,30 +17,31 @@ function historyTable(){
 
 
 // ------Test data----- //
-//  	var result = 	{
-// 				"err":"",
-// 				"errno":0,
-// 				"rsm":[
-// 						{
-// 							"recordId":100,
-// 							"timeStamp":"14-12-1992",
-// 							"sellerNameFrom":"Zara",
-// 							"sellerNameTo":"AIR CHINA",
-// 							"pointsFrom":100,
-// 							"pointsTo":200,
-// 							"user_from":"Jan"
-// 						},
-// 						{
-// 							"recordId":101,
-// 							"timeStamp":"25-10-1993",
-// 							"sellerNameFrom":"Victoria's Secret",
-// 							"sellerNameTo":"Decathlon",
-// 							"pointsFrom":150,
-// 							"pointsTo":250,
-// 							"user_from":"Florence"
-// 						}
-// 					 ]
-//             }
+/*  	var result = 	{
+ 				"err":"",
+ 				"errno":0,
+ 				"rsm":[
+ 						{
+ 							"recordId":100,
+ 							"timeStamp":"14-12-1992",
+ 							"sellerNameFrom":"Zara",
+ 							"sellerNameTo":"AIR CHINA",
+ 							"pointsFrom":100,
+ 							"pointsTo":200,
+ 							"user_from":"Jan"
+ 						},
+ 						{
+ 							"recordId":101,
+ 							"timeStamp":"25-10-1993",
+ 							"sellerNameFrom":"Victoria's Secret",
+ 							"sellerNameTo":"Decathlon",
+ 							"pointsFrom":150,
+ 							"pointsTo":250,
+ 							"user_from":"Florence"
+ 						}
+ 					 ]
+             }*/
+             
     $.ajax({
         type : "get",
         data : {'u_id':id,'u_token':token},
@@ -109,9 +110,9 @@ function getSellerLogo(sellerId){
 			},
 			async: false,
 			url	: "info/getSellerProfile",
-			success : function(result){
+			success : function(data){
 //						$("#logoSeller").attr("src",result.seller_Logo);
-						return val.seller_Logo;
+						return data.seller_Logo;
 				},
 			error:function(){
 					toastr.error("error", "error");
@@ -127,36 +128,37 @@ function exchangesFound(){
 	var pointsto = getCookie("INPUTpointsto");
 	var id = getCookie("u_id");
 	var token = getCookie("u_token");  
-//	var logosellerto = getSellerLogo(sellerto);
-//	var logosellerfrom = getSellerLogo(sellerfrom);
-	
+	var logosellerto = getSellerLogo(sellerto);
+	var logosellerfrom = getSellerLogo(sellerfrom);
+	//alert(sellerfrom);
 // ------Test data----- 
-//  	var result = 	{
-// 				"err":"",
-// 				"errno":0,
-// 				"rsm":[
-// 						{
-// 							"points_from":100,
-// 							"points_to":200,
-// 							"user_from":"Jan",
-//							"r_id":123213
-// 						},
-// 						{
-//							"points_from":100,
-// 							"points_to":200,
-// 							"user_from":"Florence",
-//							"r_id":334,
-//							"logosellerfrom":"img/blue.png"
-// 						},
-//						{
-//							"points_from":100,
-// 							"points_to":200,
-// 							"user_from":"Florence",
-//							"r_id":3324,
-//							"logosellerfrom":"img/red.png"
-// 						}
-// 					 ]
-//             }			
+  /*	var result = 	{
+ 				"err":"",
+ 				"errno":0,
+ 				"rsm":[
+ 						{
+ 							"points_from":100,
+ 							"points_to":200,
+ 							"user_from":"Jan",
+							"r_id":123213
+ 						},
+ 						{
+							"points_from":100,
+ 							"points_to":200,
+ 							"user_from":"Florence",
+							"r_id":334,
+							"logosellerfrom":"img/blue.png"
+ 						},
+						{
+							"points_from":100,
+ 							"points_to":200,
+ 							"user_from":"Florence",
+							"r_id":3324,
+							"logosellerfrom":"img/red.png"
+ 						}
+ 					 ]
+             }
+			*/
 	   
     $.ajax({
         type : "post",
@@ -166,11 +168,11 @@ function exchangesFound(){
         success : function(result){
             if (result.errno==0) { // parameter in their response
 				$.cookie('u_id_from',result.rsm.user_from);
-				 var i;
+				var i;
 				$("#exchangesFound").empty();
                 $.each(result.rsm, function (index, val) {
                 i = index + 1;
-                $("#exchangesFound").append("<tr><td class='col-md-1'></td><td class='col-md-2'><img src='"+val.logosellerfrom+"' class='img-rounded' width='50' height='50' /> <b>"+val.points_from+"</b> pts </td><td class='col-md-1'><br><i class='glyphicon glyphicon-circle-arrow-right'></i></td><td class='col-md-2'><img src='"+val.logosellerto+"' class='img-rounded' width='50' height='50' /><b>"+val.points_to+"</b> pts</td><td class='col-md-3'><img class='img-circle' src='"+val.user_from_logo+"' width='50' height='50' /><a href='#' id='"+val.user_from+"' onclick='SeeUserProfile(this.id)'>"+val.user_from+"</a><td class='col-md-1'><button type='button' id='makerequest' class='btn btn-info btn-danger' onClick='makeRequest("+val.r_id+")'><i class='glyphicon glyphicon-plus' style='color:black;'></i></button></td></tr>");
+                $("#exchangesFound").append("<tr><td class='col-md-1'></td><td class='col-md-2'><img src='"+logosellerfrom+"' class='img-rounded' width='50' height='50' /> <b>"+val.points_from+"</b> pts </td><td class='col-md-1'><br><i class='glyphicon glyphicon-circle-arrow-right'></i></td><td class='col-md-2'><img src='"+logosellerto+"' class='img-rounded' width='50' height='50' /><b>"+val.points_to+"</b> pts</td><td class='col-md-3'><img class='img-circle' src='"+val.user_from_logo+"' width='50' height='50' /><a href='#' id='"+val.user_from+"' onclick='SeeUserProfile(this.id)'>"+val.user_from+"</a><td class='col-md-1'><button type='button' id='makerequest' class='btn btn-info btn-danger' onClick='makeRequest("+val.r_id+")'><i class='glyphicon glyphicon-plus' style='color:black;'></i></button></td></tr>");
 			    });
 				
                 return true;
@@ -318,16 +320,33 @@ function markedSeen(notificationId){
 
 
 function ShowUserProfile(){
-		/* var  rsm =   {
-						"userName":"Blabla",
-						"userPicture":1,
-						"wechatid":"CutePussy"
-					}
-				
-				$("#userPicture").attr("src",result.rsm.userPicture);
-				$("#userName").val(result.rsm.userName);
-				$("#userWechat").text(result.rsm.userWechat);	*/
-						
+		/* var result = 	{
+ 				"err":"",
+ 				"errno":0,
+				"userName":"adasd",
+				"userWechat":"dasas",
+ 				"rsm":[
+ 						{
+ 							"offer_id":69,
+ 							"timeStamp":"25-10-1993",
+ 							"content":"Free blowjob for all the Chinese guys born North of China given by:",
+ 							"userId":"Mademoiselle Coco",
+ 							"status":"Link here",
+ 							"seen":1
+ 						},
+ 						{
+ 							"offer_id":72,
+ 							"timeStamp":"14-12-1994",
+ 							"content":"Free blowjob for all the Chinese guys born South of China given by:",
+ 							"userId":"Cerise de Groupama",
+ 							"status":"Link here",
+ 							"seen":0
+ 						},
+ 					 ]
+             }	*/
+			 
+			                   
+					
         		var id =getCookie("otheruserid");
         		$.ajax({
 					type : "post",
@@ -338,15 +357,16 @@ function ShowUserProfile(){
 					url	: "ccpx/user/getUserProfile",
 					success : function(result){
 								if (result.errno==0) { 
-								$("#userPicture").attr("src",result.rsm.userPicture);
-								$("#userName").val(result.rsm.userName);
-								$("#userWechat").text(result.rsm.userWechat);
+								$("#userPicture").attr("src",result.userPicture);
+								$("#userName").text(result.userName);
+								$("#userWechat").text(result.userWechat);
 								var i;
 								$("#pointsTable").empty();	
                 				$.each(result.rsm, function (index, val) {
-                					//var logosellerfrom = (val.sellerfrom);							
+								var logosellerfrom = getSellerLogo(val.sellerFrom);
+					            var logosellerto = getSellerLogo(val.sellerTo);						
                                 i = index + 1;
-                                $("#pointsTable").append("<tr><td class='col-md-1'></td><td class='col-md-2'><img class='img-rounded' src='"+val.sellerfrom+"' width='50' height='50' /><b>"+val.seen+"</b>pts</td><td class='col-md-1'><br><i class='glyphicon glyphicon-circle-arrow-right'></i></td><td class='col-md-2'><img class='img-rounded' src='"+val.sellerto+"' width='50' height='50' /><b>"+val.seen+"</b>pts</td><td class='col-md-3'><img class='img-circle' src='img/bonus.png' width='50' height='50' /><a href='#' id='"+val.userId+"' onclick='SeeUserProfile(this.id)'>"+val.userId+"</a></td><td class='col-md-1'><button type='button'  id='"+val.userId+"' onclick='makeRequest(this.id)' class='btn btn-info btn-danger'><i class='glyphicon glyphicon-plus' style='color:black;'></i></button></td></tr>");
+                                $("#pointsTable").append("<tr><td class='col-md-1'></td><td class='col-md-2'><img class='img-rounded' src='"+logosellerfrom+"' width='50' height='50' /><b>"+val.seen+"</b>pts</td><td class='col-md-1'><br><i class='glyphicon glyphicon-circle-arrow-right'></i></td><td class='col-md-2'><img class='img-rounded' src='"+logosellerto+"' width='50' height='50' /><b>"+val.seen+"</b>pts</td><td class='col-md-3'><img class='img-circle' src='img/bonus.png' width='50' height='50' /><a href='#' id='"+val.userId+"' onclick='SeeUserProfile(this.id)'>"+val.userId+"</a></td><td class='col-md-1'><button type='button'  id='"+val.userId+"' onclick='makeRequest(this.id)' class='btn btn-info btn-danger'><i class='glyphicon glyphicon-plus' style='color:black;'></i></button></td></tr>");
                 				});
                 				$.cookie("otheruserid", null, { path: '/' });
                 				}
@@ -369,6 +389,7 @@ function SeeUserProfile(id){
 }
 
 function getUserExchangeOffers(){
+		
  	var id =getCookie("u_id");
 	var token =getCookie("u_token");
     data = {'u_id':id,'u_token':token};  
@@ -409,7 +430,8 @@ function getUserExchangeOffers(){
             	}
             	var logosellerfrom = getSellerLogo(val.sellerFrom);
                 var logosellerto = getSellerLogo(val.sellerTo);
-                $("#exchangeOffersList").append("<tr><td class='col-md-1'></td><td class='col-md-2'><img class='img-rounded' src='"+logosellerfrom+"' width='50' height='50' /><b>"+val.pointsFrom+"</b> pts</td><td class='col-md-1'><br><i class='glyphicon glyphicon-circle-arrow-right'></i></td><td class='col-md-2'><img class='img-rounded' src='"+logosellerto+"' width='50' height='50' /><b>"+val.pointsTo+"</b>pts</td><td class='col-md-3'><p>Candidates:<button type='button' onclick='window.location.href='SelectUserPage.html'' class='btn btn-success btn-xs' style='border-radius:50px;'><i class='glyphicon glyphicon-eye-open' ></i> &nbsp; select &nbsp; </button> </p><img class='img-circle' src='"+img1+"' width='50' height='50' /><img class='img-circle' src='"+img2+"' width='50' height='50' /><img class='img-circle' src='"+img3+"' width='50' height='50' /></td><td class='col-md-1'><button type='button' class='btn btn-danger btn-xs' style='border-radius:50px;' onclick='deleteOffer("+val.offer_id+")'><i class='glyphicon glyphicon-trash'></i></button></td></tr>")});
+               $("#exchangeOffersList").append("<tr><td class='col-md-1'></td><td class='col-md-2'><img class='img-rounded' src='"+logosellerfrom+"' width='50' height='50' /><b>"+val.pointsFrom+"</b> pts</td><td class='col-md-1'><br><i class='glyphicon glyphicon-circle-arrow-right'></i></td><td class='col-md-2'><img class='img-rounded' src='"+logosellerto+"' width='50' height='50' /><b>"+val.pointsTo+"</b>pts</td><td class='col-md-3'><p>Candidates:<a href = 'SelectUserPage.html'><button type='button' class='btn btn-success btn-xs' style='border-radius:50px;'><i class='glyphicon glyphicon-eye-open' ></i> &nbsp; select &nbsp; </button></a></p><img class='img-circle' src='"+img1+"' width='50' height='50' /><img class='img-circle' src='"+img2+"' width='50' height='50' /><img class='img-circle' src='"+img3+"' width='50' height='50' /></td><td class='col-md-1'><button type='button' class='btn btn-danger' onclick='deleteOffer("+val.offer_id+")'><i class='glyphicon glyphicon-trash'></i></button></td></tr>");
+				});
                 }
             else{
                 toastr.warning(result.err, "Warning:CODE "+result.errno); //pop up
@@ -423,7 +445,32 @@ function getUserExchangeOffers(){
 
 
 function getUserExchangeRequests(){
-var id =getCookie("u_id");
+/*	
+	var result = 	{
+ 				"err":"",
+ 				"errno":0,
+ 				"rsm":[
+ 						{
+ 							"offer_id":69,
+ 							"timeStamp":"25-10-1993",
+ 							"content":"Free blowjob for all the Chinese guys born North of China given by:",
+ 							"userId":"Mademoiselle Coco",
+ 							"status":"Link here",
+ 							"seen":0
+ 						},
+ 						{
+ 							"offer_id":72,
+ 							"timeStamp":"14-12-1994",
+ 							"content":"Free blowjob for all the Chinese guys born South of China given by:",
+ 							"userId":"Cerise de Groupama",
+ 							"status":"Link here",
+ 							"seen":0
+ 						},
+ 					 ]
+             }
+	          */  
+	
+    var id =getCookie("u_id");
 	var token =getCookie("u_token");
     data = {'u_id':id,'u_token':token};  
     $.ajax({
@@ -439,8 +486,7 @@ var id =getCookie("u_id");
 					i = index + 1;
 					var logosellerfrom = getSellerLogo(val.sellerFrom);
 					var logosellerto = getSellerLogo(val.sellerTo);
-					$("#exchangeRequestsList").append("<tr><td class='col-md-1'></td><td class='col-md-2'><img class='img-rounded' src='"+logosellerfrom+"' width='50' height='50' /><b>"+val.pointsFrom+"</b>pts</td><td class='col-md-1'><br><i class='glyphicon glyphicon-circle-arrow-right'></i></td><td class='col-md-2'><img class='img-rounded' src='"+logosellerto+"' width='50' height='50' /><b>"+val.pointsTo+"</b>pts</td><td class='col-md-2'><img class='img-circle' src='"+userPartner_picture+"' width='50' height='50' /><a onclick='SeeUserProfile("+val.userPartner+")'>"+val.userPartner+"</a></td><td class='col-md-1'>"+val.status+"</td><td class='col-md-1'><button type='button' class='btn btn-danger btn-xs' style='border-radius:50px;' id='deleteOffer("+val.offer_id+")' name='deleteofferbutton'><i class='glyphicon glyphicon-trash'></i></button></td></tr>")}
-                );
+					$("#exchangeRequestsList").append("<tr><td class='col-md-1'></td><td class='col-md-2'><img class='img-rounded' src='"+logosellerfrom+"' width='50' height='50' /><b>"+val.pointsFrom+"</b>pts</td><td class='col-md-1'><br><i class='glyphicon glyphicon-circle-arrow-right'></i></td><td class='col-md-2'><img class='img-rounded' src='"+logosellerto+"' width='50' height='50' /><b>"+val.pointsTo+"</b>pts</td><td class='col-md-2'><img class='img-circle' src='"+val.userPartner_picture+"' width='50' height='50' /><a href='#' onclick='SeeUserProfile("+val.userPartner+")'>"+val.userPartner+"</a></td><td class='col-md-1'>"+val.status+"</td><td class='col-md-1'><button type='button' class='btn btn-danger' onclick='deleteOffer("+val.offer_id+")' name='deleteofferbutton'><i class='glyphicon glyphicon-trash'></i></button></td></tr>");                     });
             }
             else{
                 toastr.warning(result.err, "Warning:CODE "+result.errno); //pop up
@@ -453,6 +499,7 @@ var id =getCookie("u_id");
 }
 
 function deleteOffer(offer_id){
+	//alert(offer_id);
 	$("#deleteofferbutton").attr({"disabled":"disabled"});
     var flag = false;
     var id =getCookie("u_id");
@@ -475,7 +522,7 @@ function deleteOffer(offer_id){
             toastr.error("error", "error");
         }
     });
-    //return false;
-    //$("#deleteofferbutton").removeAttr("disabled");
-    //return flag;
+    return false;
+    $("#deleteofferbutton").removeAttr("disabled");
+    return flag;
 }
