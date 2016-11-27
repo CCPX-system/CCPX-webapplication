@@ -118,37 +118,46 @@ function getSellerLogo(sellerId){
 				}
 			});
 }
-			
 
-
-function exchangesFound(){
+function exchangesFound(){  
 	var sellerfrom = getCookie("INPUTsellerfrom");
 	var sellerto = getCookie("INPUTsellerto");
 	var pointsfrom = getCookie("INPUTpointsfrom");
 	var pointsto = getCookie("INPUTpointsto");
 	var id = getCookie("u_id");
-	var token = getCookie("u_token");
-	var logosellerto = getSellerLogo(sellerto);
-	var logosellerfrom = getSellerLogo(sellerfrom);
+	var token = getCookie("u_token");  
+//	var logosellerto = getSellerLogo(sellerto);
+//	var logosellerfrom = getSellerLogo(sellerfrom);
 	
 // ------Test data----- //
-//  	var result = 	{
+ // 	var result = 	{
 // 				"err":"",
 // 				"errno":0,
 // 				"rsm":[
 // 						{
 // 							"points_from":100,
 // 							"points_to":200,
-// 							"user_from":"Jan"
+// 							"user_from":"Jan",
+//							"r_id":123213
 // 						},
 // 						{
 //							"points_from":100,
 // 							"points_to":200,
-// 							"user_from":"Florence"
+// 							"user_from":"Florence",
+//							"r_id":334,
+//							"logosellerfrom":"img/blue.png"
+// 						},
+//						{
+//							"points_from":100,
+// 							"points_to":200,
+// 							"user_from":"Florence",
+//							"r_id":3324,
+//							"logosellerfrom":"img/red.png"
 // 						}
 // 					 ]
 //             }
-	
+			
+	   
     $.ajax({
         type : "post",
         data : {'u_id':id,'u_token':token,'seller_from':sellerfrom,'seller_to':sellerto,'points_from':pointsfrom,'points_to':pointsto},
@@ -160,8 +169,9 @@ function exchangesFound(){
 				var i;
                 $.each(result.rsm, function (index, val) {
                 i = index + 1;
-                $("#exchangesFound").append("<tr><td class='col-md-1'></td><td class='col-md-2'><img id='"+logosellerfrom+"' class='img-rounded' width='50' height='50' /> <b>"+val.points_from+"</b> pts </td><td class='col-md-1'><br><i class='glyphicon glyphicon-circle-arrow-right'></i></td><td class='col-md-2'><img id='"+logosellerto+"' class='img-rounded' width='50' height='50' /><b>"+val.points_to+"</b> pts</td><td class='col-md-3'><img class='img-circle' src='img/bonus.png' width='50' height='50' /><a onclick='SeeUserProfile("+val.user_from+")'>"+val.user_from+"</a><td class='col-md-1'><button type='button' id='makerequest' class='btn btn-info btn-danger' ng-click='makeRequest("+val.r_id+")'><i class='glyphicon glyphicon-plus' style='color:black;'></i></button></td></tr>");			
-                });
+                $("#exchangesFound").append("<tr><td class='col-md-1'></td><td class='col-md-2'><img src='"+val.logosellerfrom+"' class='img-rounded' width='50' height='50' /> <b>"+val.points_from+"</b> pts </td><td class='col-md-1'><br><i class='glyphicon glyphicon-circle-arrow-right'></i></td><td class='col-md-2'><img src='"+val.logosellerto+"' class='img-rounded' width='50' height='50' /><b>"+val.points_to+"</b> pts</td><td class='col-md-3'><img class='img-circle' src='"+val.user_from_logo+"' width='50' height='50' /><a onclick='SeeUserProfile("+val.user_from+")'>"+val.user_from+"</a><td class='col-md-1'><button type='button' id='makerequest' class='btn btn-info btn-danger' onClick='makeRequest("+val.r_id+")'><i class='glyphicon glyphicon-plus' style='color:black;'></i></button></td></tr>");
+			    });
+				
                 return true;
 
             }else{
@@ -176,7 +186,8 @@ function exchangesFound(){
 }
 
 function makeRequest(offerId){
-    $("makerequest").attr({"disabled":"disabled"});
+	
+    $("#makerequest").attr({"disabled":"disabled"});
     var flag = false;
     var id =getCookie("u_id");
 	var token =getCookie("u_token");
@@ -192,7 +203,7 @@ function makeRequest(offerId){
             if (result.errno==0) { // parameter in their response
                 toastr.success(result.rsm.token, "Request sent");
                 alert('Request sent to the user successfully!');
-                location.href="ExchangeStatus.html"
+//                location.href="ExchangeStatus.html";
 
 
             }else{
