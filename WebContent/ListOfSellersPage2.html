@@ -71,7 +71,7 @@
 	            $("#sellerInfo").empty();
                 $.each(data, function (index, val) {
 					i = index + 1;
-					$("#sellerInfo").append("<tr><th scope='row'>"+i+"</th><td>"+val.seller_Name+"</td><td><img class='media-object' src='"+val.seller_Logo+"' alt='...' width='50px'></td><td><a href='#' id='"+val.industry_id+"'onclick='getCompanyDetail(this.id)'>"+val.seller_Description+"</a></td><td><button type='button' class='btn btn-success' id='"+val.industry_id+"' onclick='addMembership(this.id)'><i class='glyphicon glyphicon-plus' style='color:black;'></i></button></td></tr>");
+					$("#sellerInfo").append("<tr><th scope='row'>"+i+"</th><td><a href='#' id='"+val.seller_id+"'onclick='getCompanyDetail(this.id)'>"+val.seller_Name+"</a></td><td><img class='media-object' src='"+val.seller_Logo+"' alt='...' width='50px'></td><td>"+val.seller_Description+"</td><td><button type='button' class='btn btn-success' id='"+val.industry_id+"' onclick='addMembership(this.id)'><i class='glyphicon glyphicon-plus' style='color:black;'></i></button></td></tr>");
                 });
                 return true;
                 }     
@@ -105,7 +105,7 @@
                 var i;
                 $.each(data, function (index, val) {
                 i = index + 1;
-                $("#sellerInfo").append("<tr><th scope='row'>"+i+"</th><td>"+val.seller_Name+"</td><td><img class='media-object' src='"+val.seller_Logo+"' alt='...' width='50px'></td><td><a href='#' id='"+val.industry_id+"'onclick='getCompanyDetail(this.id)'>"+val.seller_Description+"</a></td><td><button type='button' class='btn btn-success' id='"+val.industry_id+"' onclick='addMembership(this.id)'><i class='glyphicon glyphicon-plus' style='color:black;'></i></button></td></tr>");
+                $("#sellerInfo").append("<tr><th scope='row'>"+i+"</th><td><a href='#' id='"+val.seller_id+"'onclick='getCompanyDetail(this.id)'>"+val.seller_Name+"</a></td><td><img class='media-object' src='"+val.seller_Logo+"' alt='...' width='50px'></td><td>"+val.seller_Description+"</td><td><button type='button' class='btn btn-success' id='"+val.industry_id+"' onclick='addMembership(this.id)'><i class='glyphicon glyphicon-plus' style='color:black;'></i></button></td></tr>");
                 });
                 return true;
                 }     
@@ -126,7 +126,7 @@
                 $("#sellerInfo").empty();
                 $.each(data, function (index, val) {
 					i = index + 1;
-				    $("#sellerInfo").append("<tr><th scope='row'>"+i+"</th><td>"+val.seller_Name+"</td><td><img class='media-object' src='"+val.seller_Logo+"' alt='...' width='50px'></td><td><a href='#' id='"+val.industry_id+"'onclick='getCompanyDetail(this.id)'>"+val.seller_Description+"</a></td><td><button type='button' class='btn btn-success' id='"+val.industry_id+"' onclick='addMembership(this.id)'><i class='glyphicon glyphicon-plus' style='color:black;'></i></button></td></tr>");
+				    $("#sellerInfo").append("<tr><th scope='row'>"+i+"</th><td><a href='#' id='"+val.seller_id+"'onclick='getCompanyDetail(this.id)'>"+val.seller_Name+"</a></td><td><img class='media-object' src='"+val.seller_Logo+"' alt='...' width='50px'></td><td>"+val.seller_Description+"</td><td><button type='button' class='btn btn-success' id='"+val.industry_id+"' onclick='addMembership(this.id)'><i class='glyphicon glyphicon-plus' style='color:black;'></i></button></td></tr>");
                 });
                 return true;
                 }   

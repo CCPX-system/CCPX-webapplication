@@ -21,8 +21,74 @@
         <script src="bootstrap/js/toastr.js"></script>
         <script src="bootstrap/js/toastr.min.js"></script>
     <script>
+/*var result ={
+    "err":"",
+    "errno":0,
+    "rsm":[
+        {
+            "points":300,
+            "points_blocked":0,
+            "seller_id":5,
+            "seller_name":"AIR CHINA",
+            "u_id":1
+        },
+        {
+            "points":100,
+            "points_blocked":0,
+            "seller_id":6,
+            "seller_name":"CATHAY PACIFIC",
+            "u_id":1
+        },
+        {
+            "points":150,
+            "points_blocked":0,
+            "seller_id":7,
+            "seller_name":"CHINA SOUTHERN AIRLINES",
+            "u_id":1
+        }
+	]
+}*/
+
+	 function getSellerLogo(sellerId){
+			//return "img/blue.png";
+					$.ajax({
+					type : "post",
+					dataType:"JSON",
+					data : { id: sellerId
+					},
+					async: false,
+					url	: "info/getSellerProfile",
+					success : function(data){
+		//						$("#logoSeller").attr("src",result.seller_Logo);
+								return data.seller_Logo;
+						},
+					error:function(){
+							toastr.error("error", "error");
+						}
+					});
+	  }
+	  
+	  function getCompanyDetail(id) {
+			$.ajax({
+				type: "POST",
+				dataType:"JSON",
+				url: "info/getCompanyDetail",
+				async: false,
+				data: { id: id
+				},
+				success: function (data) {
+				 if(data.message=="success"){
+					 location.href="CompanyPresentation.html";
+				 }
+				 else{
+					 alert("system exception!");
+				 }
+				}     
+			});
+		}
+
 	 function ShowPoints()
-		{
+		{	
 			 data = { 'u_id': $.cookie('u_id'), 'u_token': $.cookie('u_token')};
 			 $.ajax({
 					type: "GET",
@@ -35,8 +101,9 @@
 							var i;
 							$("#CompanyPoints").empty();
 							$.each(result.rsm, function (index, val) {
-								i = index + 1;
-								$("#CompanyPoints").append("<tr><th scope='row'>"+i+"</th><td>"+val.points+"</td><td>"+val.seller_name+"</td><td><a href='CompanyPresentation2.html'><img class='media-object' src='"+val.seller_Logo+"' alt='...' width='50px'></td></a></tr>");
+								var logoseller = getSellerLogo(val.seller_id);
+					            i = index + 1;
+								$("#CompanyPoints").append("<tr><th scope='row'>"+i+"</th><td>"+val.points+"</td><td><a href='#' id='"+val.seller_id+"'onclick='getCompanyDetail(this.id)'>"+val.seller_name+"</a></td><td><a href='CompanyPresentation2.html'><img class='media-object' src='"+logoseller+"' alt='...' width='50px'></td></a></tr>");
 							});	
 						}
 						else{
