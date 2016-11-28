@@ -132,7 +132,7 @@ function exchangesFound(){
 	var logosellerfrom = getSellerLogo(sellerfrom);
 	//alert(sellerfrom);
 // ------Test data----- 
-  /*	var result = 	{
+ /* 	var result = 	{
  				"err":"",
  				"errno":0,
  				"rsm":[
@@ -147,18 +147,15 @@ function exchangesFound(){
  							"points_to":200,
  							"user_from":"Florence",
 							"r_id":334,
-							"logosellerfrom":"img/blue.png"
  						},
 						{
 							"points_from":100,
  							"points_to":200,
  							"user_from":"Florence",
 							"r_id":3324,
-							"logosellerfrom":"img/red.png"
  						}
  					 ]
-             }
-			*/
+             }*/		 
 	   
     $.ajax({
         type : "post",
@@ -172,7 +169,7 @@ function exchangesFound(){
 				$("#exchangesFound").empty();
                 $.each(result.rsm, function (index, val) {
                 i = index + 1;
-                $("#exchangesFound").append("<tr><td class='col-md-1'></td><td class='col-md-2'><img src='"+logosellerfrom+"' class='img-rounded' width='50' height='50' /> <b>"+val.points_from+"</b> pts </td><td class='col-md-1'><br><i class='glyphicon glyphicon-circle-arrow-right'></i></td><td class='col-md-2'><img src='"+logosellerto+"' class='img-rounded' width='50' height='50' /><b>"+val.points_to+"</b> pts</td><td class='col-md-3'><img class='img-circle' src='"+val.user_from_logo+"' width='50' height='50' /><a href='#' id='"+val.user_from+"' onclick='SeeUserProfile(this.id)'>"+val.user_from+"</a><td class='col-md-1'><button type='button' id='makerequest' class='btn btn-info btn-danger' onClick='makeRequest("+val.r_id+")'><i class='glyphicon glyphicon-plus' style='color:black;'></i></button></td></tr>");
+                $("#exchangesFound").append("<tr><td class='col-md-1'></td><td class='col-md-2'><img src='"+logosellerfrom+"' class='img-rounded' width='50' height='50' /> <b>"+val.points_from+"</b> pts </td><td class='col-md-1'><br><i class='glyphicon glyphicon-circle-arrow-right'></i></td><td class='col-md-2'><img src='"+logosellerto+"' class='img-rounded' width='50' height='50' /><b>"+val.points_to+"</b> pts</td><td class='col-md-3'><img class='img-circle' src='"+val.user_from_logo+"' width='50' height='50' /><a href='#' id='"+val.user_id+"' onclick='SeeUserProfile(this.id)'>"+val.user_from+"</a><td class='col-md-1'><button type='button' id='makerequest' class='btn btn-info btn-danger' onClick='makeRequest("+val.r_id+")'><i class='glyphicon glyphicon-plus' style='color:black;'></i></button></td></tr>");
 			    });
 				
                 return true;
@@ -320,7 +317,7 @@ function markedSeen(notificationId){
 
 
 function ShowUserProfile(){
-		/* var result = 	{
+	/*	 var result = 	{
  				"err":"",
  				"errno":0,
 				"userName":"adasd",
@@ -345,9 +342,8 @@ function ShowUserProfile(){
  					 ]
              }	*/
 			 
-			                   
-					
-        		var id =getCookie("otheruserid");
+                var id = newsid;
+				//alert(id);
         		$.ajax({
 					type : "post",
 					dataType:"JSON",
@@ -382,8 +378,9 @@ function ShowUserProfile(){
 
 function SeeUserProfile(id){
 	
-	setCookie("otheruserid",data);
-	location.href="UserProfilePage.html";
+	//setCookie("otheruserid",data);
+	//alert(id);
+	location.href="UserProfilePage.html? uid="+ id;
 	
 
 }
