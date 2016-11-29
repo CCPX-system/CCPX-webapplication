@@ -126,6 +126,7 @@
 			
 			
 			<!-- Select Basic -->
+<!-- 
 			<div class="form-group">
 			  <label class="col-md-5 col-sm-4 col-xs-3 control-label" for="selectbasic">according to the time display</label>
 			  <div class="col-md-2 col-sm-4 col-xs-6">
@@ -137,6 +138,7 @@
 				</select>
 			  </div>
 			</div>
+ -->
 			
 			<!-- From To -->
 			<div class="form-group">
@@ -144,20 +146,21 @@
 				<div class="col-md-2 col-sm-4 col-xs-6">
 					From
 					<div class='input-group date' id='datetimepicker1'>
-						<input type='date' class="form-control" />
+						<input id="datefrom" type="text" class="form_datetime form-control" />
 						<span class="input-group-addon">
 							<span class="glyphicon glyphicon-calendar"></span>
 						</span>
 					</div>
 					To 
 					<div class='input-group date' id='datetimepicker2'>
-						<input type='date' class="form-control" />
+						<input id="dateto" type="text" class="form_datetime form-control" />
 						<span class="input-group-addon">
 							<span class="glyphicon glyphicon-calendar"></span>
 						</span>
 					</div>
 				</div>
             </div>
+<!-- 
 			<script type="text/javascript">
 				$(function () {
 					$('#datetimepicker1').datetimepicker();
@@ -166,14 +169,21 @@
 					$('#datetimepicker2').datetimepicker();
 				});
 			</script>
-			
+ -->
+			<script type="text/javascript">
+							$(".form_datetime").datetimepicker( {  
+									format: 'Y-m-d',
+									autoclose: true
+							});
+						
+			</script>
 			
 			<!-- Button -->
 			<div class="form-group">
 				<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="submitbutton">
 				</label>
 				<div class="col-md-2 col-sm-4 col-xs-6">
-					<button href="#" id="submitbutton" name="submitbutton" type="submit" class="btn btn-primary center-block">Search</button>
+					<button id="submitbutton" name="submitbutton" type="submit" class="btn btn-primary center-block" onclick="sendIntelQuery()">Search</button>
 				</div>
 			</div>
 

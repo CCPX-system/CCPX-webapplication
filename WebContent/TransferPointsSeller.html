@@ -97,8 +97,9 @@
 			
 			<form class="form-horizontal">
 			<fieldset>
+<!-- 
 			
-				<!-- Time Display input-->
+				<!~~ Time Display input~~>
 				<div class="form-group">
 					<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="CompanysName"> According to the time display:
 					</label>  
@@ -110,6 +111,7 @@
 						</select>
 					</div>
 				</div>
+ -->
 				
 				<!-- Time Search input-->
 				<div class="form-group">
@@ -138,6 +140,7 @@
 							});
 						
 				    </script>
+				    <br>
                     <button type="button" class="btn btn-default btn-info"><i class="glyphicon glyphicon-search"></i></button>
 				</div>
 			
@@ -151,7 +154,9 @@
 		  </div>
 		  <div class="col-md-7 column">
           <p class="col-md-6 column"><b>Income Points:</b><span></span></p>
+          <p class="col-md-6 column"><b id="In_points"</b><span></span></p>
           <p class="col-md-6 column"><b>Outcome Points:</b><span></span></p>
+          <p class="col-md-6 column"><b id="Out_Points"</b><span></span></p>
           <hr class="col-md-12">
   		  </div>
 		  <div class="col-md-3 column">
@@ -184,7 +189,9 @@
 					  <th>Timestamp</th>
 					</tr>
 				  </thead>
-				  <tbody>
+				  <tbody id="transfersTable">
+				  
+				  <!-- exemple-->
 					<tr>
 					  <th scope="row">1</th>
 					  <td>Mark</td>
@@ -192,20 +199,7 @@
 					  <td>@mdo</td>
 					  <td>XXXXX</td>
 					</tr>
-					<tr>
-					  <th scope="row">2</th>
-					  <td>Jacob</td>
-					  <td>Thornton</td>
-					  <td>@fat</td>
-					  <td>XXXXX</td>
-					</tr>
-					<tr>
-					  <th scope="row">3</th>
-					  <td>Larry</td>
-					  <td>the Bird</td>
-					  <td>@twitter</td>
-					  <td>XXXXX</td>
-					</tr>
+
 				  </tbody>
 				</table>
 			</div>

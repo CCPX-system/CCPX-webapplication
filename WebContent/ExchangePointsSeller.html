@@ -81,8 +81,8 @@
 			
 			<form class="form-horizontal">
 			<fieldset>
-			
-				<!-- Time Display input-->
+	<!-- 
+				<!~~ Time Display input~~>
 				<div class="form-group">
 					<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="CompanysName"> According to the time display:
 					</label>  
@@ -94,8 +94,11 @@
 						</select>
 					</div>
 				</div>
+ -->
 				
 				<!-- Time Search input-->
+				<br>
+				<br>
 				<div class="form-group">
 					<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="CompanysName"> According to the time to search:
 					</label>  
@@ -122,7 +125,8 @@
 							});
 						
 				    </script>
-                    <button type="button" class="btn btn-default btn-info"><i class="glyphicon glyphicon-search"></i></button>
+				    <br>
+                    <button type="button" class="btn btn-default btn-info" onclick="exchangesRecords()"><i class="glyphicon glyphicon-search"></i></button>
 				</div>
 			
 			</fieldset>
@@ -133,10 +137,12 @@
           <div class="row clearfix">
 		  <div class="col-md-2 column">
 		  </div>
+<!-- 
 		  <div class="col-md-7 column">
           <p><b>total points:</b><span></span></p>
           <hr class="col-md-12">
   		  </div>
+ -->
 		  <div class="col-md-3 column">
 		  </div>
 	      </div>
@@ -149,11 +155,13 @@
 			<h4 class="muted">
 				Latest Exchange Records
 			</h4>
+<!-- 
 		  </div>
 		  <div class="col-md-3 col-sm-2 col-xs-2 column">
 			 <button type="button" class="btn btn-success"><i class="glyphicon glyphicon-repeat"></i> advanced search</button>
 		  </div>
 	      </div>
+ -->
           
           <div class="row clearfix">
           <div class="col-md-1 column">
@@ -164,30 +172,16 @@
 				  <thead class="thead-inverse">
 					<tr>
 					  <th>User Name</th>
-                      <th>business of gainning points</th>
-					  <th>gain points</th>
-					  <th>business of losing points</th>
-                      <th>lose points</th>
+                      <th>Business of gainning points</th>
+					  <th>Gain points</th>
+					  <th>Business of losing points</th>
+                      <th>Lose points</th>
 					  <th>Timestamp</th>
 					</tr>
 				  </thead>
-				  <tbody>
-					<tr>
-					  <td>apple</td>
-					  <td>100</td>
-					  <td>200</td>
-					  <td>50</td>
-                      <td>50</td>
-					  <td>XXXXX</td>
-					</tr>
-					<tr>
-					  <td>grape</td>
-					  <td>100</td>
-					  <td>300</td>
-					  <td>50</td>
-                      <td>500</td>
-					  <td>XXXXX</td>
-					</tr>
+				  <tbody id="exchangesTable">
+				  
+					<!-- exemple -->
 					<tr>
 					  <td>pineapple</td>
 					  <td>100</td>
@@ -196,14 +190,7 @@
                       <td>50</td>
 					  <td>XXXXX</td>
 					</tr>
-                    <tr>
-					  <td>orange</td>
-					  <td></td>
-					  <td></td>
-					  <td></td>
-                      <td></td>
-					  <td></td>
-					</tr>
+					
 				  </tbody>
 				</table>
 			</div>

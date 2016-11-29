@@ -14,6 +14,7 @@ function getSellerInfoByIndustryID(id) {
                 $("#sellerInfo").append("<tr><th scope='row'>"+i+"</th><td>"+val.seller_Name+"</td><td><img class='media-object' src='"+val.seller_Logo+"' alt='...' width='50px'></td><td>"+val.seller_Description+"</td></tr>");
                 });
                 return true;
+                
                 }     
             });
         }
@@ -200,6 +201,40 @@ function checkSeller() {
  }
  } 
 
+function checkSellerSystem() {
+ var uname=document.getElementById("ID").value;  // 找到元素
+ var passwd=document.getElementById("password").value;  // 找到元素
+ if (uname == "") {
+     alert("Username cannot be empty");
+     return false;
+ }
+ else if (passwd == "") {
+     alert("Password cannot be empty");
+     return false;
+ }
+ else {
+     $.ajax({
+         type: "POST",
+         dataType:"JSON",
+         url: "seller/checkSellerSystem",
+         async: false,
+         data: { username: uname,
+             password: passwd
+         },
+         success: function (data) {
+             if (data.message == "success") {
+                 location.href="MyPoints.html";
+                 //location.href="ListOfSellersPage.jsp";
+             }
+             else{
+             alert(data.message);
+             return false;
+             }
+         }
+     });
+ }
+ } 
+
 
 function setCookie(name,value)
 {
@@ -362,3 +397,81 @@ function ShowProfile(){
 					
 					})
         		}
+    
+function sendIntelQuery() {
+    var date_from=document.getElementById("datefrom").value;  
+    var date_to=document.getElementById("dateto").value;  
+        $.ajaxFileUpload({
+            type: "POST",
+            dataType:"text",
+            url: "seller/sendIntelQuery",
+            secureuri : false,
+            fileElementId : "Logo",
+            async: false,
+            data: {
+            date_from:date_from,
+            date_to:date_to
+            },
+            success: function (data) {//返回数据的数据不能用object形式读，ajaxFileUpload代码有问题
+            	if(data=="success"){
+            	location.href="TradingChartPointsSeller.html";
+            	}
+            	else if(data=="false_exception"){
+            		alert("system exceptions! Please try again.");
+            	}else if(data=="false_format_not_correct"){
+            		alert("Image format is not correct!");
+            	}else if(data=="false_type_null"){
+            		alert("File format cannot be empty!");
+            	}else if(data=="false_size_too_big")
+            		alert("The picture is too big!");
+            	}
+        });
+    }
+
+function getExchanges(){
+			var date_from=document.getElementById("datetimepicker1").value;
+			var date_to=document.getElementById("datetimepicker2").value;
+            $.ajax({
+                type: "POST",
+                dataType:"JSON",
+                url: "info/exchangesPoints",
+                async: false,
+                data: { 
+                date_from:date_from,
+           		date_to:date_to
+                },
+                success: function (data) {
+                var i;
+                $("#exchangesTable").empty();
+                $.each(data, function (index, val) {
+                i = index + 1;
+                $("#exchangesTable").append("<tr><td>"+val.user_name+"</td><td>"+val.company_from+"</td><td>"+val.points_from"</td><td>"+val.company_to+"</td><td>"+val.points_to+"</td><td>"+val.timestamp+"</td></tr>");
+                });
+                return true;
+                }   
+            });
+}
+
+function getTransfers(){
+			var date_from=document.getElementById("datetimepicker1").value;
+			var date_to=document.getElementById("datetimepicker2").value;
+            $.ajax({
+                type: "POST",
+                dataType:"JSON",
+                url: "info/exchangesPoints",
+                async: false,
+                data: { 
+                date_from:date_from,
+           		date_to:date_to
+                },
+                success: function (data) {
+                var i;
+                $("#transfersTable").empty();
+                $.each(data, function (index, val) {
+                i = index + 1;
+                $("#transfersTable").append("<tr><th scope='row'>"+i"</th><td>"+val.user+"</td><td>"+val.company_to+"</td><td>"+val.points_to+"</td><td>"+val.timestamp+"</td></tr>");
+                });
+                return true;
+                }   
+            });
+}

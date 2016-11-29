@@ -2,7 +2,7 @@
 <html lang="en">
 
 	<head>
-		<title>Company's Presentation</title>
+		<title>Company's Description</title>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -19,10 +19,11 @@
 	
 	<body>
 		<div class="container">
+		
 			<div class="header">
 
 				<!-- Form Name -->
-				<legend>Company's Presentation</legend>
+				<legend>Company's Description </legend>
 			
 				<!-- Navbar --> 
 				<nav class="navbar navbar-default" style="background-image: url('img/blue.png'); background-position : 10% 10%;" role="navigation">
@@ -44,11 +45,11 @@
 						<div class="collapse navbar-collapse" id="mynav">
 							<ul class="nav navbar-nav center-block pull-right">
 								<li class="nav-item pull-left">
-								  <a class="nav-link" href="HomePage.html"><span class="glyphicon glyphicon-home"></span><U> Home</U></a>
+								  <a class="nav-link" href="HomePage.html"><span class="glyphicon glyphicon-home"></span> Home </a>
 								</li>
 								
 								<li class="nav-item pull-left">
-								  <a class="nav-link" href="MyAccount.html"><span class="glyphicon glyphicon-user"></span> My Account </a>
+								  <a class="nav-link" href="MyAccount.html"><span class="glyphicon glyphicon-user"></span><U> My Account </U></a>
 								</li>
 								
 								 <li class="nav-item pull-left">
@@ -56,7 +57,7 @@
 								</li>
 								
 								<li class="nav-item pull-left">
-								<a class="nav-link" href="ListOfSellers2Page.html"><span class="glyphicon glyphicon-shopping-cart"></span> List Of Companies </a>
+								<a class="nav-link" href="ListOfSellersPage2.html"><span class="glyphicon glyphicon-shopping-cart"></span> List Of Companies </a>
 								</li>	
                                 
                                 <li class="nav-item pull-left">
@@ -69,11 +70,14 @@
                                 
                                 <li class="nav-item pull-left">
 								<a class="nav-link" href="MainPage.html"><span class="glyphicon glyphicon-log-out"></span> Logout </a>
-								</li>														
+								</li>															
 							</ul>
 						</div> 
 					</div>
 				</nav>
+			
+			
+				<!-- Website Logo -->
 				
 				<div class="row center-block" style="width:650PX;">
             
@@ -81,7 +85,7 @@
 						<img class="img-responsive" src="img/logo.png"/>
 					</div>
 					
-                    <h2><b>Company's Presentation</b></h2>     
+                    <h2><b>Company's Description</b></h2>     
 			     </div>
 			
 				<!-- message-->
@@ -98,24 +102,25 @@
 <br>
 
 	
-<!-- Companies Logo -->
-			<div class="row">
-				<label class="col-md-3 col-sm-1 col-xs-1 control-label" for="CompanyLogo"></label>
-				<div class="col-md-2 col-sm-4 col-xs-6">
-						<img class="img-responsive center-block" src="img/CompanyLogo.png" width="80%" />
-				</div>
-					<h3 style="color:#39F; margin-bottom: 20px">Company's Name</h3>
+	        <!-- Companies Logo -->
+	            <div class="row center-block" style="width:650PX;">
+            
+				    <div class="col-md-3 col-sm-1 col-xs-1">
+						<img class="img-responsive" src="${seller_result.seller_Logo}"  style="width:140px;hight:79px;" />
+					</div>
+					
+                    <h3 style="color:#39F">${seller_result.seller_Name}</h3>     
+			     </div>
+				
 			<div class="row center-block" >
 			<div class="col-md-1 col-sm-1 col-xs-1"></div>
 		        <div class="col-md-10 col-sm-10 col-xs-10" style="background-color:#ECECEC"  >
 			    <h2>
-				Heading
+				Description
 			    </h2>
-			   <p> lkd lamd ;lwemdn;lm ;;KJENBFkj dvKJSDn ksndolamwepWNXKJad VKDJFMVBakeNDVOaiENRLEn
-			   ksjbdkjbnvkajnv KAJv df vkdjfnkenrflWJOEHRNFIEUBFIUERBFLKWANOSJOAEMF;EF
-			    LSKJANBDOWIEHFNBOnfeaeknfaeorngpoaen vnlnsdmlcjpowemnfksdmcslkdnvkjn
+			   <p> ${seller_result.seller_Description}
 			   <br>
-			   </P>
+			   </p>
 			   
 			  
 				<br>
@@ -131,10 +136,14 @@
 			   
 			  
 			   
+<!-- 
 			   <div class="row center-block" style="width:100PX;"  >
-			    <button type="button" class="btn btn-info btn-lg" onclick="window.location.href='ListOfSellers2Page.html'">Back</button>
+					<form action="ListOfSellersPage.html">
+			 		   <button type="submit" class="btn btn-info btn-lg" value="Submit" onclick="window.location.href='ListOfSellersPage.html'">Back</button>
+            		</form> 
 				</div>
 			
+ -->
 
 	</div>
 		
