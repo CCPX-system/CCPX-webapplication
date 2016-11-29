@@ -103,6 +103,7 @@ function historyTable(){
 // 			})
 			
 function getSellerLogo(sellerId){
+	  
 			$.ajax({
 			type : "post",
 			dataType:"JSON",
@@ -534,13 +535,13 @@ function deleteOffer(offer_id){
 
 
 function showCandidates(){
-	/*
-	var result = 	{
+	
+	/* var result = 	{
  				"err":"",
  				"errno":0,
  				"rsm":[
  						{
- 							"offer_id":69,
+ 							"request_id":69,
  							"timeStamp":"25-10-1993",
  							"content":"Free blowjob for all the Chinese guys born North of China given by:",
  							"userId":"Mademoiselle Coco",
@@ -548,7 +549,7 @@ function showCandidates(){
  							"seen":0
  						},
  						{
- 							"offer_id":72,
+ 							"request_id":72,
  							"timeStamp":"14-12-1994",
  							"content":"Free blowjob for all the Chinese guys born South of China given by:",
  							"userId":"Cerise de Groupama",
@@ -568,10 +569,10 @@ function showCandidates(){
  						$("#logosellerto").attr("src",logosellerto);		
  						var i;		
  						$("#candidatesTable").empty();			
- 						$.each(result.rsm.requests, function (index, val) {		
+ 						$.each(result.rsm, function (index, val) {		
  							i = index + 1;		
- 							$("#candidatesTable").append("<tr><td class='col-md-1'></td><td class='col-md-2'><img class='img-rounded' src='"+logosellerto+"' width='50' height='50' /><b>"+val.proposition+"</b>pts</td><td class='col-md-3'><p><img class='img-circle' src='"+val.candidatePicture+"' width='50' height='50' /><a onclick='SeeUserProfile("+val.candidate+")'>"+val.candidate+"</a></p><p>"+val.candidateWechat+"</p></td><td class='col-md-1'><button id='acceptRequestButton' type='button' class='btn btn-info btn-danger' onclick='accept_request("+val.request_id+")'> Accept </button></td><td id='rejectRequestButton' class='col-md-1'><button type='button' class='btn btn-info btn-danger' onclick='reject_request("+val.request_id+")'> Reject </button> </td> </tr> ");		
- 						});	*/	
+ 							$("#candidatesTable").append("<tr><td class='col-md-1'></td><td class='col-md-2'><img class='img-rounded' src='"+logosellerto+"' width='50' height='50' /><b>"+val.proposition+"</b>pts</td><td class='col-md-3'><p><img class='img-circle' src='"+val.candidatePicture+"' width='50' height='50' /><a href ='#' onclick='SeeUserProfile("+val.candidate+")'>"+val.candidate+"</a></p><p>"+val.candidateWechat+"</p></td><td class='col-md-1'><button id='acceptRequestButton' type='button' class='btn btn-info btn-danger' onclick='accept_request("+val.request_id+")'> <i class='glyphicon glyphicon-ok'></i> </button></td><td id='rejectRequestButton' class='col-md-1'><button type='button' class='btn btn-info btn-danger' onclick='reject_request("+val.request_id+")'> <i class='glyphicon glyphicon-remove'></i> </button> </td> </tr> ");		
+ 						});  */
 
 	
      		var offerId =getCookie("select_candidate_offer_id");		
@@ -584,30 +585,31 @@ function showCandidates(){
  			url	: "ccpx/user/showCandidate",		
  			success : function(result){		
  						if (result.errno==0) { 		
- 						$("#PointsFrom").text("src",result.rsm.pointsFrom);		
- 						$("#PointsTo").text("src",result.rsm.pointsTo);		
+ 						 $("#PointsFrom").text(result.pointsFrom);		
+ 						$("#PointsTo").text(result.pointsTo);		
  						var logosellerfrom=getSellerLogo(result.rsm.sellerFrom);		
  						$("#logosellerfrom").attr("src",logosellerfrom);		
  						var logosellerto = getSellerLogo(result.rsm.sellerTo);		
  						$("#logosellerto").attr("src",logosellerto);		
  						var i;		
  						$("#candidatesTable").empty();			
- 						$.each(result.rsm.requests, function (index, val) {		
+ 						$.each(result.rsm, function (index, val) {		
  							i = index + 1;		
- 							$("#candidatesTable").append("<tr><td class='col-md-1'></td><td class='col-md-2'><img class='img-rounded' src='"+logosellerto+"' width='50' height='50' /><b>"+val.proposition+"</b>pts</td><td class='col-md-3'><p><img class='img-circle' src='"+val.candidatePicture+"' width='50' height='50' /><a onclick='SeeUserProfile("+val.candidate+")'>"+val.candidate+"</a></p><p>"+val.candidateWechat+"</p></td><td class='col-md-1'><button id='acceptRequestButton' type='button' class='btn btn-info btn-danger' onclick='accept_request("+val.request_id+")'> Accept </button></td><td id='rejectRequestButton' class='col-md-1'><button type='button' class='btn btn-info btn-danger' onclick='reject_request("+val.request_id+")'> Reject </button> </td> </tr> ");		
- 						});		
- //						$.cookie("select_candidate_offer_id", null, { path: '/' });		
+ 							$("#candidatesTable").append("<tr><td class='col-md-1'></td><td class='col-md-2'><img class='img-rounded' src='"+logosellerto+"' width='50' height='50' /><b>"+val.proposition+"</b>pts</td><td class='col-md-3'><p><img class='img-circle' src='"+val.candidatePicture+"' width='50' height='50' /><a href ='#' onclick='SeeUserProfile("+val.candidate+")'>"+val.candidate+"</a></p><p>"+val.candidateWechat+"</p></td><td class='col-md-1'><button id='acceptRequestButton' type='button' class='btn btn-info btn-danger' onclick='accept_request("+val.request_id+")'> <i class='glyphicon glyphicon-ok'></i> </button></td><td id='rejectRequestButton' class='col-md-1'><button type='button' class='btn btn-info btn-danger' onclick='reject_request("+val.request_id+")'> <i class='glyphicon glyphicon-remove'></i> </button> </td> </tr> ");		
+ 						}); 
+ 						$.cookie("select_candidate_offer_id", null, { path: '/' });		
  		
  						}		
  						else{		
  						 toastr.warning(result.err, "Warning:CODE "+result.errno);		
  						}		
  						}		
- 			});		
+ 			});	
+			
  }		
  		
- function accept_request(offer_id){		
- 	$("acceptRequestButton").attr({"disabled":"disabled"});		
+ function accept_request(offer_id){	
+ 	$("#acceptRequestButton").attr({"disabled":"disabled"});		
      var flag = false;		
      var id =getCookie("u_id");		
      var token =getCookie("u_token");		
@@ -636,8 +638,9 @@ function showCandidates(){
      return flag;		
  }		
  		
- function reject_request(offer_id){		
- 	$("rejectRequestButton").attr({"disabled":"disabled"});		
+ function reject_request(offer_id){	
+  
+ 	$("#rejectRequestButton").attr({"disabled":"disabled"});		
      var flag = false;		
      var id =getCookie("u_id");		
      var token =getCookie("u_token");		
