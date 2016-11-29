@@ -1,5 +1,14 @@
 /******************** quentin ************************/
 
+function getCookie(name)
+{
+var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+if(arr=document.cookie.match(reg))
+return unescape(arr[2]);
+else
+return null;
+}
+
 function check_login_form(){
 {
     $("loginbutton").attr({"disabled":"disabled"});
@@ -57,29 +66,29 @@ function check_login_form(){
 }
 }
 
-function edit_profile(){
+function edit_profile(){ // checked
 {
     //$("registerbutton").attr({"disabled":"disabled"});
     var flag = false;
     username = $("#Usernane").val();
     pwd =  $("#password").val();
-	wechatid = $("wechatId").val();
-	email = $("Email").val();
+	wechatid = $("#wechatId").val();
+	email = $("#Email").val();
 	/*phonenumber = $("PhoneNumber").val();*/
-	oldpwd = $("useroldpassword").val();
-	newpwd = $("userpassword").val();
-	confirmpwd = $("confirmPassword").val();
+	oldpwd = $("#useroldpassword").val();
+	newpwd = $("#userpassword").val();
+	confirmpwd = $("#confirmPassword").val();
 	
     var reg = new RegExp("^\\w*$"); // match/cleans the entry (spaces,...), for verifying entry
 	var filter = /^(([^<>()[]\.,;:s@"]+(.[^<>()[]\.,;:s@"]+)*)|(".+"))@(([[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}])|(([a-zA-Z-0-9]+.)+[a-zA-Z]{2,}))$/; // filter for email adress
 
 // this part we will copy-paste everywhere where there are entries
 
-	if (!filter.test(email.value)){
+	/*if (!filter.test(email)){
 		toastr.warning("Your mail adress is not valid", "Warning");
         $("#Email").focus();
         return false;
-	}
+	}*/
 	/*
 	if(!isNaN(phonenumber)){
 		toastr.warning("Your phone number is not valid", "Warning");
@@ -101,7 +110,29 @@ function edit_profile(){
 	}
     
     data = {'wechat_id':wechatid,'new_pw_hash':$.md5(newpwd), 'email':email/*, 'phone_number':phonenumber*/}; //creating json file
-    
+    //alert(data.wechat_id);
+	
+	
+		/**** test ***
+	alert('test')
+	var result={
+		"err":"",
+		"errno":0,
+		"rsm":{
+			"u_email":"emaillll",
+			"fullname":"fullnammme",
+			"id":1,
+			"name": "nammme",
+			"token":"2349hdkdj2344fhsb",
+			"wechatid":"wwwwwww",
+			"u_pw_hash":""
+			
+			
+		}
+		
+	}
+	*** end test ***/
+	 
     
     $.ajax({
         type : "post",
@@ -135,7 +166,7 @@ function edit_profile(){
 }
 
 
-/******************************working*****************************/
+
 function get_recent_activity(){
 {
     $("makeoffer").attr({"disabled":"disabled"});
@@ -145,6 +176,31 @@ function get_recent_activity(){
 
     data = {'seller-from':sellerA,'seller_to':sellerB}; //creating json file
 
+	
+			/**** test ***/
+	alert('test RA')
+	var result={
+		"err":"",
+		"errno":0,
+		"rsm":{
+			"u_email":"emaillll",
+			"fullname":"fullnammme",
+			"id":1,
+			"name": "nammme",
+			"token":"2349hdkdj2344fhsb",
+			"wechatid":"wwwwwww",
+			"u_pw_hash":"",
+			"points_from":500,
+			"points_to": 300,
+			"user_from":"userfrom",
+			"user_to":"jean-jacques"
+			
+		}
+		
+	}
+	/*** end test ***/
+	
+	
     $.ajax({
         type : "get",
         data : data,
@@ -181,8 +237,8 @@ function get_recent_activity(){
 
 function get_profile(){
 	
-	/**** test ***/
-	alert("hey");
+	/**** test ***
+	alert('test')
 	var result={
 		"err":"",
 		"errno":0,
@@ -202,9 +258,9 @@ function get_profile(){
 	
 	$("#wechatId").val(result.rsm.wechatid);
 	$("#Email").val(result.rsm.u_email);
-	/*$("#PhoneNumber").text(result.rsm."");*/
 	
-	/**** end test ***/
+	
+	**** end test ***/
 	
 	
 	var id = getCookie("u_id");
@@ -237,12 +293,35 @@ function get_profile(){
 }
 
  function getSellerInfo() {
+	
+	/**** test ****/
+		var data = {
+			{
+				"seller_Name":"sellera",
+				"seller_id":1
+			},{
+				"seller_Name":"sellerb",
+				"seller_id":2
+			},{
+				"seller_Name":"sellerc",
+				"seller_id":3
+			}
+		};
+		
+		var i;
+			$.each(data, function (index, val) {
+				$("#selectbasic1").append("<option value="+ i +">" + val.seller_Name + "</option>");
+				$("#selectbasic2").append("<option value="+ i +">" + val.seller_Name + "</option>");
+				i += 1;
+			});
+		
+		/**** end test ****/
+	
 	$.ajax({
 		type: "POST",
 		dataType:"JSON",
 		url: "info/getSellerInfo",
 		async: false,
-		
 		success: function (data) {
 			var i;
 			$.each(data, function (index, val) {
