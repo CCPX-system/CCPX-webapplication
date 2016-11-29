@@ -197,7 +197,7 @@ function get_recent_activity(){
 			
 		}
 		
-	}
+	};
 	/*** end test ***/
 	
 	
@@ -293,29 +293,31 @@ function get_profile(){
 }
 
  function getSellerInfo() {
+{
 	
 	/**** test ****/
+		alert('testB');
+		
+		
+		
+		
+		
 		var data = {
-			{
 				"seller_Name":"sellera",
-				"seller_id":1
-			},{
 				"seller_Name":"sellerb",
-				"seller_id":2
-			},{
-				"seller_Name":"sellerc",
-				"seller_id":3
-			}
+				"seller_Name":"sellerbis"
 		};
 		
 		var i;
-			$.each(data, function (index, val) {
-				$("#selectbasic1").append("<option value="+ i +">" + val.seller_Name + "</option>");
-				$("#selectbasic2").append("<option value="+ i +">" + val.seller_Name + "</option>");
-				i += 1;
-			});
+		$("#selectbasic1").empty();
+		$("#selectbasic2").empty();
+		$.each(data, function (index, val) {
+			i=index+1;
+			$("#selectbasic1").append("<option value="+ i +">" + val.seller_Name + "</option>");
+			$("#selectbasic2").append("<option value="+ i +">" + val.seller_Name + "</option>");
+		});
 		
-		/**** end test ****/
+	/**** end test ****/
 	
 	$.ajax({
 		type: "POST",
@@ -325,13 +327,14 @@ function get_profile(){
 		success: function (data) {
 			var i;
 			$.each(data, function (index, val) {
+				i=index+1;
 				$("#selectbasic1").append("<option value="+ i +">" + val.seller_Name + "</option>");
 				$("#selectbasic2").append("<option value="+ i +">" + val.seller_Name + "</option>");
-				i += 1;
 			});
 			return true;
 		}     
-	});
+	})
+}
 }
 
 function find_an_offer(){
