@@ -303,6 +303,15 @@ function make_an_offer(){
 }
 }
 
+ function logout() {
+	 
+	 var delete_cookie = function(name) {
+		document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+	};
+	delete_cookie('u_id');
+	delete_cookie('u_token');
+	location.href="MainPage.html";
+}
 
 
 
