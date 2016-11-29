@@ -180,6 +180,33 @@ function get_recent_activity(){
 
 
 function get_profile(){
+	
+	/**** test ***/
+	alert("hey");
+	var result={
+		"err":"",
+		"errno":0,
+		"rsm":{
+			"u_email":"emaillll",
+			"fullname":"fullnammme",
+			"id":1,
+			"name": "nammme",
+			"token":"2349hdkdj2344fhsb",
+			"wechatid":"wwwwwww",
+			"u_pw_hash":"hhgzejgje"
+			
+			
+		}
+		
+	}
+	
+	$("#wechatId").val(result.rsm.wechatid);
+	$("#Email").val(result.rsm.u_email);
+	/*$("#PhoneNumber").text(result.rsm."");*/
+	
+	/**** end test ***/
+	
+	
 	var id = getCookie("u_id");
 	var token = getCookie("u_token");
 	$.ajax({
@@ -215,8 +242,9 @@ function get_profile(){
 		dataType:"JSON",
 		url: "info/getSellerInfo",
 		async: false,
-		var i;
+		
 		success: function (data) {
+			var i;
 			$.each(data, function (index, val) {
 				$("#selectbasic1").append("<option value="+ i +">" + val.seller_Name + "</option>");
 				$("#selectbasic2").append("<option value="+ i +">" + val.seller_Name + "</option>");

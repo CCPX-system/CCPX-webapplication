@@ -19,7 +19,6 @@
         <script src="bootstrap/js/bootstrap.js"></script>
 		<script src="angularjs/angular.js"></script>
 		<script src="scripts/script.js"></script>
-		
 
 	</head>
 	
@@ -96,117 +95,117 @@
 		
 		
 <!-- ********************************* ^ here ^ ********************************* -->	
-<form method="post" action="Register" id="EditProfile" class="form-horizontal">
-	<fieldset>
-			<!-- Avatar -->
-			<div class="form-group" id="container" >       
-				<div class="thumbnail">
-					<div class="caption">
-						<h4>Edit profile picture</h4>
-						<p>click to add picture</p>
-						<label class="fileContainer">
-							<input type="file" name="photo" size="50" required="required" onchange="readURL(this);" />
-						</label>
-					</div>
-					<img id="blah" src="img/empty-avatar.png" alt="...">
-				</div>
-				<div>
-					<label for="Name" id="userName">
-					</label>
-				</div>				
-			</div>
-			
-			<script type="text/javascript">
-				function readURL(input) {
-					if (input.files && input.files[0]) {
-						var reader = new FileReader();
+			<form method="post" action="Register" id="EditProfile" class="form-horizontal">
+				<fieldset>
+						<!-- Avatar -->
+						<div class="form-group" id="container" >       
+							<div class="thumbnail">
+								<div class="caption">
+									<h4>Edit profile picture</h4>
+									<p>click to add picture</p>
+									<label class="fileContainer">
+										<input type="file" name="photo" size="50" required="required" onchange="readURL(this);" />
+									</label>
+								</div>
+								<img id="blah" src="img/empty-avatar.png" alt="...">
+							</div>
+							<div>
+								<label for="Name" id="userName">
+								</label>
+							</div>				
+						</div>
+						
+						<script type="text/javascript">
+							function readURL(input) {
+								if (input.files && input.files[0]) {
+									var reader = new FileReader();
 
-						reader.onload = function (e) {
-							$('#blah')
-								.attr('src', e.target.result)
-								.width(150)
-								.height(150);
-						};
+									reader.onload = function (e) {
+										$('#blah')
+											.attr('src', e.target.result)
+											.width(150)
+											.height(150);
+									};
 
-						reader.readAsDataURL(input.files[0]);
-					}
-				}	
-				$('.thumbnail').hover(
-						function(){
-							$(this).find('.caption').slideDown(250); //.fadeIn(250)
-						},
-						function(){
-							$(this).find('.caption').slideUp(250); //.fadeOut(205)
-						}
-					); 
+									reader.readAsDataURL(input.files[0]);
+								}
+							}	
+							$('.thumbnail').hover(
+									function(){
+										$(this).find('.caption').slideDown(250); //.fadeIn(250)
+									},
+									function(){
+										$(this).find('.caption').slideUp(250); //.fadeOut(205)
+									}
+								); 
 
-			</script>
-			<!-- New WeChatId-->		
-			<div class="form-group">
-				<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="Name"> New WeChat ID:
-				</label>  
-				<div class="col-md-2 col-sm-4 col-xs-6">					
-					<input id="wechatId" name="wechatId" type="text" placeholder="enter new wechat Id" class="form-control input-sm" required pattern="[a-zA-Z]+" />
-				</div>						
-			</div>
-			
-			<!-- New email input-->
-			<div class="form-group">
-				<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="Email"> New e-mail:
-				</label>  
-				<div class="col-md-2 col-sm-4 col-xs-6">
-					
-					<input id="Email" name="Email" type="email" placeholder="enter new your Email" class="form-control input-sm" required />
+						</script>
+						<!-- New WeChatId-->		
+						<div class="form-group">
+							<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="Name"> New WeChat ID:
+							</label>  
+							<div class="col-md-2 col-sm-4 col-xs-6">					
+								<input id="wechatId" name="wechatId" type="text" placeholder="enter new wechat Id" class="form-control input-sm" required pattern="[a-zA-Z]+" />
+							</div>						
+						</div>
+						
+						<!-- New email input-->
+						<div class="form-group">
+							<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="Email"> New e-mail:
+							</label>  
+							<div class="col-md-2 col-sm-4 col-xs-6">
+								
+								<input id="Email" name="Email" type="email" placeholder="enter new your Email" class="form-control input-sm" required />
 
-				</div>
-			</div>
-			<!-- new phone number input-->
-			<div class="form-group">
-				<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="PhoneNumber"> New phone number:
-				</label>  
-				<div class="col-md-2 col-sm-4 col-xs-6">
-					
-					<input id="PhoneNumber" name="PhoneNumber" type="text" pattern="^([0|\+[0-9]{1,5})?([1-9][0-9]{10})$" placeholder="enter your new Phone number" class="form-control input-sm" required />
+							</div>
+						</div>
+						<!-- new phone number input
+						<div class="form-group">
+							<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="PhoneNumber"> New phone number:
+							</label>  
+							<div class="col-md-2 col-sm-4 col-xs-6">
+								
+								<input id="PhoneNumber" name="PhoneNumber" type="text" pattern="^([0|\+[0-9]{1,5})?([1-9][0-9]{10})$" placeholder="enter your new Phone number" class="form-control input-sm" required />
 
-				</div>
-			</div>
-			<!-- Old password input-->
-			<div class="form-group">
-				<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="userpassword"> Old password*
-				</label>
-				<div class="col-md-2 col-sm-4 col-xs-6">
-					<input id="useroldpassword" name="useroldpassword" type="password" placeholder="enter your old password" class="form-control input-sm" required />
-				</div>								
-			</div>
-			<!-- Password input-->
-			<div class="form-group">
-				<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="userpassword"> Password*
-				</label>
-				<div class="col-md-2 col-sm-4 col-xs-6">
-					<input id="userpassword" name="userpassword" type="password" placeholder="enter your password" onchange="validatePassword" class="form-control input-sm" required />
-				</div>								
-			</div>
-			<!-- Confirm password input-->
-			<div class="form-group">
-				<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="confirmPassword"> Confirm password*
-				</label>
-				<div class="col-md-2 col-sm-4 col-xs-6">
-					<input id="confirmPassword" name="repPassword" type="password" placeholder="confirm your password" onchange="validatePassword" class="form-control input-sm" required />
-				</div>								
-			</div>
+							</div>
+						</div>-->
+						<!-- Old password input-->
+						<div class="form-group">
+							<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="userpassword"> Old password*
+							</label>
+							<div class="col-md-2 col-sm-4 col-xs-6">
+								<input id="useroldpassword" name="useroldpassword" type="password" placeholder="enter your old password" class="form-control input-sm" required />
+							</div>								
+						</div>
+						<!-- Password input-->
+						<div class="form-group">
+							<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="userpassword"> New Password*
+							</label>
+							<div class="col-md-2 col-sm-4 col-xs-6">
+								<input id="userpassword" name="userpassword" type="password" placeholder="enter your password" onchange="validatePassword" class="form-control input-sm" required />
+							</div>								
+						</div>
+						<!-- Confirm password input-->
+						<div class="form-group">
+							<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="confirmPassword"> Confirm password*
+							</label>
+							<div class="col-md-2 col-sm-4 col-xs-6">
+								<input id="confirmPassword" name="repPassword" type="password" placeholder="confirm your password" onchange="validatePassword" class="form-control input-sm" required />
+							</div>								
+						</div>
 
-			<!-- Button -->
-			<div class="form-group">
-				<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="registerbutton">
-				</label>
-				<div class="col-md-2 col-sm-4 col-xs-6">
-					<button type="button" class="btn btn-default btn-info center-block" onclick="edit_profile()">Edit</button>
-					<!--<button ng-disabled="!myForm.$valid "  id="registerbutton" name="registerbutton" ng-click="RegisterUser()" class="btn btn-primary center-block"><span class="glyphicon glyphicon-ok"></span> Submit</button>-->
-				</div>
-			</div>				
-		</fieldset>
-	
-</form>
+						<!-- Button -->
+						<div class="form-group">
+							<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="registerbutton">
+							</label>
+							<div class="col-md-2 col-sm-4 col-xs-6">
+								<button type="button" class="btn btn-default btn-info center-block" onclick="edit_profile()">Edit</button>
+								<!--<button ng-disabled="!myForm.$valid "  id="registerbutton" name="registerbutton" ng-click="RegisterUser()" class="btn btn-primary center-block"><span class="glyphicon glyphicon-ok"></span> Submit</button>-->
+							</div>
+						</div>				
+					</fieldset>
+				
+			</form>
 
 		</div>
 	</body>
