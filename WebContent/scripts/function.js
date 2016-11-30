@@ -302,11 +302,18 @@ function get_profile(){
 		
 		
 		
-		var data = {
+		var data = [
+			{
 				"seller_Name":"sellera",
+				"id":10
+			},{
 				"seller_Name":"sellerb",
-				"seller_Name":"sellerbis"
-		};
+				"id":11
+			},{
+				"seller_Name":"sellerbis",
+				"id":110
+			}
+		];
 		
 		var i;
 		$("#selectbasic1").empty();
