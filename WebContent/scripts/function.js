@@ -177,27 +177,67 @@ function get_recent_activity(){
     data = {'seller-from':sellerA,'seller_to':sellerB}; //creating json file
 
 	
-			/**** test ***/
+	/**** test ***/
 	alert('test RA')
 	var result={
 		"err":"",
 		"errno":0,
-		"rsm":{
-			"u_email":"emaillll",
-			"fullname":"fullnammme",
-			"id":1,
-			"name": "nammme",
-			"token":"2349hdkdj2344fhsb",
-			"wechatid":"wwwwwww",
-			"u_pw_hash":"",
-			"points_from":500,
-			"points_to": 300,
-			"user_from":"userfrom",
-			"user_to":"jean-jacques"
-			
-		}
+		"rsm":[
+			{
+				"u_email":"emaillll",
+				"fullname":"fullnammme",
+				"id":1,
+				"name": "nammme",
+				"token":"2349hdkdj2344fhsb",
+				"wechatid":"wwwwwww",
+				"u_pw_hash":"",
+				"points_from":500,
+				"points_to": 300,
+				"user_from":"userfrom",
+				"user_to":"jean-jacques"
+			},{
+				"u_email":"emaibbll",
+				"fullname":"fullnammm2",
+				"id":11,
+				"name": "namm2e",
+				"token":"2349hdkdj234555sb",
+				"wechatid":"wwwwYww",
+				"u_pw_hash":"",
+				"points_from":400,
+				"points_to": 100,
+				"user_from":"userfrom2",
+				"user_to":"jean-jacques2"
+			},{
+				"u_email":"emaibbCCl",
+				"fullname":"fullnammm3",
+				"id":111,
+				"name": "namm3e",
+				"token":"2349hdkdj234333sb",
+				"wechatid":"wwwwZww",
+				"u_pw_hash":"",
+				"points_from":450,
+				"points_to": 200,
+				"user_from":"userfrom3",
+				"user_to":"jean-jacques3"
+			}
+		]
 		
 	};
+	
+	
+	if (result.errno==0) { // parameter in their response
+                toastr.success(result.rsm.token, "info");
+				var rate_value = [];
+				$.each(result.rsm, function (index, val){
+					$("#recentActivityTable").append("<tr><td class='col-md-1'></td><td class='col-md-2'><img class='img-rounded' src='img/blue.png' width='50' height='50' /><b>" + result.rsm.points_from + "</b> pts</td><td class='col-md-1'><br><i class='glyphicon glyphicon-circle-arrow-right'></i></td><td class='col-md-2'><img class='img-rounded' src='img/blue.png' width='50' height='50'/><b>" + result.rsm.points_to + "</b> pts</td><td class='col-md-3'><img class='img-circle' src='img/bonus.png' width='50' height='50' /><a href='#'>" + result.rsm.user_from + "</a></td><td class='col-md-1'><br><i class='glyphicon glyphicon-circle-arrow-right'></i></td><td class='col-md-3'><img class='img-circle' src='img/bonus.png' width='50' height='50'/><a href='#'>" + result.rsm.user_to + "</a></td><td class='col-md-2'>time stamp</td></tr>");
+					var a = (result.rsm.points_from)/(result.rsm.points_to);
+					rate_value.push(a);
+					return true;
+				});
+				Highcharts.chart('graphcontainer', {title: {text: 'Latest Exchanges',x: -20},subtitle: {text: '',x: -20},xAxis: {categories: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']},yAxis: {title: {text: 'Rates'},plotLines: [{value: 0,width: 1,color: '#808080'}]},tooltip: {valueSuffix: ''},legend: {},series: [{name: 'Rate evolution', data: rate_value }]});
+            }else{
+                toastr.warning(result.err, "Warning:CODE "+result.errno); //pop up
+            } 
 	/*** end test ***/
 	
 	
