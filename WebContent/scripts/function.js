@@ -405,6 +405,10 @@ function find_an_offer(){
         success : function(result){
             if (result.errno==0) { // parameter in their response
 				toastr.success(result.rsm.token, "info");
+				$.cookie('INPUTsellerfrom',seller_from);
+				$.cookie('INPUTsellerto',seller_to);
+				$.cookie('INPUTpointsfrom',points_from);
+                $.cookie('INPUTpointsto',points_to);
 				location.href="ExchangesFound.html"
             }else{
                 toastr.warning(result.err, "Warning:CODE "+result.errno); //pop up
