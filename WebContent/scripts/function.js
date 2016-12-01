@@ -8,7 +8,7 @@ return unescape(arr[2]);
 else
 return null;
 }
-
+/*
 function check_login_form(){
 {
     $("loginbutton").attr({"disabled":"disabled"});
@@ -64,7 +64,7 @@ function check_login_form(){
     $("#loginButton").removeAttr("disabled");
     return flag;
 }
-}
+}*/
 
 function edit_profile(){ // checked
 {

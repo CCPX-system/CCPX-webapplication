@@ -20,12 +20,28 @@
         <script src="bootstrap/js/bootstrap.js"></script>
         <script src="bootstrap/js/toastr.js"></script>
         <script src="bootstrap/js/toastr.min.js"></script>
+        <script src="scripts/function.js"></script>
         <script>
+		
+	/*	var result ={
+			"err":"",
+			"errno":0,
+			"rsm":{
+				"id":11,
+				"u_email":"sss@qwe.cn",
+				"u_name":"sb789",
+				"u_token":"d76a4fc0de324ef0fa5fde0a1eecf336",
+				"u_wechat_id":"123",
+			}
+		}*/
+		
+		
+
 		function check_login_form()
 			{
 				$("#loginbutton").attr({"disabled":"disabled"});
 				//var flag = false;
-				username = $("#ID").val();
+				username = $("#uname").val();
 				pwd = $("#password").val();
 				
 				var reg = new RegExp("^\\w*$");
@@ -33,7 +49,7 @@
 				if (!reg.test(username)) 
 				{
 					toastr.warning("username contains illegal characters", "Warning");
-					$("#ID").focus();
+					$("#uname").focus();
 					return false;
 				}
 				if (!reg.test(pwd)) 
@@ -54,7 +70,7 @@
 							toastr.success(result.rsm.token, "info");
 							$.cookie('u_id',result.rsm.id);
 							$.cookie('u_token',result.rsm.token);
-							
+							location.href="HomePage.html";
 						//	var i = $.cookie('u_id');
 						//	var t = $.cookie('u_token');
 						//	alert(i);
@@ -150,10 +166,10 @@
 		
 			<!-- ID input-->
 			<div class="form-group">
-				<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="ID"> UserID
+				<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="uname"> UserName
 				</label>  
 				<div class="col-md-2 col-sm-4 col-xs-6">
-					<input id="ID" name="ID" type="text" placeholder="enter your ID" class="form-control input-sm">
+					<input id="uname" name="uname" type="text" placeholder="enter your name" class="form-control input-sm">
 				</div>
 			</div>
 
@@ -183,7 +199,7 @@
 				<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="loginbutton">
 				</label>
 				<div class="col-md-2 col-sm-4 col-xs-6">
-					<button href="HomePage.html" id="loginbutton" name="loginbutton" type="submit" class="btn btn-primary center-block" onClick="check_login_form()"><span class="glyphicon glyphicon-user"></span> Login</button>
+					<button id="loginbutton" name="loginbutton" type="submit" class="btn btn-primary center-block" onClick="check_login_form()"><span class="glyphicon glyphicon-user"></span> Login</button>
 				</div>
 			</div>
 			<div class="form-group">
