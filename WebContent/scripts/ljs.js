@@ -445,7 +445,7 @@ function getExchanges(){
                 $("#exchangesTable").empty();
                 $.each(data, function (index, val) {
                 i = index + 1;
-                $("#exchangesTable").append("<tr><td>"+val.user_name+"</td><td>"+val.company_from+"</td><td>"+val.points_from"</td><td>"+val.company_to+"</td><td>"+val.points_to+"</td><td>"+val.timestamp+"</td></tr>");
+                $("#exchangesTable").append("<tr><td>"+val.user_name+"</td><td>"+val.company_from+"</td><td>"+val.points_from+"</td><td>"+val.company_to+"</td><td>"+val.points_to+"</td><td>"+val.timestamp+"</td></tr>");
                 });
                 return true;
                 }   
@@ -469,7 +469,7 @@ function getTransfers(){
                 $("#transfersTable").empty();
                 $.each(data, function (index, val) {
                 i = index + 1;
-                $("#transfersTable").append("<tr><th scope='row'>"+i"</th><td>"+val.user+"</td><td>"+val.company_to+"</td><td>"+val.points_to+"</td><td>"+val.timestamp+"</td></tr>");
+                $("#transfersTable").append("<tr><th scope='row'>"+i+"</th><td>"+val.user+"</td><td>"+val.company_to+"</td><td>"+val.points_to+"</td><td>"+val.timestamp+"</td></tr>");
                 });
                 return true;
                 }   
