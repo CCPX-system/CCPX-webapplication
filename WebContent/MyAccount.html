@@ -26,23 +26,36 @@
 	</head>
     
 	<script>
+ /* var result =	{
+			"err":"",
+			"errno":0,
+			"rsm":{
+				"u_email":"",
+				"u_fullname":"",
+				"u_id":1,
+				"u_name":"",
+				"u_token":"20c2d5a8cc8318171a40f4691aef79b0",
+				"u_wechat_id":"",
+			}
+		}*/
+
 		function ShowAccount()
 			{
 				 data = {'u_id': $.cookie('u_id'), 'u_token': $.cookie('u_token') };
 				 $.ajax({
-					type : "post",
+					type : "GET",
 					data : data,
 					async: false,
-					url : "/ccpx/user/account",
+					url : "/ccpx/user/myprofile",
 					success : function(result){
 						if (result.errno==0) {
 							$("#photo").attr("src",result.rsm.photo);
-							$("#nickname").text(result.rsm.name);
-							$("#wechat").text(result.rsm.wechatid);
-							$("#username").text(result.rsm.fullname);
-							$("#useremail").text(result.rsm.email);
-							$("#userphone").text(result.rsm.phone);
-							$("#userpwd").text(result.rsm.password);
+							$("#nickname").text(result.rsm.u_fullname);
+							$("#wechat").text(result.rsm.u_wechat_id);
+							$("#username").text(result.rsm.u_name);
+							$("#useremail").text(result.rsm.u_email);
+							//$("#userphone").text(result.rsm.phone);
+							//$("#userpwd").text(result.rsm.password);
 						}
 						else {
 							toastr.warning(result.err, "Warning:CODE "+result.errno);
@@ -165,11 +178,10 @@
 						</dd>
                         <br>
                         
-						<dt>
+					<!--<dt>
 							Phone Number:
 						</dt>
-						<dd id="userphone">
-						<!--	13711111111 -->
+					    <dd id="userphone">
 						</dd>
                         <br>
                         
@@ -177,8 +189,8 @@
 							password:
 						</dt>
 						<dd id="userpwd">
-						<!--	********  -->
-						</dd>
+						
+						</dd>-->
                         <br>
 					</dl> <button type="button" class="btn btn-info btn-default center-block" onclick="window.location.href='EditProfile.html'">Edit</button>
                     </div>
