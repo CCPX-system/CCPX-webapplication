@@ -1,17 +1,27 @@
+function getCookie(name)
+{
+var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+if(arr=document.cookie.match(reg))
+return unescape(arr[2]);
+else
+return null;
+}
+
 function getuserdetail(id){
-			    $.ajax({
-                type: "POST",
-                dataType:"JSON",
-                url: "info/getUserInfoByID",
-                async: false,
-                success: function (data) {
-				if(data.message=="success"){
-				location.href="UserProfilePage.html";}
-				}
-				});
+$.ajax({
+type: "POST",
+dataType:"JSON",
+url: "info/getUserInfoByID",
+async: false,
+success: function (data) {
+	if(data.message=="success"){
+	location.href="UserProfilePage.html";}
+}
+});
 }
 
 function historyTable(){
+	
 	var id =getCookie("u_id");
 	var token =getCookie("u_token");
 
@@ -46,14 +56,14 @@ function historyTable(){
         type : "get",
         data : {'u_id':id,'u_token':token},
         async: false,
-        url : "/ccpx/user/gethistory",
+        url : "/ccpx/user/all_records",
         success : function(result){
             if (result.errno==0) { 
 				var i;
 				$("#history").empty();
                 $.each(result.rsm, function (index, val) {
                 i = index + 1;
-                $("#history").append("<tr><td>"+val.recordId+"</td><td>"+val.timeStamp+"</td><td>"+val.sellerNameFrom+"</td><td>"+val.pointsFrom+"</td><td>"+val.pointsTo+"</td><td>"+val.sellerNameTo+"</td><td class='col-md-2'><img class='img-circle' src='"+val.userFromLogo+"' width='50' height='50' /><a href='#'>"+val.user_from+"</a></td></tr>");				
+                $("#history").append("<tr><td>"+val.rid+"</td><td>"+val.updateTime+"</td><td>"+val.sellerNameFrom+"</td><td>"+val.pointsFrom+"</td><td>"+val.pointsTo+"</td><td>"+val.sellerNameTo+"</td><td class='col-md-2'><img class='img-circle' src='img/bonus.png' width='50' height='50' /><a href='#'>"+val.userFrom+"</a></td></tr>");				
                 });
                 return true;
             }
@@ -129,8 +139,7 @@ function exchangesFound(){
 	var pointsto = getCookie("INPUTpointsto");
 	var id = getCookie("u_id");
 	var token = getCookie("u_token");  
-	var logosellerto = getSellerLogo(sellerto);
-	var logosellerfrom = getSellerLogo(sellerfrom);
+
 	//alert(sellerfrom);
 // ------Test data----- 
  /* 	var result = 	{
@@ -160,17 +169,20 @@ function exchangesFound(){
 	   
     $.ajax({
         type : "post",
-        data : {'u_id':id,'u_token':token,'seller_from':sellerfrom,'seller_to':sellerto,'points_from':pointsfrom,'points_to':pointsto},
+        data : {'u_id':id,'u_token':token,'seller_from':sellerfrom,'seller_to':sellerto,'points_from':pointsfrom,'points_to_min':pointsto},
         async: false,
-        url : "/ccpx/user/start_request",
+        url : "/ccpx/user/searchExchangeOffer",
         success : function(result){
             if (result.errno==0) { // parameter in their response
 				$.cookie('u_id_from',result.rsm.user_from);
 				var i;
 				$("#exchangesFound").empty();
-                $.each(result.rsm, function (index, val) {
-                i = index + 1;
-                $("#exchangesFound").append("<tr><td class='col-md-1'></td><td class='col-md-2'><img src='"+logosellerfrom+"' class='img-rounded' width='50' height='50' /> <b>"+val.points_from+"</b> pts </td><td class='col-md-1'><br><i class='glyphicon glyphicon-circle-arrow-right'></i></td><td class='col-md-2'><img src='"+logosellerto+"' class='img-rounded' width='50' height='50' /><b>"+val.points_to+"</b> pts</td><td class='col-md-3'><img class='img-circle' src='"+val.user_from_logo+"' width='50' height='50' /><a href='#' id='"+val.user_id+"' onclick='SeeUserProfile(this.id)'>"+val.user_from+"</a><td class='col-md-1'><button type='button' id='makerequest' class='btn btn-info btn-danger' onClick='makeRequest("+val.r_id+")'><i class='glyphicon glyphicon-plus' style='color:black;'></i></button></td></tr>");
+				
+                $.each(result.rsm.exchange_offer, function (index, val) {
+                	var logosellerto = getSellerLogo(val.seller_to);
+					var logosellerfrom = getSellerLogo(val.seller_from);
+					i = index + 1;
+					$("#exchangesFound").append("<tr><td class='col-md-1'></td><td class='col-md-2'><img src='"+logosellerfrom+"' class='img-rounded' width='50' height='50' /> <b>"+val.points_from+"</b> pts </td><td class='col-md-1'><br><i class='glyphicon glyphicon-circle-arrow-right'></i></td><td class='col-md-2'><img src='"+logosellerto+"' class='img-rounded' width='50' height='50' /><b>"+val.points_to_min+"</b> pts</td><td class='col-md-3'><img class='img-circle' src='img/bonus.png' width='50' height='50' /><a onclick='SeeUserProfile("+val.user_id+")'>"+val.user_id+"</a><td class='col-md-1'><button type='button' id='makerequest' class='btn btn-info btn-danger' onClick='makeRequest("+val.user_id+","+val.offer_id")'><i class='glyphicon glyphicon-plus' style='color:black;'></i></button></td></tr>");
 			    });
 				
                 return true;
@@ -186,13 +198,20 @@ function exchangesFound(){
 
 }
 
-function makeRequest(offerId){
-	
+function makeRequest(user_id,offer_id){
+	//0 = make offer ; 1 = find offer
     $("#makerequest").attr({"disabled":"disabled"});
+	var type = getCookie("ExchangesFoundType");
     var flag = false;
-    var id =getCookie("u_id");
-	var token =getCookie("u_token");
-    data = {'u_id':id,'u_token':token,'u_id_to':userFrom,'r_id':offerId}; //creating json file
+	if (type==0){
+	var offerFrom = getCookie("MakeOfferId");
+	var offerTo = offer_id;
+	}
+	else if (type==1){
+	var offerFrom = "";
+	var offerTo = offer_id;
+	}
+    data = {'user_from':user_id,'offer_from':offerFrom,'offer_to':offerTo}; //creating json file
     
     
     $.ajax({
@@ -268,7 +287,7 @@ function loadNotif(){
             		color="success" }
             	else {
             		color="info" }	
-                $("#notifTable").append("<tr class='"+color+"'><td class='col-md-1'><br><b>" +val.notifiId+ "</b></td><td class='col-md-1'><br><b>" +val.timeStamp +"</b></td><td class='col-md-1'><br><p>"+ val.content+ "</p></td><td class='col-md-2'><img class='img-circle' src='img/bonus.png' width='50' height='50' /><a href='#'>" +val.userId+ "</a></td><td class='col-md-1'><br><p>" + val.status+ "<p></td>");
+                $("#notifTable").append("<tr class='"+color+"'><td class='col-md-1'><br><b>" +val.notifiId+ "</b></td><td class='col-md-1'><br><b>" +val.timeStamp +"</b></td><td class='col-md-1'><br><p>"+ val.content+ "</p></td><td class='col-md-2'><img class='img-circle' src='img/bonus.png' width='50' height='50' /><a href='#'>" +val.userId+ "</a></td><td class='col-md-1'><br></td>");
                 if (val.seen==0) {
                 $("#notifTable").append("<td class='col-md-1'><br><div class='col-md-1 col-sm-2 col-xs-3'><button id='seenbutton' name='seenbutton' type='button' class='btn btn-primary center-block' onclick='return markedSeen("+ val.notifiId+ ")' > Marked as seen </button></div></td></tr>");}
                 else {
@@ -351,12 +370,13 @@ function ShowUserProfile(){
 					data : { id: id
 					},
 					async: false,
-					url	: "ccpx/user/getUserProfile",
+					url	: "ccpx/user/userprofile",
 					success : function(result){
 								if (result.errno==0) { 
 								$("#userPicture").attr("src",result.userPicture);
 								$("#userName").text(result.userName);
 								$("#userWechat").text(result.userWechat);
+								/*
 								var i;
 								$("#pointsTable").empty();	
                 				$.each(result.rsm, function (index, val) {
@@ -365,8 +385,10 @@ function ShowUserProfile(){
                                 i = index + 1;
                                 $("#pointsTable").append("<tr><td class='col-md-1'></td><td class='col-md-2'><img class='img-rounded' src='"+logosellerfrom+"' width='50' height='50' /><b>"+val.seen+"</b>pts</td><td class='col-md-1'><br><i class='glyphicon glyphicon-circle-arrow-right'></i></td><td class='col-md-2'><img class='img-rounded' src='"+logosellerto+"' width='50' height='50' /><b>"+val.seen+"</b>pts</td><td class='col-md-3'><img class='img-circle' src='img/bonus.png' width='50' height='50' /><a href='#' id='"+val.userId+"' onclick='SeeUserProfile(this.id)'>"+val.userId+"</a></td><td class='col-md-1'><button type='button'  id='"+val.userId+"' onclick='makeRequest(this.id)' class='btn btn-info btn-danger'><i class='glyphicon glyphicon-plus' style='color:black;'></i></button></td></tr>");
                 				});
+								
                 				$.cookie("otheruserid", null, { path: '/' });
                 				}
+								*/
                 				else{
                					 toastr.warning(result.err, "Warning:CODE "+result.errno);
           						}
@@ -395,40 +417,40 @@ function getUserExchangeOffers(){
         type : "post",
         data : data,
         async: false,
-        url : "/ccpx/user/seen_notification",
+        url : "/ccpx/user/all_records ",
         success : function(result){
             if (result.errno==0) { // parameter in their response
             	var i;
 				$("#exchangeOffersList").empty();	
                 $.each(result.rsm, function (index, val) {
                 i = index + 1;
-                var img1;
-            	var img2;
-            	var img3;
-            	var candiList = eval(val.candidates);
-            	if (candiList.length==0){
-            		img1="img/user.png";
-            		img2="img/user.png";
-            		img3="img/user.png";
-            	}
-            	if (candiList.length==1){
-            		img1=val.candidates[0].userPicture;
-            		img2="img/user.png";
-            		img3="img/user.png";
-            	}
-            	if (candiList.length==2){
-            		img1=val.candidates[0].userPicture;
-            		img2=val.candidates[1].userPicture;
-            		img3="img/user.png";
-            	}
-            	if (candiList.length==3){
-            		img1=val.candidates[0].userPicture;
-            		img2=val.candidates[1].userPicture;
-            		img3=val.candidates[2].userPicture;
-            	}
+                // var img1;
+            	// var img2;
+            	// var img3;
+            	// var candiList = eval(val.candidates);
+            	// if (candiList.length==0){
+            		// img1="img/user.png";
+            		// img2="img/user.png";
+            		// img3="img/user.png";
+            	// }
+            	// if (candiList.length==1){
+            		// img1=val.candidates[0].userPicture;
+            		// img2="img/user.png";
+            		// img3="img/user.png";
+            	// }
+            	// if (candiList.length==2){
+            		// img1=val.candidates[0].userPicture;
+            		// img2=val.candidates[1].userPicture;
+            		// img3="img/user.png";
+            	// }
+            	// if (candiList.length==3){
+            		// img1=val.candidates[0].userPicture;
+            		// img2=val.candidates[1].userPicture;
+            		// img3=val.candidates[2].userPicture;
+            	// }
             	var logosellerfrom = getSellerLogo(val.sellerFrom);
                 var logosellerto = getSellerLogo(val.sellerTo);
-               $("#exchangeOffersList").append("<tr><td class='col-md-1'></td><td class='col-md-2'><img class='img-rounded' src='"+logosellerfrom+"' width='50' height='50' /><b>"+val.pointsFrom+"</b> pts</td><td class='col-md-1'><br><i class='glyphicon glyphicon-circle-arrow-right'></i></td><td class='col-md-2'><img class='img-rounded' src='"+logosellerto+"' width='50' height='50' /><b>"+val.pointsTo+"</b>pts</td><td class='col-md-3'><p>Candidates:<button type='button' class='btn btn-success btn-xs' style='border-radius:50px;' onclick='goSelectPage("+val.offer_id+")'><i class='glyphicon glyphicon-eye-open' ></i> &nbsp; select &nbsp; </button></p><img class='img-circle' src='"+img1+"' width='50' height='50' /><img class='img-circle' src='"+img2+"' width='50' height='50' /><img class='img-circle' src='"+img3+"' width='50' height='50' /></td><td class='col-md-1'><button type='button' class='btn btn-danger' onclick='deleteOffer("+val.offer_id+")'><i class='glyphicon glyphicon-trash'></i></button></td></tr>");
+               $("#exchangeOffersList").append("<tr><td class='col-md-1'></td><td class='col-md-2'><img class='img-rounded' src='"+logosellerfrom+"' width='50' height='50' /><b>"+val.pointsFrom+"</b> pts</td><td class='col-md-1'><br><i class='glyphicon glyphicon-circle-arrow-right'></i></td><td class='col-md-2'><img class='img-rounded' src='"+logosellerto+"' width='50' height='50' /><b>"+val.pointsTo+"</b>pts</td><td class='col-md-3'><p>Candidate:<button type='button' class='btn btn-success btn-xs' style='border-radius:50px;' onclick='goSelectPage("+val.offer_id+")'><i class='glyphicon glyphicon-eye-open' ></i> &nbsp; select &nbsp; </button></p><img class='img-circle' src='img/bonus.png' width='50' height='50' /></td><td class='col-md-1'><button type='button' class='btn btn-success' onclick='acceptOffer("+val.offer_id+")'><i class='glyphicon glyphicon-check'></i></button><button type='button' class='btn btn-info' onclick='rejectOffer("+val.offer_id+")'><i class='glyphicon glyphicon-ban-circle'></i></button><button type='button' class='btn btn-danger' onclick='deleteOffer("+val.offer_id+")'><i class='glyphicon glyphicon-trash'></i></button></td></tr>");
 				});
                 }
             else{
@@ -534,7 +556,7 @@ function deleteOffer(offer_id){
 }
 
 
-function showCandidates(){
+// function showCandidates(){
 	
 	/* var result = 	{
  				"err":"",
@@ -649,11 +671,11 @@ function showCandidates(){
          type : "post",		
          data : data,		
          async: false,		
-         url : "/ccpx/user/accept_request",		
+         url : "/ccpx/user/reject_request",		
          success : function(result){		
              if (result.errno==0) { // parameter in their response		
                  toastr.success(result.rsm.token, "User rejected!");		
-                 location.href="SelectUserPage.html"		
+                 location.href="ExchangeStatus.html"		
  		
  		
              }else{		

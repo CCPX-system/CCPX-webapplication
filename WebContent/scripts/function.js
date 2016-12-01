@@ -177,7 +177,7 @@ function get_recent_activity(){
     data = {'seller-from':sellerA,'seller_to':sellerB}; //creating json file
 
 	
-	/**** test ***/
+	/**** test ***
 	alert('test RA')
 	var result={
 		"err":"",
@@ -234,7 +234,7 @@ function get_recent_activity(){
 				});
 				alert(rate_value);
 				Highcharts.chart('graphcontainer', {title: {text: 'Latest Exchanges',x: -20},subtitle: {text: '',x: -20},xAxis: {categories: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']},yAxis: {title: {text: 'Rates'},plotLines: [{value: 0,width: 1,color: '#808080'}]},tooltip: {valueSuffix: ''},legend: {},series: [{name: 'Rate evolution', data: rate_value }]});
-	/*** end test ***/
+	**** end test ***/
 	
 	
     $.ajax({
@@ -331,7 +331,7 @@ function get_profile(){
  function getSellerInfo() {
 {
 	
-	/**** test ****/
+	/**** test ****
 		alert('testB');
 		
 		
@@ -360,7 +360,7 @@ function get_profile(){
 			$("#selectbasic2").append("<option value="+ i +">" + val.seller_Name + "</option>");
 		});
 		
-	/**** end test ****/
+	**** end test ****/
 	
 	$.ajax({
 		type: "POST",
@@ -406,6 +406,9 @@ function find_an_offer(){
 				$.cookie('INPUTpointsfrom',points_from);
                 $.cookie('INPUTpointsto',points_to);
 				location.href="ExchangesFound.html"
+				$.cookie('ExchangesFoundType',1);
+				
+
             }else{
                 toastr.warning(result.err, "Warning:CODE "+result.errno); //pop up
             }
@@ -443,7 +446,10 @@ function make_an_offer(){
         success : function(result){
             if (result.errno==0) { // parameter in their response
 				toastr.success(result.rsm.token, "info");
-				location.href="ExchangesFound.html"
+				location.href="ExchangesFound.html";
+				$.cookie('ExchangesFoundType',0);
+				$.cookie('MakeOfferId',result.rsm.offer_id);
+
             }else{
                 toastr.warning(result.err, "Warning:CODE "+result.errno); //pop up
             }
