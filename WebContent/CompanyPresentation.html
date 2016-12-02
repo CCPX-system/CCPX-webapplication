@@ -2,7 +2,7 @@
 <html lang="en">
 
 	<head>
-		<title>Company's Description</title>
+		<title>Company's Presentation</title>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,17 +13,24 @@
 		  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
-        <script src="scripts/jquery.min.js"></script>
-        <script src="bootstrap/js/bootstrap.js"></script>
+        <script src="js/jquery-1.11.2.js"></script>
+        <script src="js/bootstrap.js"></script>
+        <script src="js/ljs.js"></script>
 	</head>
 	
 	<body>
+	
+	
+	<script>
+	function jumpBack(){
+	location.href="HomePageSeller.html";
+	}
+	</script>
 		<div class="container">
-		
 			<div class="header">
 
 				<!-- Form Name -->
-				<legend>Company's Description </legend>
+				<legend>Company's Presentation</legend>
 			
 				<!-- Navbar --> 
 				<nav class="navbar navbar-default" style="background-image: url('img/blue.png'); background-position : 10% 10%;" role="navigation">
@@ -65,8 +72,6 @@
 						</div> 
 					</div>
 				</nav>
-			
-				<!-- Website Logo -->
 				
 				<div class="row center-block" style="width:650PX;">
             
@@ -74,7 +79,7 @@
 						<img class="img-responsive" src="img/logo.png"/>
 					</div>
 					
-                    <h2><b>Company's Description</b></h2>     
+                    <h2><b></b></h2>     
 			     </div>
 			
 				<!-- message-->
@@ -91,7 +96,6 @@
 <br>
 
 	
-	        <!-- Companies Logo -->
 	            <div class="row center-block" style="width:650PX;">
             
 				    <div class="col-md-3 col-sm-1 col-xs-1">
@@ -100,16 +104,18 @@
 					
                     <h3 style="color:#39F">${seller_result.seller_Name}</h3>     
 			     </div>
-				
+				 <br>
+				 <br>
+				 <br>
 			<div class="row center-block" >
 			<div class="col-md-1 col-sm-1 col-xs-1"></div>
 		        <div class="col-md-10 col-sm-10 col-xs-10" style="background-color:#ECECEC"  >
 			    <h2>
-				Description
+				Description:
 			    </h2>
 			   <p> ${seller_result.seller_Description}
 			   <br>
-			   </p>
+			   </P>
 			   
 			  
 				<br>
@@ -125,14 +131,10 @@
 			   
 			  
 			   
-<!-- 
 			   <div class="row center-block" style="width:100PX;"  >
-					<form action="ListOfSellersPage.html">
-			 		   <button type="submit" class="btn btn-info btn-lg" value="Submit" onclick="window.location.href='ListOfSellersPage.html'">Back</button>
-            		</form> 
+			    <button type="button" class="btn btn-info btn-lg" onclick="jumpBack()">Back</button>
 				</div>
 			
- -->
 
 	</div>
 		

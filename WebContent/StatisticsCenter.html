@@ -13,8 +13,9 @@
 		  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
-        <script src="scripts/jquery.min.js"></script>
-        <script src="bootstrap/js/bootstrap.js"></script>
+        <script src="js/jquery-1.11.2.js"></script>
+        <script src="js/bootstrap.js"></script>
+        <script src="js/ljs.js"></script>
 	</head>
 	
 	<body onLoad="changesize()" onResize="changesize()">
@@ -53,7 +54,7 @@
 								</li>
 								
 								 <li class="nav-item pull-left">
-								  <a class="nav-link" href="Advertisements.html"><span class="glyphicon glyphicon-bullhorn"></span> Advertisements </a>
+								  <a class="nav-link" href="ManageAdvertisementSeller.html"><span class="glyphicon glyphicon-bullhorn"></span> Advertisements </a>
 								</li>
 								
 								<li class="nav-item pull-left">
@@ -61,7 +62,7 @@
 								</li>	
                                 
                                 <li class="nav-item pull-left">
-								<a class="nav-link" href="MainPage.html"><span class="glyphicon glyphicon-log-out"></span> Logout </a>
+								<a class="nav-link" href="LoginPageSeller.html"  onclick="exitSeller()"><span class="glyphicon glyphicon-log-out"></span> Logout </a>
 								</li>															
 							</ul>
 						</div> 
@@ -84,11 +85,13 @@
                </div>
                <div class="col-md-6 col-sm-6 col-xs-8">
                <hr style="color:#09F">
-               <a href="TransferPointsSeller.html" class="btn btn-block btn-primary"><i class="glyphicon glyphicon-menu-hamburger"></i> Clients on the platform</a>
+               <a href="TransferPointsSellers.html" class="btn btn-block btn-primary"><i class="glyphicon glyphicon-menu-hamburger"></i> Transfer Points</a>
                <hr>
-               <a href="ExchangePointsSeller.html" class="btn btn-block btn-primary"><i class="glyphicon glyphicon-list-alt"></i> Points exchanged </a>
-            	<hr>
-               <a href="IntelligentQuery.html" class="btn btn-block btn-primary"><i class="glyphicon glyphicon-cog"></i> Intelligent Analysis </a>
+               <a href="ExchangePointsSeller.html" class="btn btn-block btn-primary"><i class="glyphicon glyphicon-list-alt"></i> Exchange Points</a>
+               <hr>
+               <a href="TradingChartPointsSeller.html" class="btn btn-block btn-primary"><i class="glyphicon glyphicon-stats"></i> Trading Charts</a>
+               <hr>
+               <a href="LatestExchangeRateSeller.html" class="btn btn-block btn-primary"><i class="glyphicon glyphicon-transfer"></i> Exchange Rates</a>
                </div>
                <div class="col-md-3 col-sm-3 col-xs-2">
                </div>

@@ -14,11 +14,12 @@
 		  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
-        <script src="scripts/jquery.min.js"></script>
-        <script src="bootstrap/js/bootstrap.js"></script>
-		<script src="angularjs/angular.js"></script>
-		<script src="scripts/script.js"></script>
-		<script src="scripts/ljs.js"></script>
+        <script src="js/jquery-1.11.2.js"></script>
+        <script src="js/bootstrap.js"></script>
+		<script src="js/angular.js"></script>
+		<script src="js/script.js"></script>
+		<script src="js/ljs.js"></script>
+		<script src="js/ajaxfileupload.js"></script>
 		<script type="text/javascript">
 				function readURL(input) {
 					if (input.files && input.files[0]) {
@@ -47,7 +48,7 @@
 
 	</head>
 	
-	<body onLoad="IndustryTypeDropdown();ShowProfile();">
+	<body onLoad="ShowProfile();">
 		<div class="container">
 	
 			<div class="header">
@@ -83,16 +84,16 @@
 								</li>
 								
 								 <li class="nav-item pull-left">
-								  <a class="nav-link" href="Advertisements.html"><span class="glyphicon glyphicon-bullhorn"></span> Advertisements </a>
+								  <a class="nav-link" href="ManageAdvertisementSeller.html"><span class="glyphicon glyphicon-bullhorn"></span> Advertisements </a>
 								</li>
 								
 								<li class="nav-item pull-left">
 								<a class="nav-link" href="StatisticsCenter.html"><span class="glyphicon glyphicon-stats"></span> Statistics Center </a>
 								</li>	
                                 
-                                <li class="nav-item pull-left">
-								<a class="nav-link" href="MainPage.html"><span class="glyphicon glyphicon-log-out"></span> Logout </a>
-								</li>															
+                                 <li class="nav-item pull-left">
+								<a class="nav-link" href="LoginPageSeller.html"  onclick="exitSeller()"><span class="glyphicon glyphicon-log-out"></span> Logout </a>
+								</li>																
 							</ul>
 						</div> 
 					</div>
@@ -119,7 +120,7 @@
 		
 		
 <!-- ********************************* ^ here ^ ********************************* -->	
-<form method="post" action="Register" id="EditProfile" class="form-horizontal">
+<form method="post" action="Register" id="EditProfile" class="form-horizontal" enctype="multipart/form-data">
 	<fieldset>
 			<!-- Avatar -->
 			<div class="form-group" id="container" >       
@@ -128,14 +129,12 @@
 						<h4>Edit Logo</h4>
 						<p>click to add picture</p>
 						<label class="fileContainer">
-							<input id="updateLogo" type="file" name="photo" size="50" required onchange="readURL(this);" />
+							<input id="updateLogo" type="file" name="updateLogo" size="50" required onchange="readURL(this);" />
 						</label>
 					</div>
 					<img id="companyLogo" alt="...">
 				</div>
 				<div>
-					<label for="Name"> Company's name
-					</label>
 				</div>				
 			</div>
 			
@@ -150,14 +149,6 @@
 				</label>  
 				<div class="col-md-2 col-sm-4 col-xs-6">					
 					<input id="seller_Name" name="name" type="text" class="form-control input-sm" required pattern="[a-zA-Z]+" />
-				</div>						
-			</div>
-			<!-- Username-->
-			<div class="form-group">
-				<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="Name"> New User Name:
-				</label>  
-				<div class="col-md-2 col-sm-4 col-xs-6">					
-					<input id="seller_Username" name="username" type="text"  class="form-control input-sm" required pattern="[a-zA-Z]+" />
 				</div>						
 			</div>
 			<!-- New email input-->
@@ -179,6 +170,17 @@
 					<input id="seller_Telephone" name="telephone" type="text" pattern="^([0|\+[0-9]{1,5})?([1-9][0-9]{10})$" class="form-control input-sm" />
 				</div>
 			</div>
+			
+			<!-- new Address-->
+			<div class="form-group">
+				<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="Description"> New Address:
+				</label>  
+				<div class="col-md-2 col-sm-4 col-xs-6">
+					<input id="seller_Address" name="seller_Address" type="text" pattern="^([0|\+[0-9]{1,5})?([1-9][0-9]{10})$" class="form-control input-sm" />
+				</div>
+			</div>
+			
+			
 			<!-- new description-->
 			<div class="form-group">
 				<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="Description"> New description:
@@ -195,12 +197,9 @@
 			<div class="form-group">
 				<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="Type"> New industry type:
 				</label>  
-				<form>
                     <div class="form-group">
                         <label class="col-md-2 control-label" for="selectbasic1">
-                        	<select id='industryDrop' name='selectbasic' class='form-control'>
-                           <option>111</option>
-                           <option>food</option>
+                  <select id='industryDrop' name='selectbasic' class='form-control'>
                         <!-- ********************************* ^ Dynamic loading ^ ********************************* -->
                         </select>
                         </label>
@@ -217,29 +216,13 @@
 				</div>								
 			</div>
  -->
-			<!-- Password input-->
-			<div class="form-group">
-				<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="userpassword"> Password*
-				</label>
-				<div class="col-md-2 col-sm-4 col-xs-6">
-					<input id="password" name="userpassword" type="password" onchange="validatePassword" class="form-control input-sm" required />
-				</div>								
-			</div>
-			<!-- Confirm password input-->
-			<div class="form-group">
-				<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="confirmPassword"> Confirm password*
-				</label>
-				<div class="col-md-2 col-sm-4 col-xs-6">
-					<input id="seller_Password" name="repPassword" type="password" onchange="validatePassword" class="form-control input-sm" required />
-				</div>								
-			</div>
 
 			<!-- Button -->
 			<div class="form-group">
 				<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="registerbutton">
 				</label>
 				<div class="col-md-2 col-sm-4 col-xs-6">
-					<button ng-disabled="!myForm.$valid " href="#" id="registerbutton" name="registerbutton" ng-click="updateProfile()" class="btn btn-primary center-block"><span class="glyphicon glyphicon-ok"></span> Submit</button>
+					<button type="button" ng-disabled="!myForm.$valid "  id="registerbutton" name="registerbutton" onclick="updateProfile()" class="btn btn-primary center-block"><span class="glyphicon glyphicon-ok"></span> Submit</button>
 				</div>
 			</div>				
 		</fieldset>

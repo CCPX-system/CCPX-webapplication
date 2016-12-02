@@ -13,19 +13,18 @@
 		  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
-        <script src="scripts/jquery.min.js"></script>
-        <script src="bootstrap/js/bootstrap.js"></script>
-		<script src="https://code.highcharts.com/highcharts.js"></script>
-		<script src="https://code.highcharts.com/modules/exporting.js"></script>
+        <script src="js/jquery-1.11.2.js"></script>
+        <script src="js/bootstrap.js"></script>
+		<script src="js/highcharts.js"></script>
+		<script src="js/exporting.js"></script>
+		<script src="js/ljs.js"></script>
 	</head>
 	
-	<body>
+	<body onload="ExchangeRates()">
 		<div class="container">
 			<div class="header">
-
 				<!-- Form Name -->
-				<legend>Latest Exchange rates</legend>
-			
+				<legend>Latest Exchange rates</legend>	
 				<!-- Navbar --> 
 				<nav class="navbar navbar-default" style="background-image: url('img/red.png'); background-position : 10% 10%;" role="navigation">
 					<div class="container-fluid">  
@@ -54,7 +53,7 @@
 								</li>
 								
 								 <li class="nav-item pull-left">
-								  <a class="nav-link" href="Advertisements.html"><span class="glyphicon glyphicon-bullhorn"></span> Advertisements </a>
+								  <a class="nav-link" href="ManageAdvertisementSeller.html"><span class="glyphicon glyphicon-bullhorn"></span> Advertisements </a>
 								</li>
 								
 								<li class="nav-item pull-left">
@@ -62,7 +61,7 @@
 								</li>	
                                 
                                 <li class="nav-item pull-left">
-								<a class="nav-link" href="MainPage.html"><span class="glyphicon glyphicon-log-out"></span> Logout </a>
+								<a class="nav-link" href="LoginPageSeller.html"  onclick="exitSeller()"><span class="glyphicon glyphicon-log-out"></span> Logout </a>
 								</li>												
 							</ul>
 						</div> 
@@ -97,28 +96,7 @@
 					  <th>Timestamp</th>
 					</tr>
 				  </thead>
-				  <tbody>
-					<tr>
-					  <th scope="row">XXXX</th>
-					  <td>Service</td>
-					  <td>0.7</td>
-					  <td>date</td>
-					  
-					</tr>
-					<tr>
-					  <th scope="row">XXXX</th>
-					  <td>Other</td>
-					  <td>1</td>
-					  <td>date</td>
-					  
-					</tr>
-					<tr>
-					  <th scope="row">XXXX</th>
-					  <td>Travel</td>
-					  <td>0.234</td>
-					  <td>date</td>
-					  
-					</tr>
+				  <tbody id="exchRatesTable">
 				  </tbody>
 				</table>
 			</div>

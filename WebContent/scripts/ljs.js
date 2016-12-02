@@ -475,3 +475,21 @@ function getTransfers(){
                 }   
             });
 }
+
+function ExchangeRates(){
+            $.ajax({
+                type: "POST",
+                dataType:"JSON",
+                url: "info/exchangesPoints",
+                async: false,
+                success: function (data) {
+                var i;
+                $("#exchRatesTable").empty();
+                $.each(data, function (index, val) {
+                i = index + 1;
+                $("#exchRatesTable").append("<tr><th scope='row'>"+val.company_name<+"/th><td>"+val.industry_type+"</td><td>"+val.rate+"</td><td>"+val.timestamp+"</td></tr>");
+                });
+                return true;
+                }   
+            });
+}

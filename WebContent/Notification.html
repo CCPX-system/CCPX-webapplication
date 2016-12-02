@@ -8,6 +8,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link href="bootstrap/css/bootstrap.css" rel="stylesheet">
         <link href="bootstrap/css/toastr.css" rel="stylesheet">
+        
+        
 		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 		<!--[if lt IE 9]>
@@ -23,17 +25,19 @@
         <script src="scripts/ljs.js"></script>
         <script src="scripts/flo.js"></script>
         <script src="bootstrap/js/toastr.min.js"></script>
-        
-        <script>
-        function test()
-        {
-        $("#coincoin").append("<p>Hello</p>");
-        }
-        </script>
+		
+		
+		<!-- SHOULD INCLUDE TO RUN -->
+		<link rel="stylesheet" href="js/sweetalert.css"/>
+        <link rel="stylesheet" href="bootstrap/css/main.css"/>
+        <script src="js/jquery-1.8.2.min.js"></script>
+		<script src="js/underscore.js"></script>
+		<script src="js/sweetalert.min.js"></script>
+      
         
 	</head>
 	
-	<body onload="loadNotif()">
+	<body>
 		<div class="container">
 		
 			<div class="header">
@@ -103,29 +107,141 @@
         <br>
         <br>
         <div class="row clearfix">
-		<div class="col-md-12 column">
-            <div class="table-responsive">
-                <table class="table table-hover table-striped">
-                
-                    <tbody id="notifTable">
-                    <!-- dynamic loading -->
-                    </tbody>
-                    
-                </table>
-            </div>
-                       
-		</div>
-	    </div>
-
-
-       
+	        <div class="col-md-12 column">
+	        	<span class="uk-text" style="display:none" id="ctxt">You have <span id="notif_count" class="uk-badge uk-badge-warning"></span> new notifications</span>
+				<hr/> 
+	        </div>
+			<div class="col-md-12 column">			
+				<ul id="notification_list_content" class="md-list md-list-outside" data-uk-scrollspy-nav="{smoothscroll:true}"></ul>
+		    </div>
+		    <div class="col-md-12 column">
+		    	<hr/> 
+	        </div>
         </div>
  
             <div id="coincoin">
             </div>
             
+            
 				
 		</div>
+
+
+
+		<script type="text/javascript">
+			var getUrl = window.location;
+			var baseUrl = getUrl .protocol + "//" + getUrl.host  + "/" + getUrl.pathname.split('/')[1]+"/"+getUrl.pathname.split('/')[2];
+			
+			var UserId = 3;//getCookie("u_id"); // for test use 3;
+			
+		    jQuery(document).ready(function($) {
+		    	notifReload();
+		    	setInterval(notifReload, 60000);
+		    });
+
+		    function notifReload(){
+		    	generate_notificaion_list(UserId);
+		    	getNotifUnRead(UserId);
+		    }
+
+		    function generate_notificaion_list(userId){
+		    	$.ajax({
+			        url: 'notif_list_by_user_id/',
+			        data: ({userId : userId}),
+			        success: function(data) {      
+			        	$("#notification_list_content").empty();    	
+			          	if (_.isEmpty(data)==false){
+		                    $.each(data, function( key, val ){
+		                    	var ddate = new Date(val.notiDate).toGMTString();
+
+		                    	var button='', bgcolor = '', btnclr  = '',badge_clr = '';var badge_clr_ = '', status_msg = '';
+		                    	
+		                    	
+								
+		                   	
+		                    	if(val.status == 0){
+		                    		badge_clr = "uk-badge-primary"; btnclr = "md-btn-flat-primary"; status_msg= "OFFER_OPEN";
+		                    	}else if(val.status == 1){
+		                    		badge_clr = "uk-badge-success"; btnclr = "md-btn-flat-success"; status_msg= "CLOSE_OFFER";
+		                    	}else if(val.status == 2){
+		                    		badge_clr = "uk-badge-success"; btnclr = "md-btn-flat-success"; status_msg= "CLOSE_REQUEST";
+		                    	}else if(val.status == 3){
+		                    		badge_clr = "uk-badge-warning"; btnclr = "md-btn-flat-warning"; status_msg= "REMOVE_OFFER";
+		                    	}else if(val.status == 4){
+		                    		badge_clr = "uk-badge-warning"; btnclr = "md-btn-flat-warning"; status_msg= "REMOVE_REQUEST";
+		                    	}else if(val.status == 5){
+		                    		badge_clr = "uk-badge-danger"; btnclr = "md-btn-flat-danger"; status_msg= "DECLINE_REQUEST";
+		                    	}else if(val.status == 6){
+		                    		badge_clr = "uk-badge-warning"; btnclr = "md-btn-flat-warning"; status_msg= "REQUEST_PENDING";
+		                    	}else{
+		                    		badge_clr = '';
+		                    	}
+		                    	
+		                    	if(val.seen == 0){
+		                    		bgcolor = '<strong>';badge_clr_='</strong>';
+		                    		button = '<button title="'+status_msg+'" class="md-btn '+btnclr+' md-btn-flat">SET SEEN</button>';
+		                    	}
+		                    	
+		                    	$("#notification_list_content").append(
+		                    		'<li id="'+val.notifiId+'" content="'+status_msg+'" class="'+bgcolor+'" date="'+ddate+'">'+
+		                    			bgcolor+
+		                    			'<div class="uk-grid" data-uk-grid-margin>'+
+											'<div class="uk-width-medium-1-2">'+
+												'<i><span class="uk-badge '+badge_clr+'">'+status_msg+'</span></i><br/> '+
+					                    		'Trans.No: '+val.exchId+
+					                    		' <i>'+val.content+'</i> on <i>'+ddate+'</i>'+
+					                    		
+			                    		    '</div>'+
+			                    		    '<div class="uk-width-medium-1-2" align="right" style="margin-top:-30px">'+
+			                    		    	button+
+			                    		    '</div>'+
+			                    		 '</div>'+ 
+			                    		 badge_clr_+ 		
+		                    		'</li>'
+		                    	);
+		                    });
+		                }else{
+		                	//console.log("data empty");
+		                	swal("EROR DATA NOT FOUND ");
+		                }
+			        },
+			        error:function(data){
+			        	swal("EROR DATA NOT FOUND ");
+			        }
+		     	});
+				
+			}
+
+			$("#notification_list_content").on('click','li',function (){
+				console.log($(this).attr("id")+" "+$(this).attr("content"));
+				$.ajax({
+			        url: 'set_unread_notif/',
+			        data: ({notifID : $(this).attr("id")}),
+			        success: function(data) {
+						if(data){
+							notifReload();
+							
+						}
+			        }
+			    });
+			});
+
+			function getNotifUnRead(UserId){
+				$.ajax({
+			        url: 'notif_unread/',
+			        data: ({userId : UserId}),
+			        success: function(data) {
+			        	$("#ctxt").show();
+			        	$("#notif_count").text(data);
+			        },error:function(data){
+			        	swal("EROR DATA NOT FOUND ");
+			        	$("#ctxt").hide();
+			        }
+			  	});
+			}
+		</script>
+
+
 	</body>
   
 </html>

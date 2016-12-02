@@ -95,17 +95,21 @@
 <!-- ********************************* ^ here ^ ********************************* -->	
   <!-- Companies Logo -->
 			<div class="row">
-				<label class="col-md-3 col-sm-1 col-xs-1 control-label" for="CompanyLogo"></label>
+				<label class="col-md-5 col-sm-1 col-xs-1 control-label" for="CompanyLogo"></label>
 				<div class="col-md-2 col-sm-4 col-xs-6">
 						<img class="img-responsive center-block" src="img/CompanyLogo.png" width="80%" />
+						<br>
 				</div>
 					<h3 style="color:#39F; margin-bottom: 20px" id="Seller_name"> </h3>
-		<form class="form-horizontal" action="" method="post">
+			</div>
+			<div>
+			
+		<form  name="myForm" class="form-horizontal" enctype="multipart/form-data" >
 		<fieldset>
 		
 			<!-- ID input-->
 			<div class="form-group">
-				<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="ID"> Nickname
+				<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="ID"> Seller ID
 				</label>  
 				<div class="col-md-2 col-sm-4 col-xs-6">
 					<input id="ID" name="ID" type="text" placeholder="enter your ID" class="form-control input-sm">
@@ -121,15 +125,6 @@
 				</div>
 				<div class="col-md-1 col-sm-1 col-xs-1">
 					<button href="#" onClick="pwdhelp()" id="pwdbutton" name="pwdbutton" class="btn btn-sm btn-danger center-block">Help</button>
-					<script>
-					function pwdhelp() {
-						var usermail = window.prompt("To reset your password please write your mail adress below. \nYou will receive an email with a link to change your old password.")
-						if (usermail != ""){
-							document.getElementById("message").innerHTML = '<center><span class="glyphicon glyphicon-send"></span> <em>An email has been sent to</em> <font color="green">' + usermail + '</font></center>';
-						}
-						
-					}
-					</script>
 				</div>
 			</div>
 
@@ -138,14 +133,18 @@
 				<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="loginbutton">
 				</label>
 				<div class="col-md-2 col-sm-4 col-xs-6">
-					<button onclick="checkSellerSystem()" id="loginbutton" name="loginbutton" type="submit" class="btn btn-primary center-block"><span class="glyphicon glyphicon-user"></span> Login</button>
+					<button type="button" id="loginbutton"   name="loginbutton"   onClick="checkSeller()" class="btn btn-primary center-block"><span class="glyphicon glyphicon-user"></span> Login</button>
 				</div>
 			</div>
-			<div class="form-group">
+
+		</fieldset>
+		</form>
+				<div class="form-group">
 				<label class="col-md-4 col-sm-2 col-xs-1 control-label" for="sellerarea">
 				</label>
 				<div class="col-md-6 col-sm-8 col-xs-10">
 					<a class="nav-link" href="RegistrationInCompany.html"><U>If you don't have an account in this company, click here to create one</U></a> 
+				</div>
 				</div>
 			</div>
 

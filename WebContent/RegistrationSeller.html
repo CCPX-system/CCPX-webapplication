@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en"  ng-app="exchangeApp">
-
 	<head>
 		<title>Seller Registration</title>
 		<meta charset="utf-8">
@@ -8,28 +7,18 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link href="bootstrap/css/bootstrap.css" rel="stylesheet">
 		<link href="bootstrap/css/Site.css" rel="stylesheet">
-		
-		
-		<link href="bootstrap-switch/bootstrap-switch.css" rel="stylesheet">
-		
-		
 		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 		<!--[if lt IE 9]>
 		  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
-        <script src="scripts/jquery.min.js"></script>
-        <script src="bootstrap/js/bootstrap.js"></script>
-		<script src="scripts/angular.js"></script>
-		<script src="scripts/script.js"></script>
-		<script src="js/ljs.js"></script>		
-<!-- 
-		<script src="bootstrap-switch/bootstrap-switch.js"></script>
- -->
-		
-		
-
+        <script src="js/jquery-1.11.2.js"></script>
+        <script src="js/angular.js"></script>
+        <script src="js/bootstrap.js"></script>
+		<script src="js/script.js"></script>
+		<script src="js/ljs.js"></script>
+		<script src="js/ajaxfileupload.js"></script>
 	</head>
 	
 	<body>
@@ -38,7 +27,7 @@
 			<div class="header">
 
 				<!-- Form Name -->
-				<legend>Seller Registration</legend>
+				<legend>Seller Registration page</legend>
 			
 				<!-- Navbar --> 
 				<nav class="navbar navbar-default" style="background-image: url('img/red.png'); background-position : 10% 10%;" role="navigation">
@@ -57,29 +46,16 @@
 						</div>
 						<div class="collapse navbar-collapse" id="mynav">
 							<ul class="nav navbar-nav center-block pull-right">
-								<li class="nav-item pull-left">
-								  <a class="nav-link" href="MainPage.html"><span class="glyphicon glyphicon-home"></span><U> Home</U></a>
-								</li>
-								
-                                <li class="nav-item pull-left">
-								<a class="nav-link" href="ListOfSellersPage.html"><span class="glyphicon glyphicon-shopping-cart"></span> List of Companies</a>
-								</li>	
-                                
-                                 <li class="nav-item pull-left">
-								  <a class="nav-link" href="OfferStreaming.html"><span class="glyphicon glyphicon-time"></span> Offers Streaming</a>
-								</li>
+		
                                 
                                 <li class="nav-item pull-left">
-								  <a class="nav-link" href="RegistrationSeller.html"><span class="glyphicon glyphicon-check"></span> Register</a>
-								</li>
-                                
-								<li class="nav-item pull-left">
-								  <a class="nav-link" href="LoginPage.html"><span class="glyphicon glyphicon-user"></span> Login</a>
-								</li>												
+								<a class="nav-link" href="LoginPageSeller.html"><span class="glyphicon glyphicon-log-out"></span> Login </a>
+								</li>																
 							</ul>
 						</div> 
 					</div>
 				</nav>
+			
 				<!-- Website Logo -->
 				<div class="row">
 					<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="Logo"></label>
@@ -96,12 +72,11 @@
 					</p>
 				</div>
 			</div>
-		
+				
 		
 <!-- ********************************* ^ here ^ ********************************* -->		
 		
-		
-		<form name="myForm" class="form-horizontal">
+		<form name="myForm" class="form-horizontal" enctype="multipart/form-data">
 		<fieldset ng-controller="RegistrationController">
 	
 			<!-- UserName input-->		
@@ -109,10 +84,11 @@
 				<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="UserName"> User Name*
 				</label>  
 				<div class="col-md-2 col-sm-4 col-xs-6">					
-					<input id="UserName" name="UserName" onBlur="validateSeller_Username()" onFocus = "TipForUsername()" type="text" placeholder="enter your User Name" ng-model="username" class="form-control input-sm input.ng-invalid" required>
+					<input id="username" name="username" onBlur="validateSeller_Username()" onFocus = "TipForUsername()" type="text" placeholder="enter your User Name" ng-model="username" class="form-control input-sm input.ng-invalid" required>
+					<p class="required" id="usernameError"></p>
 				</div>		
 				<div ng-show="nameNotValid">				
-					<label  style="color:red">Field User Name can not be empty</label>
+					<label  style="color:red" name ="usernameFiled">Field User Name can not be empty</label>
 				</div>
 			</div>
 			
@@ -121,7 +97,7 @@
 				<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="password"> Password*
 				</label>
 				<div class="col-md-2 col-sm-4 col-xs-6">
-					<input id="userpassword" name="userpassword" type="password" placeholder="enter your password" ng-model="userpassword" ng-change="validatePassword()" class="form-control input-sm" required>
+					<input id="userpassword" name="userpassword" type="password" placeholder="enter your password" ng-model="userpassword" ng-change="" class="form-control input-sm" required>
 				</div>								
 			</div>
 			<!-- Confirm password input-->
@@ -138,7 +114,7 @@
 				<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="ShopName"> Shop Name*
 				</label>  
 				<div class="col-md-2 col-sm-4 col-xs-6">					
-					<input id="ShopName" name="ShopName" type="text" placeholder="enter your Shop Name" ng-model="shopname" class="form-control input-sm input.ng-invalid" required>
+					<input id="seller_Name" name="seller_Name" type="text" placeholder="enter your Shop Name" ng-model="shopname" class="form-control input-sm input.ng-invalid" required>
 				</div>		
 				<div ng-show="nameNotValid">				
 					<label  style="color:red">Field Name can not be empty</label>
@@ -157,7 +133,6 @@
 				</div>
 			</div>
 			
-			
 			<!-- Email input-->
 			<div class="form-group">
 				<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="Name"> Email*
@@ -169,13 +144,13 @@
 				</div>
 			</div>
 			
-				<!-- telephone input-->
+			<!-- Telephone input-->
 			<div class="form-group">
-				<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="telephone"> Telephone*
+				<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="Name"> Telephone*
 				</label>  
 				<div class="col-md-2 col-sm-4 col-xs-6">
 					
-					<input id="telephone" name="telephone" type="text" placeholder="enter your telephone" ng-model="telephone" class="form-control input-sm" required>
+					<input id="Telephone" name="Telephone" type="text" placeholder="enter your Telephone" ng-model="telephone" class="form-control input-sm" required>
 
 				</div>
 			</div>
@@ -184,7 +159,7 @@
 			<div class="form-group">
 			  <label class="col-md-5 col-sm-4 col-xs-3 control-label" for="filebutton">Upload your Logo</label>
 			  <div class="col-md-2 col-sm-4 col-xs-6">
-				<input id="filebutton" name="filebutton" class="input-file" type="file">
+				<input id="Logo" name="Logo" class="input-file" type="file">
 			  </div>
 			</div>
 
@@ -192,11 +167,11 @@
 			<div class="form-group">
 			  <label class="col-md-5 col-sm-4 col-xs-3 control-label" for="selectbasic">Select your type*</label>
 			  <div class="col-md-2 col-sm-4 col-xs-6">
-				<select id="selectbasic" name="selectbasic" class="form-control">
+				<select id="Industry" name="Industry" class="form-control">
 				  <option value="1">Travel</option>
-				  <option value="2">Restaurant</option>
-				  <option value="3">Shopping</option>
-				  <option value="4">Entertainment</option>
+				  <option value="2">Entertainment</option>
+				  <option value="3">Restaurant</option>
+				  <option value="4">Shopping</option>
 				  <option value="5">Services</option>
 				  <option value="6">Other</option>
 				</select>
@@ -207,7 +182,7 @@
 			<div class="form-group">
 			  <label class="col-md-5 col-sm-4 col-xs-3 control-label" for="textarea">Description of the company</label>
 			  <div class="col-md-2 col-sm-4 col-xs-6">                     
-				<textarea class="form-control" id="textarea" name="textarea"></textarea>
+				<textarea class="form-control" id="Description" name="Description"></textarea>
 			  </div>
 			</div>
 			
@@ -225,19 +200,33 @@
 				<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="registerbutton">
 				</label>
 				<div class="col-md-2 col-sm-4 col-xs-6">
-					<button ng-disabled="!myForm.$valid " href="#" id="registerbutton" name="registerbutton" onclick="UpdateProfile()" class="btn btn-primary center-block"><span class="glyphicon glyphicon-user"></span> Register</button>
+					<button ng-disabled="!myForm.$valid" id="registerbutton" name="registerbutton" onclick="registSeller()" class="btn btn-primary center-block"><span class="glyphicon glyphicon-user"></span> Register</button>
 				</div>
 			</div>
-			
-			
+
 
 		</fieldset>
 		</form>
 		
-		
 		</div>
+						<!-- Website Logo -->
+				<div class="row">
+					<label class="col-md-5 col-sm-4 col-xs-3 control-label" for="Logo"></label>
+					<div class="col-md-2 col-sm-4 col-xs-6">
+						<img class="img-responsive center-block" src="img/logo.png" width="60%" />
+					</div>
+				</div>
+				
+				<!-- message-->
+				<div class="row">
+					<div class="col-md-4 col-sm-3 col-xs-2">
+					</div>
+					<p class="col-md-4 col-sm-6 col-xs-8" id="message">
+					</p>
+				</div>
+			</div>
 		
-		</div>
+		
 	</body>
   
 </html>
