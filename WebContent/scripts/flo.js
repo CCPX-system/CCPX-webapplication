@@ -61,9 +61,9 @@ function historyTable(){
             if (result.errno==0) { 
 				var i;
 				$("#history").empty();
-                $.each(result.rsm, function (index, val) {
-                i = index + 1;
-                $("#history").append("<tr><td>"+val.rid+"</td><td>"+val.updateTime+"</td><td>"+val.sellerNameFrom+"</td><td>"+val.pointsFrom+"</td><td>"+val.pointsTo+"</td><td>"+val.sellerNameTo+"</td><td class='col-md-2'><img class='img-circle' src='img/bonus.png' width='50' height='50' /><a href='#'>"+val.userFrom+"</a></td></tr>");				
+                $.each(result.rsm.requests, function (index, val) {
+                    i = index + 1;
+                    $("#history").append("<tr><td>"+val.rid+"</td><td>"+val.updateTime+"</td><td>"+val.sellerNameFrom+"</td><td>"+val.pointsFrom+"</td><td>"+val.pointsTo+"</td><td>"+val.sellerNameTo+"</td><td class='col-md-2'><img class='img-circle' src='img/bonus.png' width='50' height='50' /><a href='#'>"+val.userFrom+"</a></td></tr>");				
                 });
                 return true;
             }
@@ -169,7 +169,7 @@ function exchangesFound(){
              }*/		 
 	   
     $.ajax({
-        type : "post",
+        type : "get",
         data : {'u_id':id,'u_token':token,'seller_from':sellerfrom,'seller_to':sellerto,'points_from':pointsfrom,'points_to_min':pointsto},
         async: false,
         url : "/ccpx/user/searchExchangeOffer",
@@ -503,19 +503,32 @@ function getUserExchangeRequests(){
 	var token =getCookie("u_token");
     data = {'u_id':id,'u_token':token};  
     $.ajax({
-        type : "post",
+        type : "get",
         data : data,
         async: false,
-        url : "/ccpx/user/seen_notification",
+        url : "/ccpx/user/all_records",
         success : function(result){
             if (result.errno==0) { // parameter in their response
             	var i;
+            	var j;
 				$("#exchangeRequestsList").empty();	
-                $.each(result.rsm, function (index, val) {
+				$("#exchangeOffersList").empty();	
+				//console.log(result.rsm.requests);
+                $.each(result.rsm.requests, function (index, val) {
 					i = index + 1;
-					var logosellerfrom = getSellerLogo(val.sellerFrom);
-					var logosellerto = getSellerLogo(val.sellerTo);
-					$("#exchangeRequestsList").append("<tr><td class='col-md-1'></td><td class='col-md-2'><img class='img-rounded' src='"+logosellerfrom+"' width='50' height='50' /><b>"+val.pointsFrom+"</b>pts</td><td class='col-md-1'><br><i class='glyphicon glyphicon-circle-arrow-right'></i></td><td class='col-md-2'><img class='img-rounded' src='"+logosellerto+"' width='50' height='50' /><b>"+val.pointsTo+"</b>pts</td><td class='col-md-2'><img class='img-circle' src='"+val.userPartner_picture+"' width='50' height='50' /><a href='#' onclick='SeeUserProfile("+val.userPartner+")'>"+val.userPartner+"</a></td><td class='col-md-1'>"+val.status+"</td><td class='col-md-1'><button type='button' class='btn btn-danger' onclick='deleteOffer("+val.offer_id+")' name='deleteofferbutton'><i class='glyphicon glyphicon-trash'></i></button></td></tr>");                     });
+					//var logosellerfrom = getSellerLogo(val.sellerFrom);
+					//var logosellerto = getSellerLogo(val.sellerTo);
+					var line = "<tr><td class='col-md-1'>"+val.sellerNameFrom+"</td><td class='col-md-2'><b>"+val.pointsFrom+"</b>pts</td><td class='col-md-1'><br><i class='glyphicon glyphicon-circle-arrow-right'></i></td><td class='col-md-2'><b>"+val.pointsTo+"</b>pts</td><td class='col-md-1'>"+val.sellerNameTo+"</td><td class='col-md-1'><a href='#' onclick='SeeUserProfile("+val.userFrom+")'>"+val.userNameFrom+"</a>→<br/><a href='#' onclick='SeeUserProfile("+val.userTo+")'>"+val.userNameTo+"</a></td><td class='col-md-1'>"+val.status+"</td><td class='col-md-1'>";
+					if(val.status == "PENDING"){
+						line += "<button type='button' class='btn btn-danger' onclick='deleteOffer("+val.rid+")' name='deleteofferbutton'><i class='glyphicon glyphicon-trash'></i></button></td></tr>";
+					}
+					$("#exchangeRequestsList").append("<tr><td class='col-md-1'>"+val.sellerNameFrom+"</td><td class='col-md-2'><b>"+val.pointsFrom+"</b>pts</td><td class='col-md-1'><br><i class='glyphicon glyphicon-circle-arrow-right'></i></td><td class='col-md-2'><b>"+val.pointsTo+"</b>pts</td><td class='col-md-1'>"+val.sellerNameTo+"</td><td class='col-md-1'><a href='#' onclick='SeeUserProfile("+val.userFrom+")'>"+val.userNameFrom+"</a>→<br/><a href='#' onclick='SeeUserProfile("+val.userTo+")'>"+val.userNameTo+"</a></td><td class='col-md-1'>"+val.status+"</td><td class='col-md-1'><button type='button' class='btn btn-danger' onclick='deleteOffer("+val.rid+")' name='deleteofferbutton'><i class='glyphicon glyphicon-trash'></i></button></td></tr>");                     });
+                $.each(result.rsm.offers, function (index, val) {
+                    j = index + 1;
+                    //var logosellerfrom = getSellerLogo(val.sellerFrom);
+                    //var logosellerto = getSellerLogo(val.sellerTo);
+                    $("#exchangeOffersList").append("<tr><td class='col-md-1'>"+val.sellerNameFrom+"</td><td class='col-md-2'><b>"+val.points_from+"</b> pts</td><td class='col-md-1'><br><i class='glyphicon glyphicon-circle-arrow-right'></i></td><td class='col-md-2'><b>"+val.points_to_min+"</b>pts</td><td class='col-md-1'>"+val.sellerNameTo+"</td><td class='col-md-2'><p>Candidate: </button></p><img class='img-circle' src='img/bonus.png' width='50' height='50' /></td><td class='col-md-1'><button type='button' class='btn btn-success' onclick='accept_Offer("+val.offer_id+")'><i class='glyphicon glyphicon-check'></i></button><button type='button' class='btn btn-info' onclick='rejectOffer("+val.offer_id+")'><i class='glyphicon glyphicon-ban-circle'></i></button><button type='button' class='btn btn-danger' onclick='deleteOffer("+val.offer_id+")'><i class='glyphicon glyphicon-trash'></i></button></td></tr>");
+                });
             }
             else{
                 toastr.warning(result.err, "Warning:CODE "+result.errno); //pop up

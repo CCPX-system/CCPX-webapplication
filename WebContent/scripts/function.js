@@ -328,6 +328,25 @@ function get_profile(){
 	})
 }
 
+function getAllSellerInfo() {
+$.ajax({
+		type: "POST",
+		dataType:"JSON",
+		url: "info/getAllSellerInfo",
+		async: false,
+		success: function (data) {
+			var i;
+			$.each(data, function (index, val) {
+				i=index+1;
+				$("#selectbasic1").append("<option value="+ val.seller_id +">" + val.seller_Name + "</option>");
+				$("#selectbasic2").append("<option value="+ val.seller_id +">" + val.seller_Name + "</option>");
+			});
+			return true;
+		}     
+	});
+}
+
+
  function getSellerInfo() {
 {
 	
@@ -436,19 +455,23 @@ function make_an_offer(){
 	u_id = getCookie("u_id");
 	u_token = getCookie("u_token");
     
-    data = {'seller_from':seller_from,'seller_to':seller_to, 'points_from':points_from, 'points_to':points_to, 'u_id': u_id, 'u_token':u_token}; //creating json file
+    data = {'seller_from':seller_from,'seller_to':seller_to, 'points_from':points_from, 'points_to_min':points_to, 'u_id': u_id, 'u_token':u_token}; //creating json file
         
     $.ajax({
-        type : "post",
+        type : "get",
         data : data,
         async: false,
-        url : "/ccpx/user/making_an_offer", 
+        url : "/ccpx/user/makingoffer", 
         success : function(result){
             if (result.errno==0) { // parameter in their response
-				toastr.success(result.rsm.token, "info");
-				location.href="ExchangesFound.html";
+				toastr.info("ok","ok");
 				$.cookie('ExchangesFoundType',0);
 				$.cookie('MakeOfferId',result.rsm.offer_id);
+				$.cookie('INPUTsellerfrom',seller_from);
+				$.cookie('INPUTsellerto',seller_to);
+				$.cookie('INPUTpointsfrom',points_from);
+				$.cookie('INPUTpointsto',points_to);
+				location.href="ExchangesFound.html?";
 
             }else{
                 toastr.warning(result.err, "Warning:CODE "+result.errno); //pop up
