@@ -113,23 +113,24 @@ function historyTable(){
 // 			})
 			
 function getSellerLogo(sellerId){
-	  
-			$.ajax({
-			type : "post",
-			dataType:"JSON",
-			data : { id: sellerId
-			},
-			async: false,
-			url	: "info/getSellerProfile",
-			success : function(data){
-//						$("#logoSeller").attr("src",result.seller_Logo);
-						return data.seller_Logo;
-				},
-			error:function(){
-					toastr.error("error", "error");
-				}
-			});
-}
+            //return "img/blue.png";
+            var sellerLogo ;
+                    $.ajax({
+                    type : "post",
+                    dataType:"JSON",
+                    data : { id: sellerId
+                    },
+                    async: false,
+                    url : "info/getSellerProfile",
+                    success : function(data){
+                              sellerLogo = data.seller_Logo;
+                        },
+                    error:function(){
+                            toastr.error("error", "error");
+                        }
+                    });
+           return sellerLogo;
+      }
 
 function exchangesFound(){ 
  
@@ -182,7 +183,7 @@ function exchangesFound(){
                 	var logosellerto = getSellerLogo(val.seller_to);
 					var logosellerfrom = getSellerLogo(val.seller_from);
 					i = index + 1;
-					$("#exchangesFound").append("<tr><td class='col-md-1'></td><td class='col-md-2'><img src='"+logosellerfrom+"' class='img-rounded' width='50' height='50' /> <b>"+val.points_from+"</b> pts </td><td class='col-md-1'><br><i class='glyphicon glyphicon-circle-arrow-right'></i></td><td class='col-md-2'><img src='"+logosellerto+"' class='img-rounded' width='50' height='50' /><b>"+val.points_to_min+"</b> pts</td><td class='col-md-3'><img class='img-circle' src='img/bonus.png' width='50' height='50' /><a onclick='SeeUserProfile("+val.user_id+")'>"+val.user_id+"</a><td class='col-md-1'><button type='button' id='makerequest' class='btn btn-info btn-danger' onClick='makeRequest("+val.user_id+","+val.offer_id")'><i class='glyphicon glyphicon-plus' style='color:black;'></i></button></td></tr>");
+					$("#exchangesFound").append("<tr><td class='col-md-1'></td><td class='col-md-2'><img src='"+logosellerfrom+"' class='img-rounded' width='50' height='50' /> <b>"+val.points_from+"</b> pts </td><td class='col-md-1'><br><i class='glyphicon glyphicon-circle-arrow-right'></i></td><td class='col-md-2'><img src='"+logosellerto+"' class='img-rounded' width='50' height='50' /><b>"+val.points_to_min+"</b> pts</td><td class='col-md-3'><img class='img-circle' src='img/bonus.png' width='50' height='50' /><a onclick='SeeUserProfile("+val.user_id+")'>"+val.user_id+"</a><td class='col-md-1'><button type='button' id='makerequest' class='btn btn-info btn-danger' onClick='makeRequest("+val.user_id+","+val.offer_id+")'><i class='glyphicon glyphicon-plus' style='color:black;'></i></button></td></tr>");
 			    });
 				
                 return true;
@@ -365,17 +366,17 @@ function ShowUserProfile(){
                 var id = newsid;
 				//alert(id);
         		$.ajax({
-					type : "post",
+					type : "GET",
 					dataType:"JSON",
-					data : { id: id
+					data : { u_id: id
 					},
 					async: false,
-					url	: "ccpx/user/userprofile",
+					url	: "/ccpx/user/userprofile",
 					success : function(result){
 								if (result.errno==0) { 
 								$("#userPicture").attr("src",result.userPicture);
-								$("#userName").text(result.userName);
-								$("#userWechat").text(result.userWechat);
+								$("#userName").text(result.rsm.u_name);
+								$("#userWechat").text(result.rsm.u_wechat_id);}
 								/*
 								var i;
 								$("#pointsTable").empty();	
@@ -596,7 +597,7 @@ function deleteOffer(offer_id){
  							$("#candidatesTable").append("<tr><td class='col-md-1'></td><td class='col-md-2'><img class='img-rounded' src='"+logosellerto+"' width='50' height='50' /><b>"+val.proposition+"</b>pts</td><td class='col-md-3'><p><img class='img-circle' src='"+val.candidatePicture+"' width='50' height='50' /><a href ='#' onclick='SeeUserProfile("+val.candidate+")'>"+val.candidate+"</a></p><p>"+val.candidateWechat+"</p></td><td class='col-md-1'><button id='acceptRequestButton' type='button' class='btn btn-info btn-danger' onclick='accept_request("+val.request_id+")'> <i class='glyphicon glyphicon-ok'></i> </button></td><td id='rejectRequestButton' class='col-md-1'><button type='button' class='btn btn-info btn-danger' onclick='reject_request("+val.request_id+")'> <i class='glyphicon glyphicon-remove'></i> </button> </td> </tr> ");		
  						});  */
 
-	
+	function showCanditate(){
      		var offerId =getCookie("select_candidate_offer_id");		
             $.ajax({		
  			type : "post",		
@@ -628,8 +629,8 @@ function deleteOffer(offer_id){
  						}		
  			});	
 			
- }		
- 		
+ //}		
+	}
  function accept_request(offer_id){	
  	$("#acceptRequestButton").attr({"disabled":"disabled"});		
      var flag = false;		
