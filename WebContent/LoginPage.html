@@ -71,6 +71,7 @@
 							$.cookie('u_id',result.rsm.id);
 							$.cookie('u_token',result.rsm.u_token);
 							$.cookie('u_name',result.rsm.u_name);
+							$.cookie('u_pw_hash',$.md5(pwd));
 							location.href="HomePage.html";
 						//	var i = $.cookie('u_id');
 						//	var t = $.cookie('u_token');
