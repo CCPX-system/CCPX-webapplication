@@ -498,7 +498,7 @@ function getUserExchangeRequests(){
  					 ]
              }
 	          */  
-	
+	// /remove_request(offer_id,u_id,s_id,points)
     var id =getCookie("u_id");
 	var token =getCookie("u_token");
     var u_name = getCookie("u_name");
@@ -521,7 +521,7 @@ function getUserExchangeRequests(){
 					//var logosellerto = getSellerLogo(val.sellerTo);
 					var line = "<tr><td class='col-md-1'>"+val.sellerNameFrom+"</td><td class='col-md-2'><b>"+val.pointsFrom+"</b>pts</td><td class='col-md-1'><br><i class='glyphicon glyphicon-circle-arrow-right'></i></td><td class='col-md-2'><b>"+val.pointsTo+"</b>pts</td><td class='col-md-1'>"+val.sellerNameTo+"</td><td class='col-md-1'><a href='#' onclick='SeeUserProfile("+val.userFrom+")'>"+val.userNameFrom+"</a><br/>→<br/><a href='#' onclick='SeeUserProfile("+val.userTo+")'>"+val.userNameTo+"</a></td><td class='col-md-1'>"+val.status+"</td>";
 					if(val.status == "PENDING" && id == val.userFrom){
-						line += "<td class='col-md-1'><button type='button' class='btn btn-danger' onclick='removeRequest("+val.rid+","+val.userTo+")' name='deleteofferbutton'><i class='glyphicon glyphicon-trash'></i></button></td></tr>";
+						line += "<td class='col-md-1'><button type='button' class='btn btn-danger' onclick='remove_request("+val.rid+","+val.userFrom+","+val.sellerFrom+","+val.pointsFrom+")' name='deleteofferbutton'><i class='glyphicon glyphicon-trash'></i></button></td></tr>";
 					}else if(val.status == "PENDING" && id == val.userTo){
                         line += "<td class='col-md-1'><button type='button' class='btn btn-success' onclick='accept_request("+val.rid+","+val.userTo+")'><i class='glyphicon glyphicon-check'></i></button><button type='button' class='btn btn-info' onclick='reject_request("+val.rid+","+val.userTo+")'><i class='glyphicon glyphicon-ban-circle'></i></button></td></tr>";
                     }else{
@@ -715,4 +715,34 @@ function deleteOffer(offer_id){
      return false;		
      $("#rejectRequestButton").removeAttr("disabled");		
      return flag;		
+  }
+function remove_request(offer_id,u_id,s_id,points){  
+  
+    $("#rejectRequestButton").attr({"disabled":"disabled"});        
+     var flag = false;      
+     var id =getCookie("u_id");     
+     var token =getCookie("u_token");       
+     data = {'u_id':id,'u_token':token,'r_id':offer_id,'u_id':u_id,'s_id':s_id,'points':points};          
+     $.ajax({       
+         type : "post",     
+         data : data,       
+         async: false,      
+         url : "/ccpx/user/removeRequest",      
+         success : function(result){        
+             if (result.errno==0) { // parameter in their response      
+                 toastr.success("Opreation succeed", "Request removed!");        
+                 location.href="ExchangeStatus.html"        
+        
+        
+             }else{     
+                 toastr.warning(result.err, "Warning:CODE "+result.errno); //pop up     
+             }      
+         },     
+         error:function(){      
+             toastr.error("error", "error");        
+         }      
+     });        
+     return false;      
+     $("#rejectRequestButton").removeAttr("disabled");      
+     return flag;       
   }
