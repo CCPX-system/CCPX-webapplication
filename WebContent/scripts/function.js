@@ -174,7 +174,7 @@ function get_recent_activity(){
     sellerA = $("#selectbasic1").val();
     sellerB = $("#selectbasic2").val();
 
-    data = {'seller-from':sellerA,'seller_to':sellerB}; //creating json file
+    data = {'seller_from':sellerA,'seller_to':sellerB}; //creating json file
 
 	
 	/**** test ***

@@ -501,6 +501,7 @@ function getUserExchangeRequests(){
 	
     var id =getCookie("u_id");
 	var token =getCookie("u_token");
+    var u_name = getCookie("u_name");
     data = {'u_id':id,'u_token':token};  
     $.ajax({
         type : "get",
@@ -513,21 +514,32 @@ function getUserExchangeRequests(){
             	var j;
 				$("#exchangeRequestsList").empty();	
 				$("#exchangeOffersList").empty();	
-				//console.log(result.rsm.requests);
+				//console.log(result.rsm.requ3ests);
                 $.each(result.rsm.requests, function (index, val) {
 					i = index + 1;
 					//var logosellerfrom = getSellerLogo(val.sellerFrom);
 					//var logosellerto = getSellerLogo(val.sellerTo);
-					var line = "<tr><td class='col-md-1'>"+val.sellerNameFrom+"</td><td class='col-md-2'><b>"+val.pointsFrom+"</b>pts</td><td class='col-md-1'><br><i class='glyphicon glyphicon-circle-arrow-right'></i></td><td class='col-md-2'><b>"+val.pointsTo+"</b>pts</td><td class='col-md-1'>"+val.sellerNameTo+"</td><td class='col-md-1'><a href='#' onclick='SeeUserProfile("+val.userFrom+")'>"+val.userNameFrom+"</a>→<br/><a href='#' onclick='SeeUserProfile("+val.userTo+")'>"+val.userNameTo+"</a></td><td class='col-md-1'>"+val.status+"</td><td class='col-md-1'>";
-					if(val.status == "PENDING"){
-						line += "<button type='button' class='btn btn-danger' onclick='deleteOffer("+val.rid+")' name='deleteofferbutton'><i class='glyphicon glyphicon-trash'></i></button></td></tr>";
-					}
-					$("#exchangeRequestsList").append("<tr><td class='col-md-1'>"+val.sellerNameFrom+"</td><td class='col-md-2'><b>"+val.pointsFrom+"</b>pts</td><td class='col-md-1'><br><i class='glyphicon glyphicon-circle-arrow-right'></i></td><td class='col-md-2'><b>"+val.pointsTo+"</b>pts</td><td class='col-md-1'>"+val.sellerNameTo+"</td><td class='col-md-1'><a href='#' onclick='SeeUserProfile("+val.userFrom+")'>"+val.userNameFrom+"</a>→<br/><a href='#' onclick='SeeUserProfile("+val.userTo+")'>"+val.userNameTo+"</a></td><td class='col-md-1'>"+val.status+"</td><td class='col-md-1'><button type='button' class='btn btn-danger' onclick='deleteOffer("+val.rid+")' name='deleteofferbutton'><i class='glyphicon glyphicon-trash'></i></button></td></tr>");                     });
+					var line = "<tr><td class='col-md-1'>"+val.sellerNameFrom+"</td><td class='col-md-2'><b>"+val.pointsFrom+"</b>pts</td><td class='col-md-1'><br><i class='glyphicon glyphicon-circle-arrow-right'></i></td><td class='col-md-2'><b>"+val.pointsTo+"</b>pts</td><td class='col-md-1'>"+val.sellerNameTo+"</td><td class='col-md-1'><a href='#' onclick='SeeUserProfile("+val.userFrom+")'>"+val.userNameFrom+"</a><br/>→<br/><a href='#' onclick='SeeUserProfile("+val.userTo+")'>"+val.userNameTo+"</a></td><td class='col-md-1'>"+val.status+"</td>";
+					if(val.status == "PENDING" && id == val.userFrom){
+						line += "<td class='col-md-1'><button type='button' class='btn btn-danger' onclick='removeRequest("+val.rid+","+val.userTo+")' name='deleteofferbutton'><i class='glyphicon glyphicon-trash'></i></button></td></tr>";
+					}else if(val.status == "PENDING" && id == val.userTo){
+                        line += "<td class='col-md-1'><button type='button' class='btn btn-success' onclick='accept_request("+val.rid+","+val.userTo+")'><i class='glyphicon glyphicon-check'></i></button><button type='button' class='btn btn-info' onclick='reject_request("+val.rid+","+val.userTo+")'><i class='glyphicon glyphicon-ban-circle'></i></button></td></tr>";
+                    }else{
+                        line += "<td class='col-md-1'></td></tr>";
+                    }
+					$("#exchangeRequestsList").append(line);
+                });
                 $.each(result.rsm.offers, function (index, val) {
                     j = index + 1;
+                    var line = "<tr><td class='col-md-1'>"+val.sellerNameFrom+"</td><td class='col-md-2'><b>"+val.points_from+"</b> pts</td><td class='col-md-1'><br><i class='glyphicon glyphicon-circle-arrow-right'></i></td><td class='col-md-2'><b>"+val.points_to_min+"</b>pts</td><td class='col-md-1'>"+val.sellerNameTo+"</td><td class='col-md-2'><p>Status: "+val.status+"</p></td>";
+                    if (val.status == "OPEN" ||val.status == "open" ) {
+                        line += "<td class='col-md-1'><button type='button' class='btn btn-danger' onclick='deleteOffer("+val.offer_id+")'><i class='glyphicon glyphicon-trash'></i></button></td></tr>";
+                    }else{
+                        line += "<td class='col-md-1'></td></tr>";
+                    }
                     //var logosellerfrom = getSellerLogo(val.sellerFrom);
                     //var logosellerto = getSellerLogo(val.sellerTo);
-                    $("#exchangeOffersList").append("<tr><td class='col-md-1'>"+val.sellerNameFrom+"</td><td class='col-md-2'><b>"+val.points_from+"</b> pts</td><td class='col-md-1'><br><i class='glyphicon glyphicon-circle-arrow-right'></i></td><td class='col-md-2'><b>"+val.points_to_min+"</b>pts</td><td class='col-md-1'>"+val.sellerNameTo+"</td><td class='col-md-2'><p>Candidate: </button></p><img class='img-circle' src='img/bonus.png' width='50' height='50' /></td><td class='col-md-1'><button type='button' class='btn btn-success' onclick='accept_Offer("+val.offer_id+")'><i class='glyphicon glyphicon-check'></i></button><button type='button' class='btn btn-info' onclick='rejectOffer("+val.offer_id+")'><i class='glyphicon glyphicon-ban-circle'></i></button><button type='button' class='btn btn-danger' onclick='deleteOffer("+val.offer_id+")'><i class='glyphicon glyphicon-trash'></i></button></td></tr>");
+                    $("#exchangeOffersList").append(line);
                 });
             }
             else{
@@ -548,10 +560,10 @@ function deleteOffer(offer_id){
 	var token =getCookie("u_token");
     data = {'u_id':id,'u_token':token,'offer_id':offer_id};  
     $.ajax({
-        type : "post",
+        type : "get",
         data : data,
         async: false,
-        url : "/ccpx/user/deleteOffer",
+        url : "/ccpx/user/canceloffer",
         success : function(result){
             if (result.errno==0) { // parameter in their response
                 toastr.success("Offer deleted!","succeed");
@@ -644,21 +656,21 @@ function deleteOffer(offer_id){
 			
  //}		
 	}
- function accept_request(offer_id){	
+ function accept_request(offer_id,user_to){	
  	$("#acceptRequestButton").attr({"disabled":"disabled"});		
      var flag = false;		
      var id =getCookie("u_id");		
      var token =getCookie("u_token");		
-     data = {'u_id':id,'u_token':token,'r_id':offer_id};  		
+     data = {'u_id':id,'u_token':token,'r_id':offer_id,'user_to':user_to};  		
      $.ajax({		
          type : "post",		
          data : data,		
          async: false,		
-         url : "/ccpx/user/accept_request",		
+         url : "/ccpx/user/acceptRequest",		
          success : function(result){		
              if (result.errno==0) { // parameter in their response		
                  toastr.success(result.rsm.token, "Request accepted! Transaction complete!");		
-                 location.href="HistoryPage.html"		
+                 location.href="HistoryPage.html";		
  		
  		
              }else{		
@@ -674,18 +686,18 @@ function deleteOffer(offer_id){
      return flag;		
  }		
  		
- function reject_request(offer_id){	
+ function reject_request(offer_id,user_to){	
   
  	$("#rejectRequestButton").attr({"disabled":"disabled"});		
      var flag = false;		
      var id =getCookie("u_id");		
      var token =getCookie("u_token");		
-     data = {'u_id':id,'u_token':token,'r_id':offer_id};  		
+     data = {'u_id':id,'u_token':token,'r_id':offer_id,'user_to':user_to};  		
      $.ajax({		
          type : "post",		
          data : data,		
          async: false,		
-         url : "/ccpx/user/reject_request",		
+         url : "/ccpx/user/rejectRequest",		
          success : function(result){		
              if (result.errno==0) { // parameter in their response		
                  toastr.success(result.rsm.token, "User rejected!");		
