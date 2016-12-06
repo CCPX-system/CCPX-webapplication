@@ -7,20 +7,20 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link href="bootstrap/css/bootstrap.css" rel="stylesheet">
-       <link href="bootstrap/css/toastr.css" rel="stylesheet">
+        <link href="bootstrap/css/toastr.css" rel="stylesheet">
 		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 		<!--[if lt IE 9]>
 		  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
-        <script src="js/jquery-1.11.2.js"></script>
-        <script src="js/jquery.md5.js"></script>
-        <script src="js/jquery.cookie.js"></script>
-        <script src="js/bootstrap.js"></script>
-        <script src="js/toastr.js"></script>
-        <script src="js/toastr.min.js"></script>
-        <script src="scripts/function.js"></script>
+        <script src="scripts/jquery.min.js"></script>
+		<script src="scripts/function.js"></script>
+        <script src="bootstrap/js/bootstrap.js"></script>
+        <script src="bootstrap/js/jquery.md5.js"></script>
+        <script src="bootstrap/js/jquery.cookie.js"></script>
+        <script src="bootstrap/js/toastr.js"></script>
+        <script src="bootstrap/js/toastr.min.js"></script>
     <script>
 	/*	var result ={
 			"err":"",
@@ -52,7 +52,6 @@
 
 	 function getSellerLogo(sellerId){
 			//return "img/blue.png";
-			var sellerLogo ;
 					$.ajax({
 					type : "post",
 					dataType:"JSON",
@@ -61,13 +60,12 @@
 					async: false,
 					url	: "info/getSellerProfile",
 					success : function(data){
-							  sellerLogo = data.seller_Logo;
+								return data.seller_Logo;
 						},
 					error:function(){
 							toastr.error("error", "error");
 						}
 					});
-		   return sellerLogo;
 	  }
 	  
 	  function getCompanyDetail(id) {
@@ -80,7 +78,7 @@
 				},
 				success: function (data) {
 				 if(data.message=="success"){
-					 location.href="CompanyPresentation2.html";
+					 location.href="CompanyPresentation.html";
 				 }
 				 else{
 					 alert("system exception!");

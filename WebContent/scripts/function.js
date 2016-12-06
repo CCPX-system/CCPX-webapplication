@@ -70,14 +70,15 @@ function edit_profile(){ // checked
 {
     //$("registerbutton").attr({"disabled":"disabled"});
     var flag = false;
-    nickname = $("#nickname").val();
-   // pwd =  $("#password").val();
+    username = $("#Usernane").val();
+    pwd =  $("#password").val();
 	wechatid = $("#wechatId").val();
 	email = $("#Email").val();
 	/*phonenumber = $("PhoneNumber").val();*/
 	oldpwd = $("#useroldpassword").val();
 	newpwd = $("#userpassword").val();
 	confirmpwd = $("#confirmPassword").val();
+	
     var reg = new RegExp("^\\w*$"); // match/cleans the entry (spaces,...), for verifying entry
 	var filter = /^(([^<>()[]\.,;:s@"]+(.[^<>()[]\.,;:s@"]+)*)|(".+"))@(([[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}])|(([a-zA-Z-0-9]+.)+[a-zA-Z]{2,}))$/; // filter for email adress
 
@@ -107,8 +108,8 @@ function edit_profile(){ // checked
         $("#userpassword").focus();
         return false;
 	}
-   	
-    data = {'u_id': $.cookie('u_id'),'u_token': $.cookie('u_token'),'u_name': $.cookie('u_name'), 'u_full_name': nickname ,'u_wechat_id':wechatid,'new_pw_hash':$.md5(newpwd), 'u_email_address':email/*, 'phone_number':phonenumber*/}; //creating json file
+    
+    data = {'wechat_id':wechatid,'new_pw_hash':$.md5(newpwd), 'email':email/*, 'phone_number':phonenumber*/}; //creating json file
     //alert(data.wechat_id);
 	
 	
@@ -137,16 +138,16 @@ function edit_profile(){ // checked
         type : "post",
         data : data,
         async: false,
-        url : "user/modify", ///////////////////////// won't work because of this file
+        url : "/ccpx/user/edit_profile", ///////////////////////// won't work because of this file
         success : function(result){
             if (result.errno==0) { // parameter in their response
-                if($.md5(oldpwd) != $.cookie('u_pw_hash')){ ///////////////////////////////////////////////get the value of the current password/////////////////////////////////////////////////
+                if($.md5(oldpwd) != getCookie("u_pw_hash")){ ///////////////////////////////////////////////get the value of the current password/////////////////////////////////////////////////
 					toastr.warning("Your old password is not valid", "Warning");
 					$("#useroldpassword").focus();
 					return false;
-				}else{ 
+				}else{
 					toastr.success(result.rsm.token, "info");
-					location.href="MyAccount.html";
+					location.href="MyAccount.html"
 				}
             }else{
                 toastr.warning(result.err, "Warning:CODE "+result.errno); //pop up
@@ -159,11 +160,10 @@ function edit_profile(){ // checked
     return false;
     
     //toastr.warning(flag.toString(), "DEBUG");
-   // $("#loginButton").removeAttr("disabled");
+    $("#loginButton").removeAttr("disabled");
     return flag;
 }
 }
-
 
 
 
@@ -247,8 +247,8 @@ function get_recent_activity(){
                 toastr.success(result.rsm.token, "info");
 				var rate_value = [];
 				$.each(result.rsm, function (index, val){
-					$("#recentActivityTable").append("<tr><td class='col-md-1'></td><td class='col-md-2'><img class='img-rounded' src='img/blue.png' width='50' height='50' /><b>" + val.points_from + "</b> pts</td><td class='col-md-1'><br><i class='glyphicon glyphicon-circle-arrow-right'></i></td><td class='col-md-2'><img class='img-rounded' src='img/blue.png' width='50' height='50'/><b>" + val.points_to + "</b> pts</td><td class='col-md-3'><img class='img-circle' src='img/bonus.png' width='50' height='50' /><a href='#'>" + val.user_from + "</a></td><td class='col-md-1'><br><i class='glyphicon glyphicon-circle-arrow-right'></i></td><td class='col-md-3'><img class='img-circle' src='img/bonus.png' width='50' height='50'/><a href='#'>" + val.user_to + "</a></td><td class='col-md-2'>time stamp</td></tr>");
-					var a = (val.points_from)/(val.points_to);
+					$("#recentActivityTable").append("<tr><td class='col-md-1'></td><td class='col-md-2'><b>" + val.pointsFrom + "</b> pts</td><td class='col-md-1'><br><i class='glyphicon glyphicon-circle-arrow-right'></i></td><td class='col-md-2'><b>" + val.pointsTo + "</b> pts</td><td class='col-md-3'><img class='img-circle' src='img/bonus.png' width='50' height='50' /><a href='#'>" + val.userFrom + "</a></td><td class='col-md-1'><br><i class='glyphicon glyphicon-circle-arrow-right'></i></td><td class='col-md-3'><img class='img-circle' src='img/bonus.png' width='50' height='50'/><a href='#'>" + val.userTo + "</a></td><td class='col-md-2'>"+val.updateTime+"</td></tr>");
+					var a = (val.pointsFrom)/(val.pointsTo);
 					rate_value.push(a);
 					return true;
 				});
@@ -299,24 +299,24 @@ function get_profile(){
 	**** end test ***/
 	
 	
-	var id = $.cookie('u_id');
-	var token = $.cookie('u_token');
+	var id = getCookie("u_id");
+	var token = getCookie("u_token");
 	$.ajax({
 		type : "get",
 		dataType:"JSON",
-		data : {'u_id': id, 'u_token': token},
+		data : {u_id: id, u_token: token},
 		async: false,
-		url	: "user/myprofile", 
+		url	: "/ccpx/user/myprofile", 
 		success : function(result){
 			if (result.errno==0) { // parameter in their response
                 toastr.success(result.rsm.token, "info");
+				$.cookie('u_pw_hash',result.rsm.u_pw_hash);
 				/*$("#userName").append(result.rsm.u_name);*/
-                $("#nickname").val(result.rsm.u_fullname);
-				$("#wechatId").val(result.rsm.u_wechat_id);
-				$("#Email").val(result.rsm.u_email);
+				$("#wechatId").text(result.rsm.wechatid);
+				$("#Email").text(result.rsm.u_email);
 				/*$("#PhoneNumber").text(result.rsm."");*/
-				//$("#useroldpassword").val(pwd);
-				$.cookie('u_name',result.rsm.u_name);
+				$("#userpassword").text(result.rsm.u_pw_hash);
+                location.href="MyAccount.html"
             }else{
                 toastr.warning(result.err, "Warning:CODE "+result.errno); //pop up
             }
@@ -325,7 +325,7 @@ function get_profile(){
 		error:function(){
 			toastr.error("error", "error");
 		}
-	});
+	})
 }
 
 function getAllSellerInfo() {
@@ -410,13 +410,13 @@ function find_an_offer(){
 	u_id = getCookie("u_id");
 	u_token = getCookie("u_token");
     
-    data = {'seller_from':seller_from,'seller_to':seller_to, 'points_from':points_from, 'points_to':points_to, 'u_id': u_id, 'u_token':u_token}; //creating json file
+    data = {'seller_from':seller_from,'seller_to':seller_to, 'points_from':points_from, 'points_to_min':points_to, 'u_id': u_id, 'u_token':u_token}; //creating json file
         
     $.ajax({
-        type : "post",
+        type : "get",
         data : data,
         async: false,
-        url : "/ccpx/user/find_an_offer", ///////////////////////// won't work because of this file
+        url : "/ccpx/user/searchExchangeOffer", 
         success : function(result){
             if (result.errno==0) { // parameter in their response
 				toastr.success(result.rsm.token, "info");
@@ -424,8 +424,8 @@ function find_an_offer(){
 				$.cookie('INPUTsellerto',seller_to);
 				$.cookie('INPUTpointsfrom',points_from);
                 $.cookie('INPUTpointsto',points_to);
-				location.href="ExchangesFound.html"
 				$.cookie('ExchangesFoundType',1);
+				location.href="ExchangesFound.html"
 				
 
             }else{
@@ -490,18 +490,15 @@ function make_an_offer(){
 }
 
  function logout() {
-	 if (confirm("Are you sure to Logout ? ")) {  
-	        var delete_cookie = function(name) {
-			document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-		    };
-			delete_cookie('u_id');
-			delete_cookie('u_token');
-			delete_cookie('u_name');
-			delete_cookie('u_pw_hash');
-			location.href="MainPage.html";
-	    }  
-		 	
+	 
+	 var delete_cookie = function(name) {
+		document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+	};
+	delete_cookie('u_id');
+	delete_cookie('u_token');
+	location.href="MainPage.html";
 }
+
 
 
 

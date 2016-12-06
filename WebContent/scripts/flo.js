@@ -179,11 +179,11 @@ function exchangesFound(){
 				var i;
 				$("#exchangesFound").empty();
 				
-                $.each(result.rsm.exchange_offer, function (index, val) {
+                $.each(result.rsm, function (index, val) {
                 	var logosellerto = getSellerLogo(val.seller_to);
 					var logosellerfrom = getSellerLogo(val.seller_from);
 					i = index + 1;
-					$("#exchangesFound").append("<tr><td class='col-md-1'></td><td class='col-md-2'><img src='"+logosellerfrom+"' class='img-rounded' width='50' height='50' /> <b>"+val.points_from+"</b> pts </td><td class='col-md-1'><br><i class='glyphicon glyphicon-circle-arrow-right'></i></td><td class='col-md-2'><img src='"+logosellerto+"' class='img-rounded' width='50' height='50' /><b>"+val.points_to_min+"</b> pts</td><td class='col-md-3'><img class='img-circle' src='img/bonus.png' width='50' height='50' /><a onclick='SeeUserProfile("+val.user_id+")'>"+val.user_id+"</a><td class='col-md-1'><button type='button' id='makerequest' class='btn btn-info btn-danger' onClick='makeRequest("+val.user_id+","+val.offer_id+")'><i class='glyphicon glyphicon-plus' style='color:black;'></i></button></td></tr>");
+					$("#exchangesFound").append("<tr><td class='col-md-1'>"+val.offer_id+"</td><td class='col-md-2'><img src='"+logosellerfrom+"' class='img-rounded' width='50' height='50' /> <b>"+val.points_from+"</b> pts </td><td class='col-md-1'><br><i class='glyphicon glyphicon-circle-arrow-right'></i></td><td class='col-md-2'><img src='"+logosellerto+"' class='img-rounded' width='50' height='50' /><b>"+val.ponits_to_min+"</b> pts</td><td class='col-md-3'><img class='img-circle' src='img/bonus.png' width='50' height='50' /><a onclick='SeeUserProfile("+val.user_id+")'>"+val.user_id+"</a><td class='col-md-1'><button type='button' id='makerequest' class='btn btn-info btn-danger' onClick='makeRequest("+val.user_id+","+val.offer_id+")'><i class='glyphicon glyphicon-plus' style='color:black;'></i></button></td></tr>");
 			    });
 				
                 return true;
@@ -209,7 +209,7 @@ function makeRequest(user_id,offer_id){
 	var offerTo = offer_id;
 	}
 	else if (type==1){
-	var offerFrom = "";
+	var offerFrom = 0;
 	var offerTo = offer_id;
 	}
     data = {'user_from':user_id,'offer_from':offerFrom,'offer_to':offerTo}; //creating json file
@@ -219,7 +219,7 @@ function makeRequest(user_id,offer_id){
         type : "post",
         data : data,
         async: false,
-        url : "/ccpx/user/make_request",
+        url : "/ccpx/user/makeRequest",
         success : function(result){
             if (result.errno==0) { // parameter in their response
                 toastr.success(result.rsm.token, "Request sent");
